@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>바이브코딩 가이드 | Vibe Coding Guide</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo">⚡ 바이브코딩</a>
+      <ul class="nav-links">
+        <li><a href="#what-is" class="nav-link">바이브코딩이란</a></li>
+        <li><a href="#tools" class="nav-link">도구 준비</a></li>
+        <li><a href="#guide" class="nav-link">단계별 가이드</a></li>
+        <li><a href="#prompts" class="nav-link">프롬프트 작성법</a></li>
+        <li><a href="#practice" class="nav-link">실습</a></li>
+        <li><a href="#tips" class="nav-link">팁 & 주의사항</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle">☰</button>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section id="hero" class="hero">
+    <div class="hero-bg-grid"></div>
+    <div class="hero-content">
+      <div class="hero-badge">2026 · AI 시대의 개발 방식</div>
+      <h1 class="hero-title">
+        코딩 몰라도<br/>
+        <span class="gradient-text">웹앱 만드는 법</span>
+      </h1>
+      <p class="hero-desc">
+        AI와 대화하며 아이디어를 현실로 만드는<br/>
+        <strong>바이브코딩(Vibe Coding)</strong>을 배워보세요.
+      </p>
+      <div class="hero-actions">
+        <a href="#what-is" class="btn btn-primary">가이드 시작하기 →</a>
+        <a href="#practice" class="btn btn-ghost">바로 실습하기</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num">5단계</span><span class="stat-label">체계적 가이드</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num">10+</span><span class="stat-label">실전 프롬프트 예시</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num">무료</span><span class="stat-label">완전 오픈</span></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="terminal">
+        <div class="terminal-header">
+          <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+          <span class="terminal-title">Claude Code</span>
+        </div>
+        <div class="terminal-body" id="terminalBody"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What is Vibe Coding -->
+  <section id="what-is" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">CHAPTER 01</span>
+        <h2 class="section-title">바이브코딩이란?</h2>
+        <p class="section-desc">개발 지식 없이도 AI에게 원하는 것을 설명하고, 그 결과를 바탕으로 제품을 만들어가는 새로운 개발 패러다임</p>
+      </div>
+
+      <div class="concept-grid">
+        <div class="concept-card primary">
+          <div class="concept-icon">💬</div>
+          <h3>아이디어를 말로 표현</h3>
+          <p>코드를 직접 쓰지 않습니다. AI에게 원하는 기능을 자연어로 설명하면 됩니다.</p>
+        </div>
+        <div class="concept-card">
+          <div class="concept-icon">🤖</div>
+          <h3>AI가 코드를 작성</h3>
+          <p>Claude, GPT 등 AI가 실제 동작하는 코드를 생성합니다. 개발 경험이 없어도 됩니다.</p>
+        </div>
+        <div class="concept-card">
+          <div class="concept-icon">🔄</div>
+          <h3>대화로 개선</h3>
+          <p>마음에 안 드는 부분은 다시 AI에게 요청합니다. 반복적인 대화로 완성도를 높입니다.</p>
+        </div>
+        <div class="concept-card">
+          <div class="concept-icon">🚀</div>
+          <h3>빠른 배포</h3>
+          <p>완성된 코드를 GitHub Pages, Vercel 등에 배포합니다. 몇 분 안에 세상에 공개됩니다.</p>
+        </div>
+      </div>
+
+      <div class="comparison">
+        <div class="comp-block old">
+          <h4>❌ 전통적인 개발</h4>
+          <ul>
+            <li>HTML, CSS, JavaScript 학습 필요</li>
+            <li>프레임워크, 라이브러리 이해 필요</li>
+            <li>수개월~수년의 학습 기간</li>
+            <li>버그 디버깅에 많은 시간 소모</li>
+            <li>배포 과정이 복잡</li>
+          </ul>
+        </div>
+        <div class="comp-arrow">⚡</div>
+        <div class="comp-block new">
+          <h4>✅ 바이브코딩</h4>
+          <ul>
+            <li>아이디어와 한국어(자연어)만으로 시작</li>
+            <li>AI가 기술 선택과 구현을 담당</li>
+            <li>당일 첫 프로토타입 완성 가능</li>
+            <li>오류도 AI에게 설명하면 해결</li>
+            <li>AI가 배포 가이드까지 제공</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="quote-block">
+        <blockquote>
+          "The hottest new programming language is English."<br/>
+          <cite>— Andrej Karpathy (전 Tesla AI 디렉터, OpenAI 공동 창업자)</cite>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tools -->
+  <section id="tools" class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">CHAPTER 02</span>
+        <h2 class="section-title">도구 준비하기</h2>
+        <p class="section-desc">바이브코딩을 시작하기 위한 최소한의 도구를 설정합니다</p>
+      </div>
+
+      <div class="tools-grid">
+        <div class="tool-card">
+          <div class="tool-num">01</div>
+          <div class="tool-info">
+            <h3>Claude.ai 또는 Claude Code</h3>
+            <p>AI 코딩 파트너. 아이디어를 코드로 변환해줍니다. 무료 플랜으로도 시작 가능합니다.</p>
+            <div class="tool-tags">
+              <span class="tag">무료 시작 가능</span>
+              <span class="tag">핵심 도구</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-num">02</div>
+          <div class="tool-info">
+            <h3>GitHub 계정</h3>
+            <p>코드를 저장하고 버전을 관리합니다. 무료로 만들 수 있으며, 배포에도 활용됩니다.</p>
+            <div class="tool-tags">
+              <span class="tag">무료</span>
+              <span class="tag">코드 저장소</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-num">03</div>
+          <div class="tool-info">
+            <h3>VS Code (선택사항)</h3>
+            <p>코드 편집기. Claude Code를 사용한다면 필수는 아니지만, 코드를 직접 보고 싶다면 유용합니다.</p>
+            <div class="tool-tags">
+              <span class="tag">선택사항</span>
+              <span class="tag">무료</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-num">04</div>
+          <div class="tool-info">
+            <h3>Vercel 또는 GitHub Pages</h3>
+            <p>완성된 웹앱을 인터넷에 공개합니다. GitHub 연동으로 자동 배포까지 가능합니다.</p>
+            <div class="tool-tags">
+              <span class="tag">무료</span>
+              <span class="tag">배포 플랫폼</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="setup-checklist">
+        <h3>✅ 시작 전 체크리스트</h3>
+        <div class="checklist-items">
+          <label class="check-item"><input type="checkbox" /><span>Claude.ai 회원가입 완료</span></label>
+          <label class="check-item"><input type="checkbox" /><span>GitHub 계정 생성 완료</span></label>
+          <label class="check-item"><input type="checkbox" /><span>만들고 싶은 것에 대한 아이디어 메모</span></label>
+          <label class="check-item"><input type="checkbox" /><span>30분~1시간 확보</span></label>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Step-by-step Guide -->
+  <section id="guide" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">CHAPTER 03</span>
+        <h2 class="section-title">단계별 가이드</h2>
+        <p class="section-desc">아이디어에서 완성된 웹앱까지, 실제 제작 과정을 따라가 봅니다</p>
+      </div>
+
+      <div class="steps">
+        <div class="step" id="step1">
+          <div class="step-header" onclick="toggleStep('step1')">
+            <div class="step-num">01</div>
+            <div class="step-title-wrap">
+              <h3>아이디어 구체화하기</h3>
+              <p>막연한 아이디어를 AI가 이해할 수 있는 명확한 요구사항으로 정리합니다</p>
+            </div>
+            <span class="step-toggle">▼</span>
+          </div>
+          <div class="step-body">
+            <div class="step-content">
+              <div class="substep">
+                <h4>🎯 핵심 기능 3가지 정의</h4>
+                <p>처음부터 완벽한 앱을 만들려고 하지 마세요. 핵심 기능 3가지만 정의하고 시작합니다.</p>
+                <div class="example-box">
+                  <div class="example-label">예시: 할일 관리 앱</div>
+                  <ul>
+                    <li>할일 추가하기</li>
+                    <li>완료 체크하기</li>
+                    <li>삭제하기</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="substep">
+                <h4>👥 사용자 정의</h4>
+                <p>누가 이 앱을 사용할지 생각해보세요. 사용자가 명확할수록 더 좋은 앱이 됩니다.</p>
+              </div>
+              <div class="substep">
+                <h4>🎨 참고할 레퍼런스 찾기</h4>
+                <p>비슷한 앱의 스크린샷이나 URL을 모아두면 AI에게 시각적 방향을 제시할 수 있습니다.</p>
+              </div>
+              <div class="tip-box">
+                <strong>💡 팁:</strong> 아이디어를 AI에게 말하고 "이 아이디어를 구체적인 기능 목록으로 정리해줘"라고 먼저 요청해보세요.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step" id="step2">
+          <div class="step-header" onclick="toggleStep('step2')">
+            <div class="step-num">02</div>
+            <div class="step-title-wrap">
+              <h3>첫 번째 프롬프트 작성</h3>
+              <p>AI에게 앱의 전체 구조와 핵심 기능을 한 번에 요청합니다</p>
+            </div>
+            <span class="step-toggle">▼</span>
+          </div>
+          <div class="step-body">
+            <div class="step-content">
+              <div class="substep">
+                <h4>📝 좋은 첫 프롬프트의 구조</h4>
+                <div class="prompt-template">
+                  <div class="prompt-line"><span class="pt-label">목적:</span> [무엇을 만들 것인지]</div>
+                  <div class="prompt-line"><span class="pt-label">사용자:</span> [누가 사용하는지]</div>
+                  <div class="prompt-line"><span class="pt-label">핵심 기능:</span> [반드시 필요한 기능들]</div>
+                  <div class="prompt-line"><span class="pt-label">디자인:</span> [원하는 스타일이나 레퍼런스]</div>
+                  <div class="prompt-line"><span class="pt-label">기술:</span> [특별한 요구사항 없으면 생략 가능]</div>
+                </div>
+              </div>
+              <div class="substep">
+                <h4>✍️ 실제 예시</h4>
+                <div class="code-block">
+                  <pre>"개인 독서 기록 웹앱을 만들어줘.
+
+- 책 제목, 저자, 읽은 날짜를 기록할 수 있어야 해
+- 읽은 책 목록을 카드 형태로 보여줘
+- 별점(1~5점)을 매길 수 있어야 해
+- 깔끔하고 미니멀한 디자인으로 해줘
+- HTML, CSS, JavaScript만 사용해줘 (라이브러리 없이)"</pre>
+                </div>
+              </div>
+              <div class="tip-box">
+                <strong>💡 팁:</strong> 첫 프롬프트에서 완벽함을 추구하지 마세요. 일단 동작하는 버전을 만들고 이후에 개선합니다.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step" id="step3">
+          <div class="step-header" onclick="toggleStep('step3')">
+            <div class="step-num">03</div>
+            <div class="step-title-wrap">
+              <h3>코드 검토 및 실행</h3>
+              <p>AI가 생성한 코드를 실행하고 결과를 확인합니다</p>
+            </div>
+            <span class="step-toggle">▼</span>
+          </div>
+          <div class="step-body">
+            <div class="step-content">
+              <div class="substep">
+                <h4>🖥️ 코드 실행하기</h4>
+                <p>AI가 HTML 파일을 생성했다면:</p>
+                <ol>
+                  <li>코드를 복사해서 <code>index.html</code> 파일로 저장</li>
+                  <li>브라우저로 파일 열기 (더블클릭 또는 드래그앤드롭)</li>
+                  <li>원하는 대로 작동하는지 확인</li>
+                </ol>
+              </div>
+              <div class="substep">
+                <h4>🔍 무엇을 확인해야 할까?</h4>
+                <ul>
+                  <li>핵심 기능이 모두 작동하는가?</li>
+                  <li>UI가 대략 원하는 모습인가?</li>
+                  <li>오류 메시지가 없는가?</li>
+                </ul>
+              </div>
+              <div class="substep">
+                <h4>🐛 오류가 났을 때</h4>
+                <p>당황하지 마세요! 오류 메시지를 그대로 복사해서 AI에게 붙여넣기 하면 됩니다.</p>
+                <div class="code-block">
+                  <pre>"아래 오류가 발생했어. 고쳐줘:
+[오류 메시지 붙여넣기]"</pre>
+                </div>
+              </div>
+              <div class="tip-box">
+                <strong>💡 팁:</strong> 코드를 이해하려고 너무 오래 시간을 보내지 마세요. 작동하면 다음 단계로, 오류가 있으면 AI에게 요청합니다.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step" id="step4">
+          <div class="step-header" onclick="toggleStep('step4')">
+            <div class="step-num">04</div>
+            <div class="step-title-wrap">
+              <h3>반복적 개선 (Iteration)</h3>
+              <p>대화를 통해 기능을 추가하고, 디자인을 개선하고, 버그를 수정합니다</p>
+            </div>
+            <span class="step-toggle">▼</span>
+          </div>
+          <div class="step-body">
+            <div class="step-content">
+              <div class="substep">
+                <h4>🔁 이터레이션 사이클</h4>
+                <div class="cycle-diagram">
+                  <div class="cycle-item">💬 요청</div>
+                  <div class="cycle-arrow">→</div>
+                  <div class="cycle-item">🤖 AI 작업</div>
+                  <div class="cycle-arrow">→</div>
+                  <div class="cycle-item">👀 확인</div>
+                  <div class="cycle-arrow">→</div>
+                  <div class="cycle-item">📝 피드백</div>
+                  <div class="cycle-arrow">↩️</div>
+                </div>
+              </div>
+              <div class="substep">
+                <h4>📋 좋은 피드백 방법</h4>
+                <div class="feedback-examples">
+                  <div class="feedback bad">
+                    <div class="feedback-label">❌ 나쁜 피드백</div>
+                    <p>"좀 더 예쁘게 해줘"<br/>"느린 것 같아"<br/>"다시 해줘"</p>
+                  </div>
+                  <div class="feedback good">
+                    <div class="feedback-label">✅ 좋은 피드백</div>
+                    <p>"버튼 색상을 파란색으로 바꾸고 크기를 20% 키워줘"<br/>"목록을 로딩할 때 스피너 애니메이션을 추가해줘"<br/>"카드 레이아웃을 3열 그리드로 바꿔줘"</p>
+                  </div>
+                </div>
+              </div>
+              <div class="tip-box">
+                <strong>💡 팁:</strong> 한 번에 하나씩 요청하세요. 여러 변경사항을 동시에 요청하면 AI가 혼동할 수 있습니다.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step" id="step5">
+          <div class="step-header" onclick="toggleStep('step5')">
+            <div class="step-num">05</div>
+            <div class="step-title-wrap">
+              <h3>배포하기</h3>
+              <p>완성된 웹앱을 인터넷에 공개합니다</p>
+            </div>
+            <span class="step-toggle">▼</span>
+          </div>
+          <div class="step-body">
+            <div class="step-content">
+              <div class="substep">
+                <h4>🌐 GitHub Pages로 배포 (무료)</h4>
+                <ol>
+                  <li>GitHub에 새 저장소(Repository) 생성</li>
+                  <li>AI에게 "GitHub에 업로드하는 방법 알려줘" 요청</li>
+                  <li>저장소 Settings → Pages → Source 설정</li>
+                  <li>몇 분 후 <code>username.github.io/repo-name</code> 접속</li>
+                </ol>
+              </div>
+              <div class="substep">
+                <h4>⚡ Vercel로 배포 (더 쉬움)</h4>
+                <ol>
+                  <li>vercel.com 회원가입 (GitHub 연동)</li>
+                  <li>"New Project" → GitHub 저장소 선택</li>
+                  <li>자동으로 빌드 및 배포 완료</li>
+                  <li>고유 URL 자동 생성</li>
+                </ol>
+              </div>
+              <div class="tip-box">
+                <strong>💡 팁:</strong> 배포 과정에서 막히면 AI에게 "Vercel로 배포하는 방법을 단계별로 알려줘"라고 요청하세요.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Prompt Writing -->
+  <section id="prompts" class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">CHAPTER 04</span>
+        <h2 class="section-title">프롬프트 작성법</h2>
+        <p class="section-desc">AI에게 요청할 때 결과의 질을 높이는 프롬프트 패턴들</p>
+      </div>
+
+      <div class="prompt-patterns">
+        <div class="pattern-card">
+          <div class="pattern-header">
+            <span class="pattern-icon">🎯</span>
+            <h3>구체적으로 명시하기</h3>
+          </div>
+          <div class="pattern-examples">
+            <div class="pe bad">
+              <span class="pe-label">❌</span>
+              "버튼 만들어줘"
+            </div>
+            <div class="pe good">
+              <span class="pe-label">✅</span>
+              "파란색 배경에 흰 글씨, 둥근 모서리(border-radius 8px), hover 시 약간 어두워지는 '저장하기' 버튼 만들어줘"
+            </div>
+          </div>
+        </div>
+
+        <div class="pattern-card">
+          <div class="pattern-header">
+            <span class="pattern-icon">📐</span>
+            <h3>제약 조건 명시하기</h3>
+          </div>
+          <div class="pattern-examples">
+            <div class="pe bad">
+              <span class="pe-label">❌</span>
+              "쇼핑몰 만들어줘"
+            </div>
+            <div class="pe good">
+              <span class="pe-label">✅</span>
+              "React 없이 순수 HTML/CSS/JS만 사용해서, 외부 라이브러리 없이 만들어줘"
+            </div>
+          </div>
+        </div>
+
+        <div class="pattern-card">
+          <div class="pattern-header">
+            <span class="pattern-icon">🖼️</span>
+            <h3>레퍼런스 제공하기</h3>
+          </div>
+          <div class="pattern-examples">
+            <div class="pe bad">
+              <span class="pe-label">❌</span>
+              "예쁜 카드 UI 만들어줘"
+            </div>
+            <div class="pe good">
+              <span class="pe-label">✅</span>
+              "Notion의 카드 스타일처럼, 흰 배경에 섬세한 그림자, 호버 시 살짝 올라오는 효과의 카드 컴포넌트 만들어줘"
+            </div>
+          </div>
+        </div>
+
+        <div class="pattern-card">
+          <div class="pattern-header">
+            <span class="pattern-icon">🔄</span>
+            <h3>부분 수정 요청하기</h3>
+          </div>
+          <div class="pattern-examples">
+            <div class="pe bad">
+              <span class="pe-label">❌</span>
+              "전체 다시 만들어줘"
+            </div>
+            <div class="pe good">
+              <span class="pe-label">✅</span>
+              "기존 코드에서 헤더 부분만 수정해줘. 다른 부분은 건드리지 마."
+            </div>
+          </div>
+        </div>
+
+        <div class="pattern-card">
+          <div class="pattern-header">
+            <span class="pattern-icon">🐛</span>
+            <h3>오류 보고하기</h3>
+          </div>
+          <div class="pattern-examples">
+            <div class="pe bad">
+              <span class="pe-label">❌</span>
+              "왜 안돼?"
+            </div>
+            <div class="pe good">
+              <span class="pe-label">✅</span>
+              "버튼을 클릭하면 아무 반응이 없어. 브라우저 콘솔에 이런 오류가 나와: [오류 내용]"
+            </div>
+          </div>
+        </div>
+
+        <div class="pattern-card">
+          <div class="pattern-header">
+            <span class="pattern-icon">💾</span>
+            <h3>컨텍스트 유지하기</h3>
+          </div>
+          <div class="pattern-examples">
+            <div class="pe bad">
+              <span class="pe-label">❌</span>
+              "목록에 검색 기능 추가해줘" (새 대화창에서)
+            </div>
+            <div class="pe good">
+              <span class="pe-label">✅</span>
+              "지금까지 만든 코드에 검색 기능을 추가해줘. [현재 코드 붙여넣기]"
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prompt-formula">
+        <h3>🧪 만능 프롬프트 공식</h3>
+        <div class="formula">
+          <span class="formula-part">[역할 지정]</span>
+          <span class="formula-plus">+</span>
+          <span class="formula-part">[구체적 요구사항]</span>
+          <span class="formula-plus">+</span>
+          <span class="formula-part">[제약 조건]</span>
+          <span class="formula-plus">+</span>
+          <span class="formula-part">[결과물 형식]</span>
+        </div>
+        <div class="formula-example">
+          <strong>예시:</strong> "웹 개발 전문가로서(역할), 다크 테마를 지원하는 메모 앱을(요구사항), 외부 라이브러리 없이(제약), HTML/CSS/JS 3개 파일로 분리해서(형식) 만들어줘"
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Practice Section -->
+  <section id="practice" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">CHAPTER 05</span>
+        <h2 class="section-title">직접 실습해보기</h2>
+        <p class="section-desc">아래 연습 문제들로 프롬프트 작성 실력을 키워보세요</p>
+      </div>
+
+      <div class="practice-tabs">
+        <button class="practice-tab active" onclick="switchTab('beginner', this)">초급</button>
+        <button class="practice-tab" onclick="switchTab('intermediate', this)">중급</button>
+        <button class="practice-tab" onclick="switchTab('advanced', this)">고급</button>
+      </div>
+
+      <div id="tab-beginner" class="tab-content active">
+        <div class="practice-cards">
+          <div class="practice-card">
+            <div class="practice-difficulty">⭐ 초급 #1</div>
+            <h3>자기소개 페이지</h3>
+            <p>나를 소개하는 간단한 웹페이지를 만들어보세요.</p>
+            <div class="practice-requirements">
+              <strong>포함할 내용:</strong>
+              <ul>
+                <li>이름과 간단한 소개글</li>
+                <li>내가 좋아하는 것 3가지</li>
+                <li>연락처 또는 SNS 링크</li>
+              </ul>
+            </div>
+            <div class="practice-hint">
+              <button class="hint-btn" onclick="toggleHint(this)">💡 힌트 보기</button>
+              <div class="hint-content hidden">
+                <pre>"나를 소개하는 웹페이지를 만들어줘.
+- 이름: [이름]
+- 소개: [한 줄 소개]
+- 좋아하는 것: 음악, 독서, 여행
+- 디자인: 미니멀하고 깔끔하게
+- HTML, CSS를 한 파일에 담아줘"</pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="practice-card">
+            <div class="practice-difficulty">⭐ 초급 #2</div>
+            <h3>카운터 앱</h3>
+            <p>버튼을 누르면 숫자가 올라가는 카운터를 만들어보세요.</p>
+            <div class="practice-requirements">
+              <strong>포함할 기능:</strong>
+              <ul>
+                <li>+1 버튼 (카운트 증가)</li>
+                <li>-1 버튼 (카운트 감소)</li>
+                <li>초기화 버튼</li>
+              </ul>
+            </div>
+            <div class="practice-hint">
+              <button class="hint-btn" onclick="toggleHint(this)">💡 힌트 보기</button>
+              <div class="hint-content hidden">
+                <pre>"숫자 카운터 웹앱을 만들어줘.
+- + 버튼: 숫자 1 증가
+- - 버튼: 숫자 1 감소 (0 이하로 안 내려감)
+- 리셋 버튼: 0으로 초기화
+- 현재 숫자를 크게 중앙에 표시
+- CSS 애니메이션으로 숫자 변경 시 효과 추가"</pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="practice-card">
+            <div class="practice-difficulty">⭐ 초급 #3</div>
+            <h3>색깔 퀴즈 게임</h3>
+            <p>RGB 색상 코드를 보여주고 맞는 색상을 고르는 게임을 만들어보세요.</p>
+            <div class="practice-requirements">
+              <strong>포함할 기능:</strong>
+              <ul>
+                <li>RGB 값 텍스트 표시</li>
+                <li>4개의 색상 선택지</li>
+                <li>점수 기록</li>
+              </ul>
+            </div>
+            <div class="practice-hint">
+              <button class="hint-btn" onclick="toggleHint(this)">💡 힌트 보기</button>
+              <div class="hint-content hidden">
+                <pre>"RGB 색상 맞추기 퀴즈 게임을 만들어줘.
+- 화면에 'RGB(R, G, B)' 형식으로 색상값 표시
+- 4개의 색상 버튼 중 맞는 것 클릭
+- 정답/오답 피드백
+- 점수 표시 (맞춘 개수/전체 시도)
+- 다음 문제 버튼"</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="tab-intermediate" class="tab-content">
+        <div class="practice-cards">
+          <div class="practice-card">
+            <div class="practice-difficulty">⭐⭐ 중급 #1</div>
+            <h3>할일 관리 앱 (로컬 저장)</h3>
+            <p>데이터가 브라우저를 닫아도 유지되는 할일 앱을 만들어보세요.</p>
+            <div class="practice-requirements">
+              <strong>포함할 기능:</strong>
+              <ul>
+                <li>할일 추가/삭제/완료 체크</li>
+                <li>LocalStorage로 데이터 저장</li>
+                <li>필터 (전체/진행중/완료)</li>
+              </ul>
+            </div>
+            <div class="practice-hint">
+              <button class="hint-btn" onclick="toggleHint(this)">💡 힌트 보기</button>
+              <div class="hint-content hidden">
+                <pre>"할일 관리 웹앱을 만들어줘.
+- 할일 입력 후 Enter 또는 버튼으로 추가
+- 각 항목: 체크박스, 텍스트, 삭제 버튼
+- 완료된 항목은 취소선 표시
+- LocalStorage에 저장 (새로고침해도 유지)
+- 하단에 전체/진행중/완료 필터 탭
+- 깔끔한 미니멀 디자인"</pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="practice-card">
+            <div class="practice-difficulty">⭐⭐ 중급 #2</div>
+            <h3>날씨 대시보드</h3>
+            <p>도시 이름을 입력하면 날씨 정보를 보여주는 앱을 만들어보세요.</p>
+            <div class="practice-requirements">
+              <strong>포함할 기능:</strong>
+              <ul>
+                <li>도시 검색</li>
+                <li>현재 기온, 날씨 상태</li>
+                <li>습도, 바람 속도</li>
+              </ul>
+            </div>
+            <div class="practice-hint">
+              <button class="hint-btn" onclick="toggleHint(this)">💡 힌트 보기</button>
+              <div class="hint-content hidden">
+                <pre>"OpenWeatherMap API를 사용하는 날씨 앱을 만들어줘.
+- 무료 API 키 필요 (openweathermap.org에서 발급)
+- 도시 이름 입력 후 검색
+- 현재 날씨: 기온(섭씨), 날씨 상태, 날씨 아이콘
+- 추가 정보: 체감온도, 습도, 풍속
+- 배경색이 날씨에 따라 변경"</pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="practice-card">
+            <div class="practice-difficulty">⭐⭐ 중급 #3</div>
+            <h3>포모도로 타이머</h3>
+            <p>25분 집중 + 5분 휴식 사이클을 관리하는 타이머를 만들어보세요.</p>
+            <div class="practice-requirements">
+              <strong>포함할 기능:</strong>
+              <ul>
+                <li>카운트다운 타이머</li>
+                <li>집중/휴식 모드 전환</li>
+                <li>알림 소리</li>
+              </ul>
+            </div>
+            <div class="practice-hint">
+              <button class="hint-btn" onclick="toggleHint(this)">💡 힌트 보기</button>
+              <div class="hint-content hidden">
+                <pre>"포모도로 타이머 앱을 만들어줘.
+- 집중 시간: 25분 (기본값, 설정 가능)
+- 휴식 시간: 5분 (짧은 휴식), 15분 (긴 휴식)
+- 시작/일시정지/리셋 버튼
+- 타이머 종료 시 Web Audio API로 알림음
+- 완료된 포모도로 개수 표시
+- 진행 상황 원형 프로그레스바"</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="tab-advanced" class="tab-content">
+        <div class="practice-cards">
+          <div class="practice-card">
+            <div class="practice-difficulty">⭐⭐⭐ 고급 #1</div>
+            <h3>마크다운 에디터</h3>
+            <p>실시간으로 미리보기가 가능한 마크다운 에디터를 만들어보세요.</p>
+            <div class="practice-requirements">
+              <strong>포함할 기능:</strong>
+              <ul>
+                <li>좌: 마크다운 입력창</li>
+                <li>우: HTML 렌더링 미리보기</li>
+                <li>내보내기 (HTML/PDF)</li>
+              </ul>
+            </div>
+            <div class="practice-hint">
+              <button class="hint-btn" onclick="toggleHint(this)">💡 힌트 보기</button>
+              <div class="hint-content hidden">
+                <pre>"실시간 마크다운 에디터를 만들어줘.
+- 화면을 좌우로 분할 (에디터 | 미리보기)
+- marked.js 라이브러리로 마크다운 파싱
+- 실시간 렌더링 (타이핑할 때마다 업데이트)
+- 툴바: 볼드, 이탤릭, 제목, 링크, 이미지, 코드블록
+- 'HTML 내보내기' 버튼
+- 다크/라이트 테마 토글"</pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="practice-card">
+            <div class="practice-difficulty">⭐⭐⭐ 고급 #2</div>
+            <h3>개인 대시보드</h3>
+            <p>할일, 날씨, 북마크, 시계를 한 화면에서 볼 수 있는 대시보드를 만들어보세요.</p>
+            <div class="practice-requirements">
+              <strong>포함할 기능:</strong>
+              <ul>
+                <li>현재 시간/날짜 위젯</li>
+                <li>간단한 할일 위젯</li>
+                <li>북마크 위젯</li>
+                <li>드래그로 위젯 배치</li>
+              </ul>
+            </div>
+            <div class="practice-hint">
+              <button class="hint-btn" onclick="toggleHint(this)">💡 힌트 보기</button>
+              <div class="hint-content hidden">
+                <pre>"개인용 브라우저 새탭 대시보드를 만들어줘.
+- 배경: Unsplash API로 랜덤 풍경 이미지
+- 중앙: 현재 시간 (큰 글씨), 날짜
+- 좌측: 할일 미니 위젯 (추가/삭제)
+- 우측: 즐겨찾기 링크 위젯
+- 검색바: Google 검색 연동
+- 전체적으로 유리 모핀 디자인(glassmorphism)"</pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="practice-card">
+            <div class="practice-difficulty">⭐⭐⭐ 고급 #3</div>
+            <h3>AI 채팅 인터페이스</h3>
+            <p>Claude API를 연동한 나만의 AI 챗봇 인터페이스를 만들어보세요.</p>
+            <div class="practice-requirements">
+              <strong>포함할 기능:</strong>
+              <ul>
+                <li>채팅 UI (메시지 버블)</li>
+                <li>Claude API 연동</li>
+                <li>대화 내역 저장</li>
+              </ul>
+            </div>
+            <div class="practice-hint">
+              <button class="hint-btn" onclick="toggleHint(this)">💡 힌트 보기</button>
+              <div class="hint-content hidden">
+                <pre>"Claude API를 사용하는 AI 채팅 앱을 만들어줘.
+- Node.js Express 백엔드
+- Anthropic SDK (@anthropic-ai/sdk) 사용
+- 프론트엔드: 채팅 UI (사용자/AI 메시지 구분)
+- 스트리밍 응답 지원
+- 대화 내역 LocalStorage 저장
+- 시스템 프롬프트 설정 기능
+참고: API 키는 환경변수(.env)로 관리"</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Prompt Playground -->
+      <div class="playground">
+        <h3>🎮 프롬프트 연습장</h3>
+        <p>아이디어를 구체적인 프롬프트로 바꾸는 연습을 해보세요.</p>
+        <div class="playground-inner">
+          <div class="playground-input-section">
+            <label>💭 내 아이디어 (간단하게)</label>
+            <textarea id="ideaInput" placeholder="예: 매일 물 마시는 것 체크하는 앱" rows="3"></textarea>
+          </div>
+          <div class="playground-arrow">↓ 변환</div>
+          <div class="playground-output-section">
+            <label>📝 강화된 프롬프트 (참고용)</label>
+            <textarea id="promptOutput" placeholder="위 아이디어를 입력하고 '프롬프트 변환' 버튼을 눌러보세요..." rows="8" readonly></textarea>
+          </div>
+          <button class="btn btn-primary" onclick="generatePrompt()">✨ 프롬프트 변환하기</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tips & Warnings -->
+  <section id="tips" class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">CHAPTER 06</span>
+        <h2 class="section-title">팁 & 자주 하는 실수</h2>
+        <p class="section-desc">바이브코딩을 더 잘하기 위한 핵심 노하우</p>
+      </div>
+
+      <div class="tips-grid">
+        <div class="tips-column">
+          <h3 class="tips-col-title">✅ 이렇게 하세요</h3>
+          <div class="tip-cards">
+            <div class="tip-card good">
+              <div class="tip-icon">📦</div>
+              <h4>작게 시작하기</h4>
+              <p>MVP(최소 기능 제품)부터 시작하세요. 완벽한 앱보다 동작하는 앱이 먼저입니다.</p>
+            </div>
+            <div class="tip-card good">
+              <div class="tip-icon">💾</div>
+              <h4>자주 저장하기</h4>
+              <p>잘 동작하는 시점마다 코드를 저장하거나 GitHub에 커밋하세요. 나중에 망쳐도 되돌아올 수 있습니다.</p>
+            </div>
+            <div class="tip-card good">
+              <div class="tip-icon">🗣️</div>
+              <h4>맥락 제공하기</h4>
+              <p>대화가 길어지면 "지금까지 만든 코드야, 여기에 [기능]을 추가해줘" 형식으로 현재 코드를 항상 붙여넣으세요.</p>
+            </div>
+            <div class="tip-card good">
+              <div class="tip-icon">🧪</div>
+              <h4>자주 테스트하기</h4>
+              <p>기능을 추가할 때마다 브라우저에서 바로 테스트하세요. 나중에 한꺼번에 디버깅하는 것보다 훨씬 쉽습니다.</p>
+            </div>
+            <div class="tip-card good">
+              <div class="tip-icon">📖</div>
+              <h4>AI에게 설명 요청하기</h4>
+              <p>"이 코드가 어떻게 동작하는지 쉽게 설명해줘"라고 요청하면 점점 개발 감각이 생깁니다.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="tips-column">
+          <h3 class="tips-col-title">❌ 이렇게 하지 마세요</h3>
+          <div class="tip-cards">
+            <div class="tip-card bad">
+              <div class="tip-icon">🏔️</div>
+              <h4>처음부터 완벽함 추구</h4>
+              <p>첫 버전은 항상 rough합니다. 완성도 80%에서 배포하고, 피드백을 받으며 개선하는 게 훨씬 효과적입니다.</p>
+            </div>
+            <div class="tip-card bad">
+              <div class="tip-icon">🌊</div>
+              <h4>코드 이해 없이 계속 추가</h4>
+              <p>어느 정도 규모가 되면 AI에게 "지금 코드 구조 설명해줘"를 요청하세요. 구조 파악 없이 기능만 쌓으면 나중에 수습이 어렵습니다.</p>
+            </div>
+            <div class="tip-card bad">
+              <div class="tip-icon">🔄</div>
+              <h4>오류 나면 무조건 "다시 해줘"</h4>
+              <p>오류 메시지를 AI에게 그대로 전달하세요. "다시 해줘"보다 오류 내용을 주면 정확하게 수정합니다.</p>
+            </div>
+            <div class="tip-card bad">
+              <div class="tip-icon">📚</div>
+              <h4>너무 많은 기능 한번에 요청</h4>
+              <p>한 번에 5개 이상의 기능을 요청하면 코드가 복잡해지고 오류가 많아집니다. 하나씩 추가하세요.</p>
+            </div>
+            <div class="tip-card bad">
+              <div class="tip-icon">🔒</div>
+              <h4>보안 정보를 코드에 직접 입력</h4>
+              <p>API 키, 비밀번호 등은 절대 코드에 직접 쓰지 마세요. 환경변수(.env)를 사용하는 방법을 AI에게 물어보세요.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ -->
+      <div class="faq">
+        <h3>❓ 자주 묻는 질문</h3>
+        <div class="faq-items">
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              코딩을 전혀 모르는데 바이브코딩이 가능한가요?
+              <span class="faq-arrow">▼</span>
+            </button>
+            <div class="faq-a hidden">
+              <p>네, 가능합니다! 바이브코딩의 핵심은 "원하는 것을 명확하게 표현하는 능력"입니다. HTML이나 JavaScript를 몰라도 됩니다. 다만, 기초적인 웹 개념(URL, 파일, 브라우저)을 이해하면 더 효과적으로 AI와 소통할 수 있습니다.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              AI가 만든 코드를 믿어도 되나요?
+              <span class="faq-arrow">▼</span>
+            </button>
+            <div class="faq-a hidden">
+              <p>개인 프로젝트나 학습용으로는 충분합니다. 다만 실제 서비스에 사용할 때는 보안 취약점(사용자 입력 검증, XSS 방지 등)을 AI에게 확인 요청하거나, 경험 있는 개발자의 리뷰를 받는 것을 권장합니다.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              어떤 AI가 코딩에 가장 좋나요?
+              <span class="faq-arrow">▼</span>
+            </button>
+            <div class="faq-a hidden">
+              <p>2026년 기준으로 Claude (Anthropic), GPT-4o (OpenAI), Gemini (Google) 모두 뛰어난 코딩 능력을 보여줍니다. 특히 Claude는 긴 코드 맥락 이해와 코드 품질에서 강점이 있습니다. 각 AI의 무료 플랜으로 직접 시험해보고 맞는 것을 찾아보세요.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              바이브코딩으로 만들 수 없는 것이 있나요?
+              <span class="faq-arrow">▼</span>
+            </button>
+            <div class="faq-a hidden">
+              <p>대부분의 웹 앱, 도구, 게임은 만들 수 있습니다. 다만, 대규모 트래픽을 처리하는 서비스, 복잡한 실시간 기능, 모바일 네이티브 앱, 머신러닝 모델 학습 등은 바이브코딩만으로는 한계가 있습니다. 이런 경우에는 개발자와 협업하거나 전문적인 학습이 필요합니다.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              바이브코딩을 하다 보면 진짜 코딩도 배울 수 있나요?
+              <span class="faq-arrow">▼</span>
+            </button>
+            <div class="faq-a hidden">
+              <p>네! AI에게 "이 코드가 왜 이렇게 작동하는지 설명해줘"라고 지속적으로 물어보면, 자연스럽게 코드를 읽고 이해하는 능력이 생깁니다. 많은 바이브코더들이 이 과정을 통해 실제 프로그래밍 개념을 습득하고 있습니다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA / Footer -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-content">
+        <h2>지금 바로 시작해보세요</h2>
+        <p>아이디어가 있다면, 그것으로 충분합니다.<br/>바이브코딩으로 오늘 첫 번째 앱을 만들어보세요.</p>
+        <div class="cta-steps">
+          <div class="cta-step">
+            <span class="cta-num">1</span>
+            <span>Claude.ai 접속</span>
+          </div>
+          <div class="cta-arrow">→</div>
+          <div class="cta-step">
+            <span class="cta-num">2</span>
+            <span>아이디어 설명</span>
+          </div>
+          <div class="cta-arrow">→</div>
+          <div class="cta-step">
+            <span class="cta-num">3</span>
+            <span>코드 실행</span>
+          </div>
+          <div class="cta-arrow">→</div>
+          <div class="cta-step">
+            <span class="cta-num">4</span>
+            <span>개선 반복</span>
+          </div>
+          <div class="cta-arrow">→</div>
+          <div class="cta-step">
+            <span class="cta-num">5</span>
+            <span>세상에 공개!</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <p>⚡ 바이브코딩 가이드 · 누구나 만드는 세상을 위해</p>
+      <p class="footer-sub">Made with Vibe Coding · 2026</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
