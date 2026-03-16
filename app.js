@@ -9,9 +9,15 @@ const htmlEl = document.documentElement;
 
 const savedTheme = localStorage.getItem('theme') || 'dark';
 htmlEl.setAttribute('data-theme', savedTheme);
-updateThemeBtn(savedTheme);
 
 const themeToggle = document.getElementById('themeToggle');
+
+function updateThemeBtn(theme) {
+  themeToggle.textContent = theme === 'dark' ? '☀️' : '🌙';
+}
+
+updateThemeBtn(savedTheme);
+
 themeToggle.addEventListener('click', () => {
   const current = htmlEl.getAttribute('data-theme');
   const next = current === 'dark' ? 'light' : 'dark';
@@ -19,10 +25,6 @@ themeToggle.addEventListener('click', () => {
   localStorage.setItem('theme', next);
   updateThemeBtn(next);
 });
-
-function updateThemeBtn(theme) {
-  themeToggle.textContent = theme === 'dark' ? '☀️' : '🌙';
-}
 
 // ============================================================
 //  I18N SYSTEM (한국어/영어 전환)
