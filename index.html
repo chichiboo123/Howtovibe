@@ -14,7 +14,7 @@
   <!-- Navigation -->
   <nav class="navbar" id="navbar">
     <div class="nav-inner">
-      <a href="#hero" class="nav-logo" data-i18n="nav-logo">🍳 선생님의 바이브코딩</a>
+      <a href="#hero" class="nav-logo"><img src="favicon.svg" alt="" style="height:1.3em;vertical-align:middle;margin-right:0.35em;"><span data-i18n="nav-logo">선생님의 바이브코딩</span></a>
       <ul class="nav-links">
         <li><a href="#why" class="nav-link" data-i18n="nav-why">원셰프의 바이브코딩 (WHY)</a></li>
         <li><a href="#how" class="nav-link" data-i18n="nav-how">밀키트 (HOW)</a></li>
@@ -72,7 +72,7 @@
       <div class="section-header">
         <span class="section-tag" data-i18n="ch01-tag">CHAPTER 01 · 원셰프</span>
         <h2 class="section-title" data-i18n="ch01-title">왜 교사가 웹앱을 만들어야 할까?</h2>
-        <p class="section-desc" data-i18n="ch01-desc">수업 자료가 한글에서 PPT, Canva를 거쳐 웹앱으로 진화하고 있습니다. 그 흐름의 중심에 AI가 있습니다.</p>
+        <p class="section-desc" data-i18n-html="ch01-desc">수업 자료가 한글에서 PPT, Canva를 거쳐 웹앱으로 진화하고 있습니다.<br/> 그 흐름의 중심에 AI가 있습니다.</p>
       </div>
 
       <!-- Timeline -->
@@ -82,25 +82,21 @@
           <div class="timeline-item" onclick="showTimelineDetail('hwp')" id="tl-hwp">
             <div class="tl-icon">📝</div>
             <div class="tl-label" data-i18n="tl-hwp-label">한글(HWP)</div>
-            <div class="tl-year">~2010</div>
           </div>
           <div class="timeline-arrow">→</div>
           <div class="timeline-item" onclick="showTimelineDetail('ppt')" id="tl-ppt">
             <div class="tl-icon">📊</div>
             <div class="tl-label" data-i18n="tl-ppt-label">PPT</div>
-            <div class="tl-year">~2018</div>
           </div>
           <div class="timeline-arrow">→</div>
           <div class="timeline-item" onclick="showTimelineDetail('canva')" id="tl-canva">
             <div class="tl-icon">🎨</div>
             <div class="tl-label" data-i18n="tl-canva-label">Canva</div>
-            <div class="tl-year">~2023</div>
           </div>
           <div class="timeline-arrow">→</div>
           <div class="timeline-item active" onclick="showTimelineDetail('webapp')" id="tl-webapp">
             <div class="tl-icon">🌐</div>
             <div class="tl-label" data-i18n="tl-webapp-label">Web App</div>
-            <div class="tl-year">2026→</div>
           </div>
         </div>
         <div class="timeline-detail">
@@ -224,7 +220,7 @@
       <div class="setup-checklist">
         <h3 data-i18n="checklist-title">✅ 연수 시작 전 체크리스트</h3>
         <div class="checklist-items">
-          <label class="check-item"><input type="checkbox" /><span data-i18n="check1">Claude.ai 또는 Gemini 계정 준비</span></label>
+          <label class="check-item"><input type="checkbox" /><span data-i18n="check1">생성형 AI 계정 준비</span></label>
           <label class="check-item"><input type="checkbox" /><span data-i18n="check2">만들고 싶은 수업 활동 아이디어 1가지 메모</span></label>
           <label class="check-item"><input type="checkbox" /><span data-i18n="check3">GitHub 계정 생성 (무료)</span></label>
           <label class="check-item"><input type="checkbox" /><span data-i18n="check4">30분~1시간 시간 확보</span></label>
@@ -234,7 +230,7 @@
       <div class="practice-prompts-section" id="practicePromptsSection">
         <div class="practice-prompts-header">
           <h3>💡 실습 프롬프트</h3>
-          <p data-i18n="practice-prompts-desc">아래 프롬프트를 복사해서 Claude.ai나 Gemini에 붙여넣어 실습해보세요.</p>
+          <p data-i18n="practice-prompts-desc">아래 프롬프트를 복사해서 생성형 AI에 붙여넣어 실습해보세요.</p>
         </div>
         <div class="practice-prompts-list" id="practicePromptsList">
           <p class="practice-empty-msg" id="practiceEmptyMsg" data-i18n="practice-empty">아직 등록된 실습 프롬프트가 없습니다.</p>
@@ -469,7 +465,7 @@
             <p data-i18n-html="lesson-next-title"><strong>다음 단계:</strong></p>
             <ol>
               <li data-i18n="lesson-next-1">위 프롬프트를 복사합니다</li>
-              <li data-i18n="lesson-next-2">Claude.ai 또는 Gemini에 붙여넣습니다</li>
+              <li data-i18n="lesson-next-2">생성형 AI에 붙여넣습니다</li>
               <li data-i18n="lesson-next-3">생성된 코드를 index.html로 저장합니다</li>
               <li data-i18n="lesson-next-4">브라우저에서 열어 확인합니다</li>
             </ol>
