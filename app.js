@@ -3,6 +3,22 @@
 // ============================================================
 
 // ============================================================
+//  FIREBASE
+// ============================================================
+const firebaseConfig = {
+  apiKey: "AIzaSyASKlSSBCKUe6gnm3DuDT-s33Z64T82oHo",
+  authDomain: "won-s-vibe.firebaseapp.com",
+  databaseURL: "https://won-s-vibe-default-rtdb.firebaseio.com",
+  projectId: "won-s-vibe",
+  storageBucket: "won-s-vibe.firebasestorage.app",
+  messagingSenderId: "899599719435",
+  appId: "1:899599719435:web:16222bfa1fff7279523b0e",
+  measurementId: "G-LCTCPFLB0F"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+// ============================================================
 //  THEME TOGGLE
 // ============================================================
 const htmlEl = document.documentElement;
@@ -287,7 +303,7 @@ function copyLessonPrompt() {
 }
 
 // ============================================================
-//  GALLERY (with password + edit/delete)
+//  GALLERY (with password + edit/delete)  — Firebase backend
 // ============================================================
 function _ghash(pw) {
   return Array.from(pw).reduce((h, c) => ((h << 5) - h + c.charCodeAt(0)) | 0, 0);
@@ -300,32 +316,40 @@ function escapeHtml(str) {
 }
 
 function loadGallery() {
-  const items = JSON.parse(localStorage.getItem('networkGallery') || '[]');
-  const grid = document.getElementById('galleryGrid');
-  const empty = document.getElementById('galleryEmpty');
-  if (items.length === 0) {
-    grid.style.display = 'none';
-    empty.style.display = 'block';
-    return;
-  }
-  empty.style.display = 'none';
-  grid.style.display = 'grid';
-  const visitLabel = currentLang === 'en' ? 'Visit App' : '앱 방문하기';
-  const editLabel = currentLang === 'en' ? 'Edit' : '수정';
-  const delLabel = currentLang === 'en' ? 'Delete' : '삭제';
-  grid.innerHTML = items.map((item, idx) => `
-    <div class="gallery-item">
-      <div class="gallery-item-header">
-        <span class="gallery-name">${escapeHtml(item.name)}</span>
-        <span class="gallery-date">${escapeHtml(item.date)}</span>
-      </div>
-      <div class="gallery-item-title">${escapeHtml(item.title)}</div>
-      <a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="gallery-link">🔗 ${visitLabel}</a>
-      <div class="gallery-item-actions">
-        <button class="gallery-action-btn" onclick="galleryEdit(${idx})">${editLabel}</button>
-        <button class="gallery-action-btn del" onclick="galleryDelete(${idx})">${delLabel}</button>
-      </div>
-    </div>`).join('');
+  db.ref('gallery').orderByChild('ts').once('value').then(snapshot => {
+    const grid = document.getElementById('galleryGrid');
+    const empty = document.getElementById('galleryEmpty');
+    if (!snapshot.exists()) {
+      grid.style.display = 'none';
+      empty.style.display = 'block';
+      return;
+    }
+    const items = [];
+    snapshot.forEach(child => items.unshift({ key: child.key, ...child.val() }));
+    if (items.length === 0) {
+      grid.style.display = 'none';
+      empty.style.display = 'block';
+      return;
+    }
+    empty.style.display = 'none';
+    grid.style.display = 'grid';
+    const visitLabel = currentLang === 'en' ? 'Visit App' : '앱 방문하기';
+    const editLabel = currentLang === 'en' ? 'Edit' : '수정';
+    const delLabel = currentLang === 'en' ? 'Delete' : '삭제';
+    grid.innerHTML = items.map(item => `
+      <div class="gallery-item">
+        <div class="gallery-item-header">
+          <span class="gallery-name">${escapeHtml(item.name)}</span>
+          <span class="gallery-date">${escapeHtml(item.date)}</span>
+        </div>
+        <div class="gallery-item-title">${escapeHtml(item.title)}</div>
+        <a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="gallery-link">🔗 ${visitLabel}</a>
+        <div class="gallery-item-actions">
+          <button class="gallery-action-btn" onclick="galleryEdit('${item.key}')">${editLabel}</button>
+          <button class="gallery-action-btn del" onclick="galleryDelete('${item.key}')">${delLabel}</button>
+        </div>
+      </div>`).join('');
+  });
 }
 
 function submitToNetwork() {
@@ -345,14 +369,13 @@ function submitToNetwork() {
     alert(currentLang === 'en' ? 'Please set a password for editing/deleting.' : '수정/삭제를 위한 비밀번호를 설정해주세요.');
     return;
   }
-  const items = JSON.parse(localStorage.getItem('networkGallery') || '[]');
   const today = new Date();
   const dateStr = `${today.getFullYear()}.${String(today.getMonth() + 1).padStart(2, '0')}.${String(today.getDate()).padStart(2, '0')}`;
-  items.unshift({ name, title, url, date: dateStr, pwHash: _ghash(pw) });
-  localStorage.setItem('networkGallery', JSON.stringify(items));
-  ['networkName', 'networkTitle', 'networkUrl', 'networkPw'].forEach(id => document.getElementById(id).value = '');
-  loadGallery();
-  alert(currentLang === 'en' ? '🎉 Shared successfully!' : '🎉 공유되었습니다!');
+  db.ref('gallery').push({ name, title, url, date: dateStr, pwHash: _ghash(pw), ts: Date.now() }).then(() => {
+    ['networkName', 'networkTitle', 'networkUrl', 'networkPw'].forEach(id => document.getElementById(id).value = '');
+    loadGallery();
+    alert(currentLang === 'en' ? '🎉 Shared successfully!' : '🎉 공유되었습니다!');
+  });
 }
 
 // PW Modal state
@@ -374,92 +397,97 @@ function pwModalConfirm() {
   pwModalClose();
 }
 
-function galleryEdit(idx) {
-  if (isAdminMode) { _doGalleryEdit(idx, null, true); return; }
-  pwModalOpen(currentLang === 'en' ? '🔑 Enter Password to Edit' : '🔑 수정 비밀번호 입력', (pw) => _doGalleryEdit(idx, pw, false));
+function galleryEdit(key) {
+  if (isAdminMode) { _doGalleryEdit(key, null, true); return; }
+  pwModalOpen(currentLang === 'en' ? '🔑 Enter Password to Edit' : '🔑 수정 비밀번호 입력', (pw) => _doGalleryEdit(key, pw, false));
 }
-function galleryDelete(idx) {
-  if (isAdminMode) { _doGalleryDelete(idx, null, true); return; }
-  pwModalOpen(currentLang === 'en' ? '🔑 Enter Password to Delete' : '🔑 삭제 비밀번호 입력', (pw) => _doGalleryDelete(idx, pw, false));
-}
-
-function _doGalleryEdit(idx, pw, isAdmin) {
-  const items = JSON.parse(localStorage.getItem('networkGallery') || '[]');
-  const item = items[idx];
-  if (!item) return;
-  if (!isAdmin && _ghash(pw) !== item.pwHash) {
-    alert(currentLang === 'en' ? '❌ Incorrect password.' : '❌ 비밀번호가 맞지 않습니다.');
-    return;
-  }
-  const newTitle = prompt(currentLang === 'en' ? 'New app name:' : '새 앱 이름:', item.title);
-  if (newTitle === null) return;
-  const newUrl = prompt(currentLang === 'en' ? 'New URL:' : '새 링크:', item.url);
-  if (newUrl === null) return;
-  if (newTitle.trim()) items[idx].title = newTitle.trim();
-  if (newUrl.trim()) items[idx].url = newUrl.trim();
-  localStorage.setItem('networkGallery', JSON.stringify(items));
-  loadGallery();
+function galleryDelete(key) {
+  if (isAdminMode) { _doGalleryDelete(key, null, true); return; }
+  pwModalOpen(currentLang === 'en' ? '🔑 Enter Password to Delete' : '🔑 삭제 비밀번호 입력', (pw) => _doGalleryDelete(key, pw, false));
 }
 
-function _doGalleryDelete(idx, pw, isAdmin) {
-  const items = JSON.parse(localStorage.getItem('networkGallery') || '[]');
-  const item = items[idx];
-  if (!item) return;
-  if (!isAdmin && _ghash(pw) !== item.pwHash) {
-    alert(currentLang === 'en' ? '❌ Incorrect password.' : '❌ 비밀번호가 맞지 않습니다.');
-    return;
-  }
-  if (!confirm(currentLang === 'en' ? 'Delete this item?' : '삭제하시겠습니까?')) return;
-  items.splice(idx, 1);
-  localStorage.setItem('networkGallery', JSON.stringify(items));
-  loadGallery();
-}
-
-// ============================================================
-//  PRACTICE PROMPTS
-// ============================================================
-function loadPracticePrompts() {
-  const prompts = JSON.parse(localStorage.getItem('practicePrompts') || '[]');
-  const list = document.getElementById('practicePromptsList');
-  const emptyMsg = document.getElementById('practiceEmptyMsg');
-  if (prompts.length === 0) {
-    if (emptyMsg) emptyMsg.style.display = 'block';
-    // Remove any existing items
-    list.querySelectorAll('.practice-prompt-item').forEach(el => el.remove());
-    return;
-  }
-  if (emptyMsg) emptyMsg.style.display = 'none';
-  list.querySelectorAll('.practice-prompt-item').forEach(el => el.remove());
-  prompts.forEach((p, idx) => {
-    const item = document.createElement('div');
-    item.className = 'practice-prompt-item';
-    item.innerHTML = `
-      <div class="practice-prompt-item-header">
-        <span class="practice-prompt-title">${escapeHtml(p.title)}</span>
-        <button class="practice-prompt-copy" onclick="copyPracticePrompt(${idx})">📋 복사</button>
-      </div>
-      <div class="practice-prompt-content">${escapeHtml(p.content)}</div>`;
-    list.appendChild(item);
+function _doGalleryEdit(key, pw, isAdmin) {
+  db.ref('gallery/' + key).once('value').then(snapshot => {
+    const item = snapshot.val();
+    if (!item) return;
+    if (!isAdmin && _ghash(pw) !== item.pwHash) {
+      alert(currentLang === 'en' ? '❌ Incorrect password.' : '❌ 비밀번호가 맞지 않습니다.');
+      return;
+    }
+    const newTitle = prompt(currentLang === 'en' ? 'New app name:' : '새 앱 이름:', item.title);
+    if (newTitle === null) return;
+    const newUrl = prompt(currentLang === 'en' ? 'New URL:' : '새 링크:', item.url);
+    if (newUrl === null) return;
+    const updates = {};
+    if (newTitle.trim()) updates.title = newTitle.trim();
+    if (newUrl.trim()) updates.url = newUrl.trim();
+    db.ref('gallery/' + key).update(updates).then(() => loadGallery());
   });
 }
 
-function copyPracticePrompt(idx) {
-  const prompts = JSON.parse(localStorage.getItem('practicePrompts') || '[]');
-  const p = prompts[idx];
-  if (!p) return;
-  const ta = document.createElement('textarea');
-  ta.value = p.content;
-  document.body.appendChild(ta);
-  ta.select();
-  document.execCommand('copy');
-  document.body.removeChild(ta);
-  const btns = document.querySelectorAll('.practice-prompt-copy');
-  const btn = btns[idx];
-  if (btn) {
-    const orig = btn.textContent;
-    btn.textContent = '✅ 복사됨!';
-    setTimeout(() => { btn.textContent = orig; }, 2000);
-  }
+function _doGalleryDelete(key, pw, isAdmin) {
+  db.ref('gallery/' + key).once('value').then(snapshot => {
+    const item = snapshot.val();
+    if (!item) return;
+    if (!isAdmin && _ghash(pw) !== item.pwHash) {
+      alert(currentLang === 'en' ? '❌ Incorrect password.' : '❌ 비밀번호가 맞지 않습니다.');
+      return;
+    }
+    if (!confirm(currentLang === 'en' ? 'Delete this item?' : '삭제하시겠습니까?')) return;
+    db.ref('gallery/' + key).remove().then(() => loadGallery());
+  });
+}
+
+// ============================================================
+//  PRACTICE PROMPTS  — Firebase backend
+// ============================================================
+function loadPracticePrompts() {
+  db.ref('practicePrompts').orderByChild('order').once('value').then(snapshot => {
+    const list = document.getElementById('practicePromptsList');
+    const emptyMsg = document.getElementById('practiceEmptyMsg');
+    list.querySelectorAll('.practice-prompt-item').forEach(el => el.remove());
+    if (!snapshot.exists()) {
+      if (emptyMsg) emptyMsg.style.display = 'block';
+      return;
+    }
+    const items = [];
+    snapshot.forEach(child => items.push({ key: child.key, ...child.val() }));
+    if (items.length === 0) {
+      if (emptyMsg) emptyMsg.style.display = 'block';
+      return;
+    }
+    if (emptyMsg) emptyMsg.style.display = 'none';
+    items.forEach(p => {
+      const item = document.createElement('div');
+      item.className = 'practice-prompt-item';
+      item.innerHTML = `
+        <div class="practice-prompt-item-header">
+          <span class="practice-prompt-title">${escapeHtml(p.title)}</span>
+          <button class="practice-prompt-copy" data-key="${p.key}" onclick="copyPracticePrompt('${p.key}')">📋 복사</button>
+        </div>
+        <div class="practice-prompt-content">${escapeHtml(p.content)}</div>`;
+      list.appendChild(item);
+    });
+  });
+}
+
+function copyPracticePrompt(key) {
+  db.ref('practicePrompts/' + key).once('value').then(snapshot => {
+    const p = snapshot.val();
+    if (!p) return;
+    const ta = document.createElement('textarea');
+    ta.value = p.content;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    const btn = document.querySelector(`.practice-prompt-copy[data-key="${key}"]`);
+    if (btn) {
+      const orig = btn.textContent;
+      btn.textContent = '✅ 복사됨!';
+      setTimeout(() => { btn.textContent = orig; }, 2000);
+    }
+  });
 }
 
 // ============================================================
@@ -646,60 +674,65 @@ function applyCustomTextOverrides() {
   });
 }
 
-// Admin: practice prompts
+// Admin: practice prompts  — Firebase backend
 function adminAddPrompt() {
   const title = document.getElementById('adminPromptTitle').value.trim();
   const content = document.getElementById('adminPromptContent').value.trim();
   if (!title || !content) { alert('제목과 내용을 모두 입력해주세요.'); return; }
-  const prompts = JSON.parse(localStorage.getItem('practicePrompts') || '[]');
-  prompts.push({ title, content });
-  localStorage.setItem('practicePrompts', JSON.stringify(prompts));
-  document.getElementById('adminPromptTitle').value = '';
-  document.getElementById('adminPromptContent').value = '';
-  loadPracticePrompts();
-  renderAdminPromptList();
+  db.ref('practicePrompts').push({ title, content, order: Date.now() }).then(() => {
+    document.getElementById('adminPromptTitle').value = '';
+    document.getElementById('adminPromptContent').value = '';
+    loadPracticePrompts();
+    renderAdminPromptList();
+  });
 }
 
-function adminDeletePrompt(idx) {
+function adminDeletePrompt(key) {
   if (!confirm('삭제하시겠습니까?')) return;
-  const prompts = JSON.parse(localStorage.getItem('practicePrompts') || '[]');
-  prompts.splice(idx, 1);
-  localStorage.setItem('practicePrompts', JSON.stringify(prompts));
-  loadPracticePrompts();
-  renderAdminPromptList();
+  db.ref('practicePrompts/' + key).remove().then(() => {
+    loadPracticePrompts();
+    renderAdminPromptList();
+  });
 }
 
 function renderAdminPromptList() {
-  const prompts = JSON.parse(localStorage.getItem('practicePrompts') || '[]');
-  const list = document.getElementById('adminPromptList');
-  if (!list) return;
-  if (prompts.length === 0) { list.innerHTML = '<p style="font-size:0.82rem;color:var(--text-dim);">등록된 프롬프트 없음</p>'; return; }
-  list.innerHTML = prompts.map((p, i) => `
-    <div class="admin-gallery-item">
-      <span>${escapeHtml(p.title)}</span>
-      <button class="admin-gallery-del" onclick="adminDeletePrompt(${i})">삭제</button>
-    </div>`).join('');
+  db.ref('practicePrompts').orderByChild('order').once('value').then(snapshot => {
+    const list = document.getElementById('adminPromptList');
+    if (!list) return;
+    if (!snapshot.exists()) { list.innerHTML = '<p style="font-size:0.82rem;color:var(--text-dim);">등록된 프롬프트 없음</p>'; return; }
+    const items = [];
+    snapshot.forEach(child => items.push({ key: child.key, ...child.val() }));
+    if (items.length === 0) { list.innerHTML = '<p style="font-size:0.82rem;color:var(--text-dim);">등록된 프롬프트 없음</p>'; return; }
+    list.innerHTML = items.map(p => `
+      <div class="admin-gallery-item">
+        <span>${escapeHtml(p.title)}</span>
+        <button class="admin-gallery-del" onclick="adminDeletePrompt('${p.key}')">삭제</button>
+      </div>`).join('');
+  });
 }
 
 function renderAdminGalleryList() {
-  const items = JSON.parse(localStorage.getItem('networkGallery') || '[]');
-  const list = document.getElementById('adminGalleryList');
-  if (!list) return;
-  if (items.length === 0) { list.innerHTML = '<p style="font-size:0.82rem;color:var(--text-dim);">갤러리 항목 없음</p>'; return; }
-  list.innerHTML = items.map((item, i) => `
-    <div class="admin-gallery-item">
-      <span>${escapeHtml(item.name)} — ${escapeHtml(item.title)}</span>
-      <button class="admin-gallery-del" onclick="adminDeleteGallery(${i})">삭제</button>
-    </div>`).join('');
+  db.ref('gallery').orderByChild('ts').once('value').then(snapshot => {
+    const list = document.getElementById('adminGalleryList');
+    if (!list) return;
+    if (!snapshot.exists()) { list.innerHTML = '<p style="font-size:0.82rem;color:var(--text-dim);">갤러리 항목 없음</p>'; return; }
+    const items = [];
+    snapshot.forEach(child => items.unshift({ key: child.key, ...child.val() }));
+    if (items.length === 0) { list.innerHTML = '<p style="font-size:0.82rem;color:var(--text-dim);">갤러리 항목 없음</p>'; return; }
+    list.innerHTML = items.map(item => `
+      <div class="admin-gallery-item">
+        <span>${escapeHtml(item.name)} — ${escapeHtml(item.title)}</span>
+        <button class="admin-gallery-del" onclick="adminDeleteGallery('${item.key}')">삭제</button>
+      </div>`).join('');
+  });
 }
 
-function adminDeleteGallery(idx) {
+function adminDeleteGallery(key) {
   if (!confirm('갤러리 항목을 삭제하시겠습니까?')) return;
-  const items = JSON.parse(localStorage.getItem('networkGallery') || '[]');
-  items.splice(idx, 1);
-  localStorage.setItem('networkGallery', JSON.stringify(items));
-  loadGallery();
-  renderAdminGalleryList();
+  db.ref('gallery/' + key).remove().then(() => {
+    loadGallery();
+    renderAdminGalleryList();
+  });
 }
 
 // ============================================================
