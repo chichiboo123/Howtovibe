@@ -1741,6 +1741,13 @@ code {
   color: var(--text);
 }
 
+.gallery-item-desc {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-top: 2px;
+}
+
 .gallery-link {
   display: inline-block;
   padding: 6px 14px;
@@ -1887,6 +1894,19 @@ code {
 }
 .gallery-action-btn:hover { color: var(--text); border-color: var(--primary); }
 .gallery-action-btn.del:hover { color: var(--red); border-color: var(--red); }
+.gallery-like-btn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  padding: 4px 10px;
+  border-radius: 5px;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: var(--transition);
+  font-family: inherit;
+}
+.gallery-like-btn:hover { border-color: #e11d48; color: #e11d48; }
+.gallery-like-btn.liked { border-color: #e11d48; color: #e11d48; }
 .gallery-pw-notice {
   font-size: 0.78rem;
   color: var(--text-dim);

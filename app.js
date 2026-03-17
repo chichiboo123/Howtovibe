@@ -145,6 +145,8 @@ const en = {
   'network-name-placeholder': 'e.g. Teacher Kim',
   'network-title-label': '📌 App Name',
   'network-title-placeholder': 'e.g. Group Discussion App',
+  'network-desc-label': '📝 App Description',
+  'network-desc-placeholder': 'e.g. Students submit opinions and see results in real time',
   'network-url-label': '🔗 Web App Link',
   'network-url-placeholder': 'https://...',
   'network-pw-label': '🔑 Set Password',
@@ -315,8 +317,12 @@ function escapeHtml(str) {
   return d.innerHTML;
 }
 
+let _galleryListener = null;
+
 function loadGallery() {
-  db.ref('gallery').orderByChild('ts').once('value').then(snapshot => {
+  // 기존 리스너 제거 후 실시간 리스너 등록
+  if (_galleryListener) db.ref('gallery').off('value', _galleryListener);
+  _galleryListener = db.ref('gallery').on('value', snapshot => {
     const grid = document.getElementById('galleryGrid');
     const empty = document.getElementById('galleryEmpty');
     if (!snapshot.exists()) {
@@ -325,7 +331,9 @@ function loadGallery() {
       return;
     }
     const items = [];
-    snapshot.forEach(child => items.unshift({ key: child.key, ...child.val() }));
+    snapshot.forEach(child => items.push({ key: child.key, ...child.val() }));
+    // 최신순 정렬 (클라이언트)
+    items.sort((a, b) => (b.ts || 0) - (a.ts || 0));
     if (items.length === 0) {
       grid.style.display = 'none';
       empty.style.display = 'block';
@@ -333,28 +341,55 @@ function loadGallery() {
     }
     empty.style.display = 'none';
     grid.style.display = 'grid';
+    const likedKeys = JSON.parse(localStorage.getItem('likedGallery') || '[]');
     const visitLabel = currentLang === 'en' ? 'Visit App' : '앱 방문하기';
     const editLabel = currentLang === 'en' ? 'Edit' : '수정';
     const delLabel = currentLang === 'en' ? 'Delete' : '삭제';
-    grid.innerHTML = items.map(item => `
+    grid.innerHTML = items.map(item => {
+      const liked = likedKeys.includes(item.key);
+      const likeCount = item.likes || 0;
+      return `
       <div class="gallery-item">
         <div class="gallery-item-header">
           <span class="gallery-name">${escapeHtml(item.name)}</span>
           <span class="gallery-date">${escapeHtml(item.date)}</span>
         </div>
         <div class="gallery-item-title">${escapeHtml(item.title)}</div>
+        ${item.desc ? `<div class="gallery-item-desc">${escapeHtml(item.desc)}</div>` : ''}
         <a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="gallery-link">🔗 ${visitLabel}</a>
         <div class="gallery-item-actions">
+          <button class="gallery-like-btn${liked ? ' liked' : ''}" onclick="toggleLike('${item.key}')">${liked ? '❤️' : '🤍'} ${likeCount}</button>
           <button class="gallery-action-btn" onclick="galleryEdit('${item.key}')">${editLabel}</button>
           <button class="gallery-action-btn del" onclick="galleryDelete('${item.key}')">${delLabel}</button>
         </div>
-      </div>`).join('');
+      </div>`;
+    }).join('');
+  }, err => {
+    console.error('Gallery load error:', err);
+  });
+}
+
+function toggleLike(key) {
+  const likedKeys = JSON.parse(localStorage.getItem('likedGallery') || '[]');
+  const alreadyLiked = likedKeys.includes(key);
+  const ref = db.ref('gallery/' + key + '/likes');
+  ref.transaction(current => {
+    if (alreadyLiked) return Math.max((current || 1) - 1, 0);
+    return (current || 0) + 1;
+  }).then(() => {
+    if (alreadyLiked) {
+      localStorage.setItem('likedGallery', JSON.stringify(likedKeys.filter(k => k !== key)));
+    } else {
+      likedKeys.push(key);
+      localStorage.setItem('likedGallery', JSON.stringify(likedKeys));
+    }
   });
 }
 
 function submitToNetwork() {
   const name = document.getElementById('networkName').value.trim();
   const title = document.getElementById('networkTitle').value.trim();
+  const desc = document.getElementById('networkDesc').value.trim();
   const url = document.getElementById('networkUrl').value.trim();
   const pw = document.getElementById('networkPw').value.trim();
   if (!name || !title || !url) {
@@ -371,11 +406,17 @@ function submitToNetwork() {
   }
   const today = new Date();
   const dateStr = `${today.getFullYear()}.${String(today.getMonth() + 1).padStart(2, '0')}.${String(today.getDate()).padStart(2, '0')}`;
-  db.ref('gallery').push({ name, title, url, date: dateStr, pwHash: _ghash(pw), ts: Date.now() }).then(() => {
-    ['networkName', 'networkTitle', 'networkUrl', 'networkPw'].forEach(id => document.getElementById(id).value = '');
-    loadGallery();
-    alert(currentLang === 'en' ? '🎉 Shared successfully!' : '🎉 공유되었습니다!');
-  });
+  db.ref('gallery').push({ name, title, desc, url, date: dateStr, pwHash: _ghash(pw), ts: Date.now(), likes: 0 })
+    .then(() => {
+      ['networkName', 'networkTitle', 'networkDesc', 'networkUrl', 'networkPw'].forEach(id => document.getElementById(id).value = '');
+      alert(currentLang === 'en' ? '🎉 Shared successfully!' : '🎉 공유되었습니다!');
+    })
+    .catch(err => {
+      console.error('Submit error:', err);
+      alert(currentLang === 'en'
+        ? '❌ Failed to share. Please check Firebase security rules.'
+        : '❌ 공유에 실패했습니다. Firebase 보안 규칙을 확인해주세요.');
+    });
 }
 
 // PW Modal state
@@ -416,12 +457,15 @@ function _doGalleryEdit(key, pw, isAdmin) {
     }
     const newTitle = prompt(currentLang === 'en' ? 'New app name:' : '새 앱 이름:', item.title);
     if (newTitle === null) return;
+    const newDesc = prompt(currentLang === 'en' ? 'New description:' : '새 앱 소개:', item.desc || '');
+    if (newDesc === null) return;
     const newUrl = prompt(currentLang === 'en' ? 'New URL:' : '새 링크:', item.url);
     if (newUrl === null) return;
     const updates = {};
     if (newTitle.trim()) updates.title = newTitle.trim();
+    updates.desc = newDesc.trim();
     if (newUrl.trim()) updates.url = newUrl.trim();
-    db.ref('gallery/' + key).update(updates).then(() => loadGallery());
+    db.ref('gallery/' + key).update(updates);
   });
 }
 
