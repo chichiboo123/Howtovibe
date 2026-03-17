@@ -1,12 +1,11 @@
 // ============================================================
-//  바이브코딩 가이드 - App JS
+//  교사를 위한 바이브코딩 연수 - App JS
 // ============================================================
 
 // ============================================================
-//  THEME TOGGLE (다크/라이트 모드)
+//  THEME TOGGLE
 // ============================================================
 const htmlEl = document.documentElement;
-
 const savedTheme = localStorage.getItem('theme') || 'dark';
 htmlEl.setAttribute('data-theme', savedTheme);
 
@@ -27,7 +26,7 @@ themeToggle.addEventListener('click', () => {
 });
 
 // ============================================================
-//  I18N SYSTEM (한국어/영어 전환)
+//  I18N SYSTEM
 // ============================================================
 
 function cacheKorean() {
@@ -45,225 +44,118 @@ function cacheKorean() {
 }
 
 const en = {
-  'nav-logo': '⚡ Vibe Coding',
-  'nav-what-is': 'What is Vibe Coding',
-  'nav-tools': 'Tools Setup',
-  'nav-guide': 'Step-by-Step Guide',
-  'nav-prompts': 'Prompt Writing',
-  'nav-practice': 'Practice',
-  'nav-tips': 'Tips & Notes',
+  'nav-logo': '🍳 Teacher Vibe Coding',
+  'nav-why': 'Head Chef (WHY)',
+  'nav-how': 'Meal Kit (HOW)',
+  'nav-vibe': 'VIBE Framework',
+  'nav-lesson': 'Fine Dining',
+  'nav-network': 'Network',
 
-  'hero-badge': '2026 · The New Way to Develop in the AI Era',
-  'hero-title': 'Build Web Apps<br/><span class="gradient-text">Without Knowing Code</span>',
-  'hero-desc': 'Learn <strong>Vibe Coding</strong> —<br/>turning your ideas into reality by conversing with AI.',
-  'hero-btn-start': 'Start Guide →',
-  'hero-btn-practice': 'Practice Now',
-  'hero-stat1-num': '5 Steps',
-  'hero-stat1-label': 'Structured Guide',
-  'hero-stat2-label': 'Real-world Prompt Examples',
+  'hero-badge': '2026 · AI Workshop for Teachers',
+  'hero-title': 'Build Web Apps<br/><span class="gradient-text">That Change Your Classroom</span>',
+  'hero-desc': 'With AI, teachers can create<br/><strong>their own lesson apps</strong> today.',
+  'hero-btn-start': 'Start Workshop →',
+  'hero-btn-practice': 'Build Lesson App',
+  'hero-stat1-num': '4 Stages',
+  'hero-stat1-label': 'Structured Workshop',
+  'hero-stat2-label': 'Education Framework',
   'hero-stat3-num': 'Free',
   'hero-stat3-label': 'Fully Open',
 
-  'ch01-tag': 'CHAPTER 01',
-  'ch01-title': 'What is Vibe Coding?',
-  'ch01-desc': 'A new development paradigm where you describe what you want to AI without any coding knowledge, and build products based on the results',
-  'concept1-title': 'Express Ideas in Words',
-  'concept1-desc': "You don't write code directly. Just describe the features you want to AI in natural language.",
-  'concept2-title': 'AI Writes the Code',
-  'concept2-desc': 'AI like Claude or GPT generates working code. No development experience needed.',
-  'concept3-title': 'Improve Through Conversation',
-  'concept3-desc': "Request changes from AI. Improve quality through iterative dialogue.",
-  'concept4-title': 'Quick Deployment',
-  'concept4-desc': 'Deploy to GitHub Pages, Vercel, etc. Share it with the world in minutes.',
-  'comp-old': '<h4>❌ Traditional Development</h4><ul><li>Must learn HTML, CSS, JavaScript</li><li>Must understand frameworks and libraries</li><li>Months to years of learning required</li><li>Lots of time spent debugging</li><li>Complex deployment process</li></ul>',
-  'comp-new': '<h4>✅ Vibe Coding</h4><ul><li>Start with just your idea and natural language</li><li>AI handles technology choices and implementation</li><li>First prototype possible on day one</li><li>Errors solved by explaining them to AI</li><li>AI provides deployment guide too</li></ul>',
+  'ch01-tag': 'CHAPTER 01 · Head Chef',
+  'ch01-title': 'Why Should Teachers Build Web Apps?',
+  'ch01-desc': 'Classroom materials have evolved from Hangul to PPT, Canva, and now Web Apps. AI is at the center of that change.',
+  'timeline-title': '📚 The Evolution of Classroom Materials',
+  'tl-hwp-label': 'Hangul (HWP)',
+  'tl-ppt-label': 'PowerPoint',
+  'tl-canva-label': 'Canva',
+  'tl-webapp-label': 'Web App',
+  'tl-hint': 'Click a stage above to see its characteristics and limitations.',
+  'concept1-title': 'Classroom Example: Activity App',
+  'concept1-desc': 'An app the teacher built. Students connect via smartphone and share results in real time.',
+  'concept2-title': 'Built on the Same Day',
+  'concept2-desc': 'If you get an idea today, you can finish the web app today. AI writes the code for you.',
+  'concept3-title': 'Share With One Link',
+  'concept3-desc': 'No printing needed. Share one link and it becomes interactive learning material for any student.',
+  'concept4-title': 'Perfectly Tailored for Your Class',
+  'concept4-desc': 'Without the constraints of existing platforms, you can build exactly what your students need.',
   'quote-cite': '— Andrej Karpathy (Former Tesla AI Director, OpenAI Co-founder)',
 
-  'ch02-tag': 'CHAPTER 02',
-  'ch02-title': 'Setting Up Tools',
-  'ch02-desc': 'Set up the minimum tools needed to start Vibe Coding',
-  'tool1-title': 'Claude.ai or Claude Code',
-  'tool1-desc': 'Your AI coding partner. Converts ideas to code. You can start with the free plan.',
-  'tool1-tag1': 'Free to Start',
-  'tool1-tag2': 'Essential Tool',
-  'tool2-title': 'GitHub Account',
-  'tool2-desc': 'Store and version control your code. Free to create, also used for deployment.',
-  'tool2-tag1': 'Free',
-  'tool2-tag2': 'Code Repository',
-  'tool3-title': 'VS Code (Optional)',
-  'tool3-desc': 'Code editor. Not required if using Claude Code, but useful to view code directly.',
-  'tool3-tag1': 'Optional',
-  'tool3-tag2': 'Free',
-  'tool4-title': 'Vercel or GitHub Pages',
-  'tool4-desc': 'Publish your finished web app online. Automatic deployment with GitHub integration.',
-  'tool4-tag1': 'Free',
-  'tool4-tag2': 'Deployment Platform',
-  'checklist-title': '✅ Pre-Start Checklist',
-  'check1': 'Claude.ai account created',
-  'check2': 'GitHub account created',
-  'check3': 'Ideas noted for what you want to build',
+  'ch02-tag': 'CHAPTER 02 · Meal Kit',
+  'ch02-title': 'Preparing Your Tools',
+  'ch02-desc': 'Like cooking, the right tools make it much easier. Understand tools by their role.',
+  'cat1-title': 'Idea Expansion',
+  'cat1-desc': 'Tools that develop lesson ideas into specific features',
+  'tool-chatgpt': 'Brainstorming, concretizing activities, drafting initial prompts',
+  'tool-gemini-idea': 'Google Workspace integration, lesson plan analysis, idea development',
+  'cat2-title': 'Code Generation',
+  'cat2-desc': 'The core tools that turn ideas into working code',
+  'tool-claude': 'Understands long code contexts, accurate implementation, teacher-friendly explanations',
+  'tool-gemini-code': 'Google ecosystem friendly, real-time code editing and preview',
+  'cat3-title': 'App Building & Deployment',
+  'cat3-desc': 'Tools to turn code into a real web app and share with students',
+  'tool-replit': 'Code directly in browser, instant deploy, no installation needed',
+  'tool-lovable': 'Build apps with AI, automated design, one-click deployment',
+  'tool-github': 'Free hosting, permanent link, ideal for sharing with students',
+  'checklist-title': '✅ Pre-Workshop Checklist',
+  'check1': 'Claude.ai or Gemini account ready',
+  'check2': 'One lesson activity idea noted down',
+  'check3': 'GitHub account created (free)',
   'check4': '30 min–1 hour set aside',
 
-  'ch03-tag': 'CHAPTER 03',
-  'ch03-title': 'Step-by-Step Guide',
-  'ch03-desc': 'Follow the actual process from idea to finished web app',
-  'step1-title': 'Clarify Your Idea',
-  'step1-sub': 'Turn vague ideas into clear requirements that AI can understand',
-  'step1-content': '<div class="substep"><h4>🎯 Define 3 Core Features</h4><p>Don\'t try to build a perfect app from the start. Define just 3 core features and begin.</p><div class="example-box"><div class="example-label">Example: Todo App</div><ul><li>Add a todo</li><li>Check as complete</li><li>Delete</li></ul></div></div><div class="substep"><h4>👥 Define Your Users</h4><p>Think about who will use this app. The clearer your user is, the better the app.</p></div><div class="substep"><h4>🎨 Find Reference Examples</h4><p>Collecting screenshots or URLs of similar apps lets you give AI visual direction.</p></div><div class="tip-box"><strong>💡 Tip:</strong> Tell AI your idea first and ask "Organize this idea into a concrete list of features."</div>',
-  'step2-title': 'Write Your First Prompt',
-  'step2-sub': 'Request the entire structure and core features of your app from AI at once',
-  'step2-content': '<div class="substep"><h4>📝 Structure of a Good First Prompt</h4><div class="prompt-template"><div class="prompt-line"><span class="pt-label">Purpose:</span> [What you want to build]</div><div class="prompt-line"><span class="pt-label">Users:</span> [Who will use it]</div><div class="prompt-line"><span class="pt-label">Core Features:</span> [Essential features]</div><div class="prompt-line"><span class="pt-label">Design:</span> [Desired style or reference]</div><div class="prompt-line"><span class="pt-label">Tech:</span> [Can be omitted if no special requirements]</div></div></div><div class="substep"><h4>✍️ Real Example</h4><div class="code-block"><pre>"Create a personal reading log web app.\n- Record book title, author, and date read\n- Show a card-style list of books read\n- Allow star ratings (1–5 stars)\n- Clean, minimal design\n- Use only HTML, CSS, JavaScript (no libraries)"</pre></div></div><div class="tip-box"><strong>💡 Tip:</strong> Don\'t aim for perfection in your first prompt. Build a working version first, then improve.</div>',
-  'step3-title': 'Review & Run the Code',
-  'step3-sub': 'Run the AI-generated code and check the results',
-  'step3-content': '<div class="substep"><h4>🖥️ Running the Code</h4><p>If AI generated an HTML file:</p><ol><li>Copy the code and save as <code>index.html</code></li><li>Open the file in a browser (double-click or drag-and-drop)</li><li>Check if it works as intended</li></ol></div><div class="substep"><h4>🔍 What to Check</h4><ul><li>Are all core features working?</li><li>Does the UI roughly look how you wanted?</li><li>Are there no error messages?</li></ul></div><div class="substep"><h4>🐛 When There\'s an Error</h4><p>Don\'t panic! Copy the error message and paste it to AI.</p><div class="code-block"><pre>"This error occurred. Please fix it:\n[Paste error message]"</pre></div></div><div class="tip-box"><strong>💡 Tip:</strong> Don\'t spend too long trying to understand the code. If it works, move on. If there\'s an error, ask AI.</div>',
-  'step4-title': 'Iterative Improvement',
-  'step4-sub': 'Add features, improve design, and fix bugs through conversation',
-  'step4-content': '<div class="substep"><h4>🔁 Iteration Cycle</h4><div class="cycle-diagram"><div class="cycle-item">💬 Request</div><div class="cycle-arrow">→</div><div class="cycle-item">🤖 AI Works</div><div class="cycle-arrow">→</div><div class="cycle-item">👀 Review</div><div class="cycle-arrow">→</div><div class="cycle-item">📝 Feedback</div><div class="cycle-arrow">↩️</div></div></div><div class="substep"><h4>📋 Giving Good Feedback</h4><div class="feedback-examples"><div class="feedback bad"><div class="feedback-label">❌ Bad Feedback</div><p>"Make it prettier"<br/>"It seems slow"<br/>"Do it again"</p></div><div class="feedback good"><div class="feedback-label">✅ Good Feedback</div><p>"Change button color to blue and increase size by 20%"<br/>"Add a spinner animation when loading the list"<br/>"Change the card layout to a 3-column grid"</p></div></div></div><div class="tip-box"><strong>💡 Tip:</strong> Request one thing at a time. Requesting multiple changes at once can confuse the AI.</div>',
-  'step5-title': 'Deploy',
-  'step5-sub': 'Publish your finished web app to the internet',
-  'step5-content': '<div class="substep"><h4>🌐 Deploy with GitHub Pages (Free)</h4><ol><li>Create a new repository on GitHub</li><li>Ask AI: "How do I upload this to GitHub?"</li><li>Repository Settings → Pages → Set Source</li><li>Access <code>username.github.io/repo-name</code> in a few minutes</li></ol></div><div class="substep"><h4>⚡ Deploy with Vercel (Easier)</h4><ol><li>Sign up at vercel.com (link with GitHub)</li><li>"New Project" → Select GitHub repository</li><li>Automatically built and deployed</li><li>Unique URL automatically generated</li></ol></div><div class="tip-box"><strong>💡 Tip:</strong> If stuck on deployment, ask AI: "Explain how to deploy to Vercel step by step."</div>',
+  'ch03-tag': 'CHAPTER 03 · VIBE Framework',
+  'ch03-title': 'Build Lesson Apps with V.I.B.E',
+  'ch03-desc': 'Remember four steps. The journey from idea to finished lesson app.',
+  'vibe-v-title': 'Visualize — Imagine',
+  'vibe-v-sub': 'Picture what kind of app your class needs',
+  'vibe-i-title': 'Interact — Talk with AI',
+  'vibe-i-sub': 'Describe your vision to AI and receive the code',
+  'vibe-b-title': 'Build — Implement',
+  'vibe-b-sub': 'Run the AI-generated code and check the results',
+  'vibe-e-title': 'Execute & Evolve — Run and Improve',
+  'vibe-e-sub': 'Use it in class, gather feedback, and improve',
 
-  'ch04-tag': 'CHAPTER 04',
-  'ch04-title': 'Prompt Writing Techniques',
-  'ch04-desc': 'Prompt patterns that improve the quality of results when requesting from AI',
-  'p1-title': 'Be Specific',
-  'p1-examples': '<div class="pe bad"><span class="pe-label">❌</span>"Make a button"</div><div class="pe good"><span class="pe-label">✅</span>"Make a \'Save\' button with blue background, white text, rounded corners (border-radius 8px), that gets slightly darker on hover"</div>',
-  'p2-title': 'Specify Constraints',
-  'p2-examples': '<div class="pe bad"><span class="pe-label">❌</span>"Make a shopping mall"</div><div class="pe good"><span class="pe-label">✅</span>"Build it using only pure HTML/CSS/JS, without React and without any external libraries"</div>',
-  'p3-title': 'Provide References',
-  'p3-examples': '<div class="pe bad"><span class="pe-label">❌</span>"Make a nice card UI"</div><div class="pe good"><span class="pe-label">✅</span>"Make a card like Notion\'s style — white background, subtle shadow, slight lift effect on hover"</div>',
-  'p4-title': 'Request Partial Changes',
-  'p4-examples': '<div class="pe bad"><span class="pe-label">❌</span>"Redo the whole thing"</div><div class="pe good"><span class="pe-label">✅</span>"Only modify the header section in the existing code. Don\'t touch anything else."</div>',
-  'p5-title': 'Report Errors Clearly',
-  'p5-examples': '<div class="pe bad"><span class="pe-label">❌</span>"Why isn\'t it working?"</div><div class="pe good"><span class="pe-label">✅</span>"When I click the button, nothing happens. This error appears in the browser console: [error message]"</div>',
-  'p6-title': 'Maintain Context',
-  'p6-examples': '<div class="pe bad"><span class="pe-label">❌</span>"Add a search feature to the list" (in a new chat window)</div><div class="pe good"><span class="pe-label">✅</span>"Add a search feature to the code I\'ve built so far. [paste current code]"</div>',
-  'formula-title': '🧪 Universal Prompt Formula',
-  'formula-p1': '[Role Assignment]',
-  'formula-p2': '[Specific Requirements]',
-  'formula-p3': '[Constraints]',
-  'formula-p4': '[Output Format]',
-  'formula-example': '<strong>Example:</strong> "As a web development expert (role), create a memo app that supports dark theme (requirement), without external libraries (constraint), as 3 separate files: HTML/CSS/JS (format)"',
+  'ch04-tag': 'CHAPTER 04 · Fine Dining',
+  'ch04-title': 'Build Your Own Lesson App',
+  'ch04-desc': "Enter your lesson details below and we'll automatically generate a prompt you can use with AI",
+  'lesson-activity-label': '🎯 Activity Name',
+  'lesson-activity-placeholder': 'e.g. Pros & Cons Discussion Submission App',
+  'lesson-goal-label': '📚 Learning Objective',
+  'lesson-goal-placeholder': "e.g. Visualize students' diverse opinions on environmental issues",
+  'lesson-process-label': '📋 Activity Flow',
+  'lesson-process-placeholder': 'e.g. Student enters name → selects agree/disagree → writes reason → submits → views results graph',
+  'lesson-grade-label': '👨‍🎓 Target Grade (optional)',
+  'lesson-grade-placeholder': 'e.g. 8th grade / Middle school 2nd year',
+  'lesson-gen-btn': '✨ Auto-Generate Prompt',
+  'lesson-output-title': '📝 Generated Prompt',
+  'lesson-copy-btn': '📋 Copy',
+  'lesson-next-title': '<strong>Next steps:</strong>',
+  'lesson-next-1': 'Copy the prompt above',
+  'lesson-next-2': 'Paste it into Claude.ai or Gemini',
+  'lesson-next-3': 'Save the generated code as index.html',
+  'lesson-next-4': 'Open in your browser to check',
 
-  'ch05-tag': 'CHAPTER 05',
-  'ch05-title': 'Hands-on Practice',
-  'ch05-desc': 'Build your prompt writing skills with these exercises',
-  'tab-beg': 'Beginner',
-  'tab-int': 'Intermediate',
-  'tab-adv': 'Advanced',
+  'ch05-tag': 'CHAPTER 05 · Network',
+  'ch05-title': 'What We Built',
+  'ch05-desc': "Share the lesson apps you made. Get inspired by each other's work.",
+  'network-name-label': '👤 Name (nickname ok)',
+  'network-name-placeholder': 'e.g. Teacher Kim, Math Teacher',
+  'network-title-label': '📌 App Name',
+  'network-title-placeholder': 'e.g. Group Discussion Submission App',
+  'network-url-label': '🔗 Web App Link',
+  'network-url-placeholder': 'https://...',
+  'network-submit-btn': '🚀 Share',
+  'gallery-title': '🎨 Work Gallery',
+  'gallery-empty': 'No works shared yet. Be the first!',
 
-  'beg1-diff': '⭐ Beginner #1',
-  'beg1-title': 'Personal Introduction Page',
-  'beg1-desc': 'Create a simple webpage introducing yourself.',
-  'req-label': 'Include:',
-  'beg1-req': '<li>Your name and a short bio</li><li>3 things you like</li><li>Contact info or social media links</li>',
-  'hint-show': '💡 Show Hint',
-  'hint-hide': '💡 Hide Hint',
-  'beg1-hint': '"Create a webpage introducing me.\n- Name: [Your name]\n- Bio: [One-line bio]\n- Things I like: Music, Reading, Travel\n- Design: Minimal and clean\n- Put HTML and CSS in one file"',
-
-  'beg2-diff': '⭐ Beginner #2',
-  'beg2-title': 'Counter App',
-  'beg2-desc': 'Create a counter that increments when a button is pressed.',
-  'beg2-req': '<li>+1 button (increase count)</li><li>-1 button (decrease count)</li><li>Reset button</li>',
-  'beg2-hint': '"Create a number counter web app.\n- + button: increase number by 1\n- - button: decrease by 1 (doesn\'t go below 0)\n- Reset button: reset to 0\n- Display current number large in center\n- Add CSS animation effect on number change"',
-
-  'beg3-diff': '⭐ Beginner #3',
-  'beg3-title': 'Color Quiz Game',
-  'beg3-desc': 'Create a game that shows an RGB color code and you choose the matching color.',
-  'beg3-req': '<li>Display RGB value text</li><li>4 color choices</li><li>Score tracking</li>',
-  'beg3-hint': '"Create an RGB color guessing quiz game.\n- Display color value in \'RGB(R, G, B)\' format\n- Click the correct one among 4 color buttons\n- Correct/incorrect feedback\n- Score display (correct / total attempts)\n- Next question button"',
-
-  'int1-diff': '⭐⭐ Intermediate #1',
-  'int1-title': 'Todo App (with Local Storage)',
-  'int1-desc': 'Create a todo app that persists data even after closing the browser.',
-  'int1-req': '<li>Add/delete/complete todos</li><li>Save data with LocalStorage</li><li>Filter (All/Active/Completed)</li>',
-  'int1-hint': '"Create a todo management web app.\n- Add todo by pressing Enter or button\n- Each item: checkbox, text, delete button\n- Completed items shown with strikethrough\n- Save to LocalStorage (persists on refresh)\n- All/Active/Completed filter tabs at bottom\n- Clean minimal design"',
-
-  'int2-diff': '⭐⭐ Intermediate #2',
-  'int2-title': 'Weather Dashboard',
-  'int2-desc': 'Create an app that shows weather info when you enter a city name.',
-  'int2-req': '<li>City search</li><li>Current temperature, weather status</li><li>Humidity, wind speed</li>',
-  'int2-hint': '"Create a weather app using OpenWeatherMap API.\n- API key required (get one at openweathermap.org)\n- Search by city name\n- Current weather: temperature (Celsius), status, icon\n- Extra info: feels like temp, humidity, wind speed\n- Background color changes based on weather"',
-
-  'int3-diff': '⭐⭐ Intermediate #3',
-  'int3-title': 'Pomodoro Timer',
-  'int3-desc': 'Create a timer to manage 25-minute focus + 5-minute break cycles.',
-  'int3-req': '<li>Countdown timer</li><li>Focus/break mode switching</li><li>Alert sound</li>',
-  'int3-hint': '"Create a Pomodoro timer app.\n- Focus time: 25 minutes (default, adjustable)\n- Break time: 5 min (short break), 15 min (long break)\n- Start/pause/reset buttons\n- Alert sound using Web Audio API when timer ends\n- Show number of completed pomodoros\n- Circular progress bar"',
-
-  'adv1-diff': '⭐⭐⭐ Advanced #1',
-  'adv1-title': 'Markdown Editor',
-  'adv1-desc': 'Create a markdown editor with real-time preview.',
-  'adv1-req': '<li>Left: Markdown input area</li><li>Right: HTML rendering preview</li><li>Export (HTML/PDF)</li>',
-  'adv1-hint': '"Create a real-time Markdown editor.\n- Split screen left/right (editor | preview)\n- Parse markdown with marked.js library\n- Real-time rendering (updates as you type)\n- Toolbar: bold, italic, heading, link, image, code block\n- \'Export HTML\' button\n- Dark/light theme toggle"',
-
-  'adv2-diff': '⭐⭐⭐ Advanced #2',
-  'adv2-title': 'Personal Dashboard',
-  'adv2-desc': 'Create a dashboard showing todos, weather, bookmarks, and clock on one screen.',
-  'adv2-req': '<li>Current time/date widget</li><li>Simple todo widget</li><li>Bookmarks widget</li><li>Drag to reposition widgets</li>',
-  'adv2-hint': '"Create a personal browser new tab dashboard.\n- Background: random landscape images from Unsplash API\n- Center: current time (large text), date\n- Left: mini todo widget (add/delete)\n- Right: favorite links widget\n- Search bar: Google search integration\n- Overall glassmorphism design"',
-
-  'adv3-diff': '⭐⭐⭐ Advanced #3',
-  'adv3-title': 'AI Chat Interface',
-  'adv3-desc': 'Create your own AI chatbot interface integrated with the Claude API.',
-  'adv3-req': '<li>Chat UI (message bubbles)</li><li>Claude API integration</li><li>Save conversation history</li>',
-  'adv3-hint': '"Create an AI chat app using Claude API.\n- Node.js Express backend\n- Use Anthropic SDK (@anthropic-ai/sdk)\n- Frontend: chat UI (distinguish user/AI messages)\n- Support streaming responses\n- Save conversation history to LocalStorage\n- System prompt configuration feature\nNote: Manage API key as environment variable (.env)"',
-
-  'playground-title': '🎮 Prompt Playground',
-  'playground-desc': 'Practice turning your ideas into concrete prompts.',
-  'playground-in-label': '💭 My Idea (briefly)',
-  'playground-in-placeholder': 'e.g. An app to track daily water intake',
-  'playground-out-label': '📝 Enhanced Prompt (for reference)',
-  'playground-out-placeholder': "Enter your idea above and click 'Convert to Prompt'...",
-  'playground-arrow': '↓ Convert',
-  'playground-btn': '✨ Convert to Prompt',
-
-  'ch06-tag': 'CHAPTER 06',
-  'ch06-title': 'Tips & Common Mistakes',
-  'ch06-desc': 'Key know-how for better Vibe Coding',
-  'tips-col-good': '✅ Do This',
-  'tips-col-bad': "❌ Don't Do This",
-  'tip-g1-title': 'Start Small',
-  'tip-g1-desc': 'Start with an MVP (Minimum Viable Product). A working app comes before a perfect app.',
-  'tip-g2-title': 'Save Frequently',
-  'tip-g2-desc': 'Save your code or commit to GitHub whenever things are working. You can always roll back later.',
-  'tip-g3-title': 'Provide Context',
-  'tip-g3-desc': "When conversations get long, always paste the current code: 'Here's the code so far, please add [feature] to this'.",
-  'tip-g4-title': 'Test Frequently',
-  'tip-g4-desc': 'Test in the browser right after adding each feature. Much easier than debugging everything at once later.',
-  'tip-g5-title': 'Ask AI to Explain',
-  'tip-g5-desc': "Asking 'Explain how this code works in simple terms' will gradually build your developer intuition.",
-  'tip-b1-title': 'Pursuing Perfection from the Start',
-  'tip-b1-desc': "The first version is always rough. Deploy at 80% completeness and improve based on feedback.",
-  'tip-b2-title': 'Adding Features Without Understanding the Code',
-  'tip-b2-desc': "When the codebase gets larger, ask AI to 'Explain the current code structure'. Stacking features blindly leads to trouble.",
-  'tip-b3-title': "Just Saying 'Do It Again' on Errors",
-  'tip-b3-desc': "Pass the error message directly to AI. Providing the actual error is more useful than just saying 'do it again'.",
-  'tip-b4-title': 'Requesting Too Many Features at Once',
-  'tip-b4-desc': 'Requesting 5+ features at once makes code complex and error-prone. Add them one at a time.',
-  'tip-b5-title': 'Putting Sensitive Info Directly in Code',
-  'tip-b5-desc': 'Never write API keys or passwords directly in code. Ask AI how to use environment variables (.env).',
-
-  'faq-section-title': '❓ Frequently Asked Questions',
-  'faq1-q': 'Can I do Vibe Coding with absolutely no coding knowledge?',
-  'faq1-a': "<p>Yes, it's possible! The key to Vibe Coding is \"the ability to clearly express what you want.\" You don't need to know HTML or JavaScript. However, understanding basic web concepts (URLs, files, browsers) will help you communicate more effectively with AI.</p>",
-  'faq2-q': 'Can I trust the code that AI creates?',
-  'faq2-a': "<p>It's sufficient for personal projects or learning purposes. For actual services, it's recommended to ask AI to check for security vulnerabilities (input validation, XSS prevention, etc.) or have an experienced developer review it.</p>",
-  'faq3-q': 'Which AI is best for coding?',
-  'faq3-a': "<p>As of 2026, Claude (Anthropic), GPT-4o (OpenAI), and Gemini (Google) all show excellent coding abilities. Claude has particular strengths in understanding long code contexts and code quality. Try each AI's free plan and find the one that works for you.</p>",
-  'faq4-q': "Are there things Vibe Coding can't build?",
-  'faq4-a': "<p>Most web apps, tools, and games can be built. However, services handling large-scale traffic, complex real-time features, native mobile apps, and ML model training have limitations with Vibe Coding alone. These cases require collaboration with developers or specialized learning.</p>",
-  'faq5-q': 'Can I actually learn real coding through Vibe Coding?',
-  'faq5-a': "<p>Yes! Consistently asking AI \"Explain why this code works this way\" will naturally build your ability to read and understand code. Many vibe coders are learning actual programming concepts through this process.</p>",
-
-  'cta-title': 'Start Right Now',
-  'cta-desc': "If you have an idea, that's enough.<br/>Build your first app today with Vibe Coding.",
-  'cta-step1': 'Visit Claude.ai',
-  'cta-step2': 'Describe Your Idea',
-  'cta-step3': 'Run the Code',
-  'cta-step4': 'Iterate',
-  'cta-step5': 'Launch to the World!',
-  'footer-main': '⚡ Vibe Coding Guide · For a World Where Anyone Can Build',
+  'cta-title': 'Build Your First Lesson App Right Now',
+  'cta-desc': "If you have an idea, that's enough.<br/>Complete your first app in today's workshop.",
+  'cta-step1': 'Visualize',
+  'cta-step2': 'Talk with AI',
+  'cta-step3': 'Build',
+  'cta-step4': 'Evolve',
+  'cta-btn': 'Start Fine Dining →',
+  'footer-main': '🍳 Teacher Vibe Coding Workshop · For a World Where Every Teacher Can Build',
   'footer-sub': 'Made with Vibe Coding · 2026',
 };
 
@@ -297,20 +189,10 @@ function applyTranslations(lang) {
       if (en[key] !== undefined) el.setAttribute('placeholder', en[key]);
     });
   }
-
-  // 열린 힌트 버튼 텍스트 업데이트
-  document.querySelectorAll('.hint-btn').forEach(btn => {
-    const content = btn.nextElementSibling;
-    if (content && !content.classList.contains('hidden')) {
-      btn.textContent = lang === 'en' ? '💡 Hide Hint' : '💡 힌트 닫기';
-    }
-  });
-
   htmlEl.lang = lang;
   document.getElementById('langToggle').textContent = lang === 'ko' ? 'EN' : 'KO';
 }
 
-// 초기화
 cacheKorean();
 applyTranslations(currentLang);
 
@@ -319,171 +201,252 @@ langToggle.addEventListener('click', () => {
   currentLang = currentLang === 'ko' ? 'en' : 'ko';
   localStorage.setItem('lang', currentLang);
   applyTranslations(currentLang);
+  // Re-render gallery with correct language
+  loadGallery();
 });
 
-// ---- Navbar scroll effect ----
+// ---- Navbar scroll ----
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
   navbar.classList.toggle('scrolled', window.scrollY > 40);
 });
 
-// ---- Mobile nav toggle ----
+// ---- Mobile nav ----
 const navToggle = document.getElementById('navToggle');
 const navLinks = document.querySelector('.nav-links');
-navToggle.addEventListener('click', () => {
-  navLinks.classList.toggle('open');
-});
+navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
 document.querySelectorAll('.nav-link').forEach(link => {
   link.addEventListener('click', () => navLinks.classList.remove('open'));
 });
 
-// ---- Step accordion ----
+// ---- Step accordion (VIBE) ----
 function toggleStep(id) {
-  const el = document.getElementById(id);
-  el.classList.toggle('open');
+  document.getElementById(id).classList.toggle('open');
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const first = document.getElementById('step1');
+  const first = document.getElementById('step-v');
   if (first) first.classList.add('open');
+  loadGallery();
 });
 
-// ---- Practice tabs ----
-function switchTab(name, btn) {
-  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.practice-tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('tab-' + name).classList.add('active');
-  btn.classList.add('active');
-}
-
-// ---- Hint toggle ----
-function toggleHint(btn) {
-  const content = btn.nextElementSibling;
-  content.classList.toggle('hidden');
-  const isHidden = content.classList.contains('hidden');
-  btn.textContent = isHidden
-    ? (currentLang === 'en' ? '💡 Show Hint' : '💡 힌트 보기')
-    : (currentLang === 'en' ? '💡 Hide Hint' : '💡 힌트 닫기');
-}
-
-// ---- FAQ toggle ----
-function toggleFaq(btn) {
-  const item = btn.parentElement;
-  const answer = btn.nextElementSibling;
-  item.classList.toggle('open');
-  answer.classList.toggle('hidden');
-}
-
-// ---- Playground: Prompt Generator ----
-const promptTemplates = {
+// ---- Timeline ----
+const timelineData = {
   ko: {
-    tracker: (idea) => `"${idea} 웹앱을 만들어줘.
-
-요구사항:
-- [핵심 기능 1]: 사용자가 직접 입력하고 저장할 수 있어야 해
-- [핵심 기능 2]: 목록 형태로 보여주고 삭제 가능해야 해
-- [핵심 기능 3]: LocalStorage에 저장해서 새로고침해도 유지되어야 해
-
-디자인:
-- 다크 테마, 미니멀하고 깔끔한 UI
-- 반응형 (모바일/PC 모두 지원)
-- 부드러운 hover 효과 및 트랜지션
-
-기술 제약:
-- HTML, CSS, JavaScript만 사용 (외부 라이브러리 없이)
-- 단일 HTML 파일로 만들어줘"`,
-
-    default: (idea) => `"${idea}를 만들어줘.
-
-핵심 기능:
-1. [가장 중요한 기능 - 직접 채워주세요]
-2. [두 번째로 중요한 기능]
-3. [세 번째 기능]
-
-디자인 요구사항:
-- 현대적이고 깔끔한 UI
-- 다크 모드 지원
-- 모바일 반응형
-
-기술 스택:
-- 순수 HTML, CSS, JavaScript
-- 외부 라이브러리 없이 구현
-- 단일 파일 또는 3개 파일 분리 (index.html, style.css, app.js)
-
-추가 요구사항:
-- 데이터는 LocalStorage에 저장
-- 에러 처리 포함
-- 직관적인 사용자 경험"`,
+    hwp: {
+      title: '📝 한글(HWP) 시대',
+      features: ['인쇄 기반 자료 제작', '텍스트 중심', '교사가 편집, 학생은 수동적'],
+      limits: ['상호작용 불가', '배포 어려움 (파일 직접 전달)', '수정 후 재인쇄 필요'],
+    },
+    ppt: {
+      title: '📊 PowerPoint 시대',
+      features: ['시각적 표현 가능', '슬라이드 구조로 발표에 최적', '애니메이션 효과'],
+      limits: ['학생 참여는 여전히 수동적', '공유가 불편 (파일 전송)', '인터랙션 없음'],
+    },
+    canva: {
+      title: '🎨 Canva 시대',
+      features: ['아름다운 디자인 손쉽게', '실시간 협업 기능', '링크 공유 가능'],
+      limits: ['정해진 템플릿의 제한', '인터랙티브 기능 없음', '학생 데이터 수집 불가'],
+    },
+    webapp: {
+      title: '🌐 Web App 시대 (지금!)',
+      features: ['완전한 인터랙션', '학생 데이터 실시간 수집', '어떤 기능이든 구현 가능'],
+      limits: ['→ AI 덕분에 코딩 몰라도 만들 수 있습니다!'],
+      isNow: true,
+    },
   },
   en: {
-    tracker: (idea) => `"Create a ${idea} web app.
-
-Requirements:
-- [Core Feature 1]: Users can input and save data
-- [Core Feature 2]: Display in list format with delete option
-- [Core Feature 3]: Save to LocalStorage, persists on refresh
-
-Design:
-- Dark theme, minimal clean UI
-- Responsive (supports mobile/desktop)
-- Smooth hover effects and transitions
-
-Technical constraints:
-- Use only HTML, CSS, JavaScript (no external libraries)
-- Create as a single HTML file"`,
-
-    default: (idea) => `"Create ${idea}.
-
-Core features:
-1. [Most important feature - fill in yourself]
-2. [Second most important feature]
-3. [Third feature]
-
-Design requirements:
-- Modern, clean UI
-- Dark mode support
-- Mobile responsive
-
-Tech stack:
-- Pure HTML, CSS, JavaScript
-- No external libraries
-- Single file or 3 separate files (index.html, style.css, app.js)
-
-Additional requirements:
-- Store data in LocalStorage
-- Include error handling
-- Intuitive user experience"`,
+    hwp: {
+      title: '📝 Hangul (HWP) Era',
+      features: ['Print-based materials', 'Text-focused', 'Teacher edits, students passive'],
+      limits: ['No interactivity', 'Hard to distribute', 'Reprint needed after changes'],
+    },
+    ppt: {
+      title: '📊 PowerPoint Era',
+      features: ['Visual expression', 'Slide structure for presentations', 'Animation effects'],
+      limits: ['Students still passive', 'Inconvenient sharing (file transfer)', 'No interaction'],
+    },
+    canva: {
+      title: '🎨 Canva Era',
+      features: ['Beautiful design easily', 'Real-time collaboration', 'Link sharing possible'],
+      limits: ['Limited by templates', 'No interactive features', "Can't collect student data"],
+    },
+    webapp: {
+      title: '🌐 Web App Era (Now!)',
+      features: ['Full interactivity', 'Real-time student data collection', 'Any feature possible'],
+      limits: ['→ Thanks to AI, anyone can build without knowing code!'],
+      isNow: true,
+    },
   },
 };
 
-const promptKeywords = {
-  ko: { tracker: ['기록', '체크', '추적', '관리', '할일', '습관', '다이어리', '일기'] },
-  en: { tracker: ['track', 'check', 'log', 'manage', 'todo', 'habit', 'diary', 'journal'] },
-};
+function showTimelineDetail(key) {
+  const lang = currentLang === 'en' ? 'en' : 'ko';
+  const data = timelineData[lang][key];
+  if (!data) return;
 
-function generatePrompt() {
-  const idea = document.getElementById('ideaInput').value.trim();
-  if (!idea) {
-    alert(currentLang === 'en' ? 'Please enter your idea first!' : '아이디어를 먼저 입력해주세요!');
+  document.querySelectorAll('.timeline-item').forEach(el => el.classList.remove('active'));
+  document.getElementById('tl-' + key).classList.add('active');
+
+  const featuresList = data.features.map(f => `<li>${f}</li>`).join('');
+  const limitsList = data.limits.map(l => `<li>${l}</li>`).join('');
+  const featLabel = lang === 'en' ? '✅ Features' : '✅ 특징';
+  const limLabel = lang === 'en' ? '⚠️ Limitations' : '⚠️ 한계';
+
+  document.getElementById('timelineDetailContent').innerHTML = `
+    <div class="tl-detail-inner${data.isNow ? ' tl-now' : ''}">
+      <h4>${data.title}</h4>
+      <div class="tl-detail-cols">
+        <div><strong>${featLabel}</strong><ul>${featuresList}</ul></div>
+        <div><strong>${data.isNow ? '' : limLabel}</strong><ul>${limitsList}</ul></div>
+      </div>
+    </div>
+  `;
+}
+
+// ---- Lesson Prompt Generator ----
+function generateLessonPrompt() {
+  const activity = document.getElementById('lessonActivity').value.trim();
+  const goal = document.getElementById('lessonGoal').value.trim();
+  const process = document.getElementById('lessonProcess').value.trim();
+  const grade = document.getElementById('lessonGrade').value.trim();
+
+  if (!activity || !goal) {
+    alert(currentLang === 'en'
+      ? 'Please enter the activity name and learning objective.'
+      : '활동 이름과 학습 목표를 입력해주세요.');
     return;
   }
 
-  const keywords = promptKeywords[currentLang] || promptKeywords.ko;
-  const templates = promptTemplates[currentLang] || promptTemplates.ko;
+  let prompt;
+  if (currentLang === 'en') {
+    prompt = `I am a teacher${grade ? ' (' + grade + ')' : ''}.
 
-  let template = 'default';
-  for (const [key, words] of Object.entries(keywords)) {
-    if (words.some(w => idea.toLowerCase().includes(w))) {
-      template = key;
-      break;
-    }
+Please create a web app for my classroom activity.
+
+[Activity Name]
+${activity}
+
+[Learning Objective]
+${goal}
+
+[Activity Flow]
+${process || 'Students can input responses, submit, and view collective results'}
+
+[Requirements]
+- Mobile-friendly (students use smartphones)
+- Intuitive UI — no explanation needed for students
+- Real-time results display if possible
+- Clean, modern design
+- Single HTML file (HTML + CSS + JS all in one)
+- Korean language interface
+
+Please create a fully working web app. Add comments so I can easily modify it later.`;
+  } else {
+    prompt = `저는 ${grade ? grade + ' ' : ''}교사입니다.
+
+수업 활동에 사용할 웹앱을 만들어주세요.
+
+[활동 이름]
+${activity}
+
+[학습 목표]
+${goal}
+
+[활동 과정]
+${process || '학생들이 입력하고, 제출하고, 전체 결과를 볼 수 있는 형태'}
+
+[요구사항]
+- 모바일 친화적 (학생들이 스마트폰으로 사용)
+- 설명 없이도 학생들이 쉽게 사용할 수 있는 직관적인 UI
+- 결과 실시간 표시 (가능하면)
+- 깔끔하고 현대적인 디자인
+- HTML + CSS + JS를 하나의 파일로 만들어줘
+- 한국어 인터페이스
+
+완전히 동작하는 웹앱으로 만들어주세요. 나중에 선생님이 쉽게 수정할 수 있도록 주석도 달아주세요.`;
   }
 
-  const output = templates[template](idea);
-  const el = document.getElementById('promptOutput');
-  el.value = output;
-  el.style.height = 'auto';
-  el.style.height = el.scrollHeight + 'px';
+  const outputSection = document.getElementById('lessonOutput');
+  document.getElementById('lessonPromptText').value = prompt;
+  outputSection.style.display = 'block';
+  outputSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function copyLessonPrompt() {
+  const textarea = document.getElementById('lessonPromptText');
+  textarea.select();
+  document.execCommand('copy');
+  const btn = document.querySelector('.copy-btn');
+  const original = btn.getAttribute('data-original') || btn.textContent;
+  btn.setAttribute('data-original', original);
+  btn.textContent = currentLang === 'en' ? '✅ Copied!' : '✅ 복사됨!';
+  setTimeout(() => { btn.textContent = original; }, 2000);
+}
+
+// ---- Network Gallery ----
+function escapeHtml(str) {
+  const div = document.createElement('div');
+  div.appendChild(document.createTextNode(str));
+  return div.innerHTML;
+}
+
+function loadGallery() {
+  const items = JSON.parse(localStorage.getItem('networkGallery') || '[]');
+  const grid = document.getElementById('galleryGrid');
+  const empty = document.getElementById('galleryEmpty');
+
+  if (items.length === 0) {
+    grid.style.display = 'none';
+    empty.style.display = 'block';
+    return;
+  }
+
+  empty.style.display = 'none';
+  grid.style.display = 'grid';
+  const visitLabel = currentLang === 'en' ? 'Visit App' : '앱 방문하기';
+  grid.innerHTML = items.map(item => `
+    <div class="gallery-item">
+      <div class="gallery-item-header">
+        <span class="gallery-name">${escapeHtml(item.name)}</span>
+        <span class="gallery-date">${escapeHtml(item.date)}</span>
+      </div>
+      <div class="gallery-item-title">${escapeHtml(item.title)}</div>
+      <a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="gallery-link">
+        🔗 ${visitLabel}
+      </a>
+    </div>
+  `).join('');
+}
+
+function submitToNetwork() {
+  const name = document.getElementById('networkName').value.trim();
+  const title = document.getElementById('networkTitle').value.trim();
+  const url = document.getElementById('networkUrl').value.trim();
+
+  if (!name || !title || !url) {
+    alert(currentLang === 'en' ? 'Please fill in all fields.' : '모든 항목을 입력해주세요.');
+    return;
+  }
+  if (!url.startsWith('http://') && !url.startsWith('https://')) {
+    alert(currentLang === 'en'
+      ? 'Please enter a valid URL starting with https://'
+      : '유효한 링크를 입력해주세요 (https://로 시작)');
+    return;
+  }
+
+  const items = JSON.parse(localStorage.getItem('networkGallery') || '[]');
+  const today = new Date();
+  const dateStr = `${today.getFullYear()}.${String(today.getMonth() + 1).padStart(2, '0')}.${String(today.getDate()).padStart(2, '0')}`;
+  items.unshift({ name, title, url, date: dateStr });
+  localStorage.setItem('networkGallery', JSON.stringify(items));
+
+  document.getElementById('networkName').value = '';
+  document.getElementById('networkTitle').value = '';
+  document.getElementById('networkUrl').value = '';
+
+  loadGallery();
+  alert(currentLang === 'en' ? '🎉 Shared successfully!' : '🎉 공유되었습니다!');
 }
 
 // ---- Terminal animation ----
@@ -492,38 +455,35 @@ const terminalLines = {
     { type: 'prompt', text: '$ claude' },
     { type: 'output', text: '✻ Claude Code v2.1.0 시작됨', delay: 400 },
     { type: 'blank', delay: 200 },
-    { type: 'prompt', text: '> 안녕! 독서 기록 앱 만들어줘' },
+    { type: 'prompt', text: '> 나는 중학교 교사야. 학생 투표 앱 만들어줘' },
     { type: 'info', text: '⠸ 분석 중...', delay: 600 },
     { type: 'output', text: '📁 index.html 생성 중...', delay: 800 },
-    { type: 'output', text: '🎨 style.css 생성 중...', delay: 400 },
-    { type: 'output', text: '⚡ app.js 생성 중...', delay: 400 },
-    { type: 'success', text: '✓ 완료! 3개 파일이 생성되었습니다.', delay: 600 },
+    { type: 'output', text: '🎨 학생 친화적 UI 설계 중...', delay: 600 },
+    { type: 'output', text: '⚡ 실시간 결과 기능 추가 중...', delay: 500 },
+    { type: 'success', text: '✓ 완료! 수업 투표 앱이 생성되었습니다.', delay: 600 },
     { type: 'blank', delay: 300 },
-    { type: 'prompt', text: '> 별점 기능도 추가해줘' },
-    { type: 'info', text: '⠸ 수정 중...', delay: 600 },
-    { type: 'output', text: '✎ app.js 수정 중...', delay: 500 },
-    { type: 'success', text: '✓ 별점(★) 기능이 추가되었습니다!', delay: 500 },
+    { type: 'prompt', text: '> 모바일에서도 잘 보이게 수정해줘' },
+    { type: 'info', text: '⠸ 반응형 디자인 적용 중...', delay: 600 },
+    { type: 'success', text: '✓ QR코드로 학생들과 공유하세요!', delay: 500 },
   ],
   en: [
     { type: 'prompt', text: '$ claude' },
     { type: 'output', text: '✻ Claude Code v2.1.0 started', delay: 400 },
     { type: 'blank', delay: 200 },
-    { type: 'prompt', text: '> Hey! Create a reading log app' },
+    { type: 'prompt', text: "> I'm a teacher. Make a student voting app" },
     { type: 'info', text: '⠸ Analyzing...', delay: 600 },
     { type: 'output', text: '📁 Creating index.html...', delay: 800 },
-    { type: 'output', text: '🎨 Creating style.css...', delay: 400 },
-    { type: 'output', text: '⚡ Creating app.js...', delay: 400 },
-    { type: 'success', text: '✓ Done! 3 files created.', delay: 600 },
+    { type: 'output', text: '🎨 Designing student-friendly UI...', delay: 600 },
+    { type: 'output', text: '⚡ Adding real-time results...', delay: 500 },
+    { type: 'success', text: '✓ Done! Classroom voting app created.', delay: 600 },
     { type: 'blank', delay: 300 },
-    { type: 'prompt', text: '> Add a star rating feature too' },
-    { type: 'info', text: '⠸ Modifying...', delay: 600 },
-    { type: 'output', text: '✎ Editing app.js...', delay: 500 },
-    { type: 'success', text: '✓ Star rating (★) feature added!', delay: 500 },
+    { type: 'prompt', text: '> Make it look good on mobile too' },
+    { type: 'info', text: '⠸ Applying responsive design...', delay: 600 },
+    { type: 'success', text: '✓ Share with students via QR code!', delay: 500 },
   ],
 };
 
 const lines = terminalLines[currentLang] || terminalLines.ko;
-
 let lineIndex = 0;
 let charIndex = 0;
 let currentEl = null;
@@ -551,19 +511,13 @@ function typeChar() {
 
       const div = document.createElement('div');
       div.className = 't-line';
-
-      if (line.type === 'prompt') {
-        const span = document.createElement('span');
-        span.className = 't-prompt';
-        div.appendChild(span);
-        currentEl = span;
-      } else {
-        const span = document.createElement('span');
-        span.className = line.type === 'success' ? 't-success' : line.type === 'info' ? 't-info' : 't-output';
-        div.appendChild(span);
-        currentEl = span;
-      }
-
+      const span = document.createElement('span');
+      span.className = line.type === 'prompt' ? 't-prompt'
+        : line.type === 'success' ? 't-success'
+        : line.type === 'info' ? 't-info'
+        : 't-output';
+      div.appendChild(span);
+      currentEl = span;
       document.getElementById('terminalBody').appendChild(div);
       charIndex = 0;
       typeNextChar();
@@ -576,8 +530,7 @@ function typeNextChar() {
   if (charIndex < line.text.length) {
     currentEl.textContent += line.text[charIndex];
     charIndex++;
-    const speed = line.type === 'prompt' ? 40 : 20;
-    setTimeout(typeNextChar, speed);
+    setTimeout(typeNextChar, line.type === 'prompt' ? 40 : 20);
   } else {
     lineIndex++;
     currentEl = null;
@@ -587,7 +540,7 @@ function typeNextChar() {
 
 setTimeout(typeChar, 800);
 
-// ---- Smooth scroll active nav link ----
+// ---- Active nav link on scroll ----
 const sections = document.querySelectorAll('section[id]');
 const navAnchors = document.querySelectorAll('.nav-link');
 
