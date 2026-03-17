@@ -35,7 +35,7 @@ function cacheKorean() {
 }
 
 const en = {
-  'nav-logo': '🍳 Teacher Vibe Coding',
+  'nav-logo': 'Teacher Vibe Coding',
   'nav-why': 'Head Chef Vibe Coding (WHY)',
   'nav-how': 'Meal Kit (HOW)',
   'nav-vibe': 'VIBE Framework',
@@ -53,7 +53,7 @@ const en = {
   'hero-stat3-label': 'Fully Open',
   'ch01-tag': 'CHAPTER 01 · Head Chef',
   'ch01-title': 'Why Should Teachers Build Web Apps?',
-  'ch01-desc': 'Classroom materials have evolved from Hangul to PPT, Canva, and now Web Apps.',
+  'ch01-desc': 'Classroom materials have evolved from Hangul to PPT, Canva, and now Web Apps.<br/> AI is at the center of this shift.',
   'timeline-title': '📚 The Evolution of Classroom Materials',
   'tl-hwp-label': 'Hangul (HWP)',
   'tl-ppt-label': 'PowerPoint',
@@ -86,11 +86,11 @@ const en = {
   'tool-lovable': 'AI-assisted app building, automated design, one-click deploy',
   'tool-github': 'Free hosting, permanent link, ideal for sharing with students',
   'checklist-title': '✅ Pre-Workshop Checklist',
-  'check1': 'Claude.ai or Gemini account ready',
+  'check1': 'Generative AI account ready',
   'check2': 'One lesson activity idea noted',
   'check3': 'GitHub account created (free)',
   'check4': '30 min–1 hour set aside',
-  'practice-prompts-desc': 'Copy a prompt below and paste it into Claude.ai or Gemini to practice.',
+  'practice-prompts-desc': 'Copy a prompt below and paste it into a generative AI tool to practice.',
   'practice-empty': 'No practice prompts added yet.',
   'ch03-tag': 'CHAPTER 03 · VIBE Framework',
   'ch03-title': 'Build Lesson Apps with V.I.B.E',
@@ -119,7 +119,7 @@ const en = {
   'lesson-copy-btn': '📋 Copy',
   'lesson-next-title': '<strong>Next steps:</strong>',
   'lesson-next-1': 'Copy the prompt above',
-  'lesson-next-2': 'Paste it into Claude.ai or Gemini',
+  'lesson-next-2': 'Paste it into a generative AI tool',
   'lesson-next-3': 'Save generated code as index.html',
   'lesson-next-4': 'Open in browser to check',
   'ch05-tag': 'CHAPTER 05 · Network',
@@ -181,6 +181,7 @@ function applyTranslations(lang) {
   htmlEl.lang = lang;
   document.getElementById('langToggle').textContent = lang === 'ko' ? 'EN' : 'KO';
   applyAdminTextOverrides(lang);
+  applyCustomTextOverrides();
 }
 
 cacheKorean();
@@ -211,7 +212,9 @@ document.addEventListener('DOMContentLoaded', () => {
   if (first) first.classList.add('open');
   loadGallery();
   loadPracticePrompts();
+  _initCustomTextIds();
   applyAdminTextOverrides(currentLang);
+  applyCustomTextOverrides(currentLang);
 });
 
 // ---- Timeline ----
@@ -526,7 +529,23 @@ function adminLogout() {
     el.removeEventListener('click', _onTextEditClick);
   });
   document.getElementById('adminEditNotice').classList.remove('visible');
+  textEditMode = false;
   closeAdminModal();
+}
+
+// Assign stable data-text-id to all non-i18n text elements (deterministic order)
+let _textIdSeed = 0;
+function _initCustomTextIds() {
+  _textIdSeed = 0;
+  const SEL = 'h1,h2,h3,h4,h5,h6,p,li,dt,dd,cite,blockquote,th,td,span,label,a';
+  document.querySelectorAll(SEL).forEach(el => {
+    if (el.hasAttribute('data-i18n') || el.hasAttribute('data-i18n-html')) return;
+    if (el.closest('script,style,noscript,input,textarea,button,select')) return;
+    if (!el.textContent.trim()) return;
+    // Skip if already assigned or if parent already has one (avoid double)
+    if (el.hasAttribute('data-text-id')) return;
+    el.setAttribute('data-text-id', 'tx' + (_textIdSeed++));
+  });
 }
 
 function toggleTextEditMode() {
@@ -535,7 +554,13 @@ function toggleTextEditMode() {
   const notice = document.getElementById('adminEditNotice');
   if (textEditMode) {
     notice.classList.add('visible');
+    // i18n elements
     document.querySelectorAll('[data-i18n]').forEach(el => {
+      el.classList.add('admin-text-highlight');
+      el.addEventListener('click', _onTextEditClick);
+    });
+    // All other text elements
+    document.querySelectorAll('[data-text-id]').forEach(el => {
       el.classList.add('admin-text-highlight');
       el.addEventListener('click', _onTextEditClick);
     });
@@ -552,9 +577,10 @@ function toggleTextEditMode() {
 function _onTextEditClick(e) {
   if (!textEditMode) return;
   e.stopPropagation();
-  const key = this.getAttribute('data-i18n');
-  if (!key) return;
-  _currentEditKey = key;
+  const i18nKey = this.getAttribute('data-i18n');
+  const textId = this.getAttribute('data-text-id');
+  if (!i18nKey && !textId) return;
+  _currentEditKey = i18nKey ? ('i18n:' + i18nKey) : ('custom:' + textId);
   const modal = document.getElementById('adminTextModal');
   document.getElementById('adminTextInput').value = this.textContent;
   modal.classList.add('open');
@@ -564,23 +590,36 @@ function _onTextEditClick(e) {
 function saveAdminText() {
   if (!_currentEditKey) return;
   const val = document.getElementById('adminTextInput').value;
-  localStorage.setItem(`admin_${currentLang}_${_currentEditKey}`, val);
-  // Apply immediately
-  document.querySelectorAll(`[data-i18n="${_currentEditKey}"]`).forEach(el => {
-    el.textContent = val;
-  });
+  if (_currentEditKey.startsWith('i18n:')) {
+    const key = _currentEditKey.slice(5);
+    localStorage.setItem(`admin_${currentLang}_${key}`, val);
+    document.querySelectorAll(`[data-i18n="${key}"]`).forEach(el => { el.textContent = val; });
+  } else {
+    const textId = _currentEditKey.slice(7);
+    localStorage.setItem(`admin_custom_${textId}`, val);
+    document.querySelectorAll(`[data-text-id="${textId}"]`).forEach(el => { el.textContent = val; });
+  }
   closeAdminTextModal();
 }
 
 function resetAdminText() {
   if (!_currentEditKey) return;
-  localStorage.removeItem(`admin_${currentLang}_${_currentEditKey}`);
-  // Re-apply default
-  const defVal = currentLang === 'ko'
-    ? document.querySelector(`[data-i18n="${_currentEditKey}"]`)?.getAttribute('data-ko')
-    : en[_currentEditKey];
-  if (defVal) {
-    document.querySelectorAll(`[data-i18n="${_currentEditKey}"]`).forEach(el => { el.textContent = defVal; });
+  if (_currentEditKey.startsWith('i18n:')) {
+    const key = _currentEditKey.slice(5);
+    localStorage.removeItem(`admin_${currentLang}_${key}`);
+    const defVal = currentLang === 'ko'
+      ? document.querySelector(`[data-i18n="${key}"]`)?.getAttribute('data-ko')
+      : en[key];
+    if (defVal) {
+      document.querySelectorAll(`[data-i18n="${key}"]`).forEach(el => { el.textContent = defVal; });
+    }
+  } else {
+    const textId = _currentEditKey.slice(7);
+    localStorage.removeItem(`admin_custom_${textId}`);
+    const el = document.querySelector(`[data-text-id="${textId}"]`);
+    if (el && el.hasAttribute('data-orig-text')) {
+      el.textContent = el.getAttribute('data-orig-text');
+    }
   }
   closeAdminTextModal();
 }
@@ -594,6 +633,15 @@ function applyAdminTextOverrides(lang) {
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
     const saved = localStorage.getItem(`admin_${lang}_${key}`);
+    if (saved !== null) el.textContent = saved;
+  });
+}
+
+function applyCustomTextOverrides() {
+  document.querySelectorAll('[data-text-id]').forEach(el => {
+    const textId = el.getAttribute('data-text-id');
+    if (!el.hasAttribute('data-orig-text')) el.setAttribute('data-orig-text', el.textContent);
+    const saved = localStorage.getItem(`admin_custom_${textId}`);
     if (saved !== null) el.textContent = saved;
   });
 }
@@ -662,12 +710,12 @@ const terminalLines = {
     { type: 'prompt', text: '$ claude' },
     { type: 'output', text: '✻ Claude Code v2.1.0 시작됨', delay: 400 },
     { type: 'blank', delay: 200 },
-    { type: 'prompt', text: '> 나는 중학교 교사야. 학생 투표 앱 만들어줘' },
+    { type: 'prompt', text: '> 나는 초등학교 교사야. 이미지카드 앱 만들어줘' },
     { type: 'info', text: '⠸ 분석 중...', delay: 600 },
     { type: 'output', text: '📁 index.html 생성 중...', delay: 800 },
     { type: 'output', text: '🎨 학생 친화적 UI 설계 중...', delay: 600 },
-    { type: 'output', text: '⚡ 실시간 결과 기능 추가 중...', delay: 500 },
-    { type: 'success', text: '✓ 완료! 수업 투표 앱이 생성되었습니다.', delay: 600 },
+    { type: 'output', text: '⚡ 실시간 소통 기능 추가 중...', delay: 500 },
+    { type: 'success', text: '✓ 완료! 이미지 카드 앱이 생성되었습니다.', delay: 600 },
     { type: 'blank', delay: 300 },
     { type: 'prompt', text: '> 모바일에서도 잘 보이게 수정해줘' },
     { type: 'info', text: '⠸ 반응형 디자인 적용 중...', delay: 600 },
@@ -677,12 +725,12 @@ const terminalLines = {
     { type: 'prompt', text: '$ claude' },
     { type: 'output', text: '✻ Claude Code v2.1.0 started', delay: 400 },
     { type: 'blank', delay: 200 },
-    { type: 'prompt', text: "> I'm a teacher. Make a student voting app" },
+    { type: 'prompt', text: "> I'm an elementary school teacher. Make me an image card app" },
     { type: 'info', text: '⠸ Analyzing...', delay: 600 },
     { type: 'output', text: '📁 Creating index.html...', delay: 800 },
     { type: 'output', text: '🎨 Designing student-friendly UI...', delay: 600 },
-    { type: 'output', text: '⚡ Adding real-time results...', delay: 500 },
-    { type: 'success', text: '✓ Done! Classroom voting app created.', delay: 600 },
+    { type: 'output', text: '⚡ Adding real-time interaction...', delay: 500 },
+    { type: 'success', text: '✓ Done! Image card app created.', delay: 600 },
     { type: 'blank', delay: 300 },
     { type: 'prompt', text: '> Make it look good on mobile too' },
     { type: 'info', text: '⠸ Applying responsive design...', delay: 600 },
