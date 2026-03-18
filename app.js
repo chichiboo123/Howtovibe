@@ -363,7 +363,17 @@ function _renderItems(items) {
 }
 
 // REST API로 gallery 데이터 가져오기 — Object.entries()로 배열 변환
+// v2026-03-18
 function loadGallery() {
+  var grid = document.getElementById('galleryGrid');
+  var empty = document.getElementById('galleryEmpty');
+  // 로딩 중 표시
+  if (grid) grid.style.display = 'none';
+  if (empty) {
+    empty.style.display = 'block';
+    empty.innerHTML = '<span style="opacity:0.6">⏳ 갤러리 불러오는 중...</span>';
+  }
+
   fetch(_DB_URL + '/gallery.json')
     .then(function(res) {
       if (!res.ok) throw new Error('HTTP ' + res.status);
@@ -384,7 +394,13 @@ function loadGallery() {
     })
     .catch(function(err) {
       console.error('Gallery fetch error:', err);
-      _renderItems([]);
+      // 오류를 화면에도 표시
+      if (empty) {
+        empty.style.display = 'block';
+        empty.innerHTML = '❌ 갤러리 로딩 오류: ' + err.message +
+          '<br><small style="opacity:0.6">브라우저 콘솔(F12)을 확인해주세요.</small>';
+      }
+      if (grid) grid.style.display = 'none';
     });
 }
 
