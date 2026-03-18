@@ -136,7 +136,7 @@
       <div class="quote-block">
         <blockquote>
           <span style="font-size:1.05em; color:var(--text-muted); display:block; margin-bottom:10px;">"La perfection est atteinte, non pas lorsqu'il n'y a plus rien à ajouter, mais lorsqu'il n'y a plus rien à retrancher."</span>
-          "완벽함이란 더 이상 보탤 것이 없을 때가 아니라,<br/>더 이상 덜어낼 것이 없을 때 완성된다."<br/>
+          <span data-i18n-html="quote-text">"완벽함이란 더 이상 보탤 것이 없을 때가 아니라,<br/>더 이상 덜어낼 것이 없을 때 완성된다."</span><br/>
           <cite data-i18n="quote-cite">— Antoine de Saint-Exupéry</cite>
         </blockquote>
       </div>
@@ -185,7 +185,7 @@
           </div>
           <div class="tool-cat-items">
             <div class="tool-item featured">
-              <div class="tool-item-name">Claude (Anthropic) <span class="tag">추천</span></div>
+              <div class="tool-item-name">Claude (Anthropic) <span class="tag" data-i18n="recommended-tag">추천</span></div>
               <div class="tool-item-desc" data-i18n="tool-claude">긴 코드 맥락 이해, 정확한 구현, 선생님 눈높이에 맞는 설명</div>
             </div>
             <div class="tool-item">
@@ -236,7 +236,7 @@
       <!-- Practice Prompts (admin-managed) -->
       <div class="practice-prompts-section" id="practicePromptsSection">
         <div class="practice-prompts-header">
-          <h3><span class="material-symbols-outlined">emoji_objects</span> 실습 프롬프트</h3>
+          <h3><span class="material-symbols-outlined">emoji_objects</span> <span data-i18n="practice-prompts-title">실습 프롬프트</span></h3>
           <p data-i18n="practice-prompts-desc">아래 프롬프트를 복사해서 생성형 AI에 붙여넣어 실습해보세요.</p>
         </div>
         <div class="practice-prompts-list" id="practicePromptsList">
@@ -275,18 +275,18 @@
           <div class="step-body">
             <div class="step-content">
               <div class="substep">
-                <h4><span class="material-symbols-outlined">track_changes</span> 교사 활동 예시</h4>
-                <p>학생들이 모둠별로 토론 결과를 제출하는 앱이 필요하다고 상상해보세요.</p>
+                <h4 data-i18n-html="vibe-v-teacher-example-h4"><span class="material-symbols-outlined">track_changes</span> 교사 활동 예시</h4>
+                <p data-i18n="vibe-v-teacher-example-desc">학생들이 모둠별로 토론 결과를 제출하는 앱이 필요하다고 상상해보세요.</p>
                 <div class="example-box">
-                  <div class="example-label">시각화 질문들</div>
+                  <div class="example-label" data-i18n="vibe-v-viz-questions-label">시각화 질문들</div>
                   <ul>
-                    <li>학생이 이 앱에서 무엇을 입력하는가?</li>
-                    <li>선생님은 어떤 화면을 보는가?</li>
-                    <li>수업의 어느 단계에서 사용하는가?</li>
+                    <li data-i18n="vibe-v-q1">학생이 이 앱에서 무엇을 입력하는가?</li>
+                    <li data-i18n="vibe-v-q2">선생님은 어떤 화면을 보는가?</li>
+                    <li data-i18n="vibe-v-q3">수업의 어느 단계에서 사용하는가?</li>
                   </ul>
                 </div>
               </div>
-              <div class="tip-box">
+              <div class="tip-box" data-i18n-html="vibe-v-tip">
                 <strong><span class="material-symbols-outlined">emoji_objects</span> 팁:</strong> 종이에 먼저 화면을 스케치해보세요. 그림이 있으면 AI에게 더 정확하게 설명할 수 있습니다.
               </div>
             </div>
@@ -305,19 +305,19 @@
           <div class="step-body">
             <div class="step-content">
               <div class="substep">
-                <h4><span class="material-symbols-outlined">assignment</span> 좋은 첫 프롬프트 구조</h4>
+                <h4 data-i18n-html="vibe-i-prompt-structure-h4"><span class="material-symbols-outlined">assignment</span> 좋은 첫 프롬프트 구조</h4>
                 <div class="prompt-template">
-                  <div class="prompt-line"><span class="pt-label">나는:</span> [교사 / 교과목]</div>
-                  <div class="prompt-line"><span class="pt-label">목적:</span> [어떤 수업 활동에 쓸 것인지]</div>
-                  <div class="prompt-line"><span class="pt-label">사용자:</span> [학생 / 학년]</div>
-                  <div class="prompt-line"><span class="pt-label">핵심 기능:</span> [학생이 할 수 있는 것 3가지]</div>
-                  <div class="prompt-line"><span class="pt-label">형식:</span> HTML/CSS/JS 단일 파일</div>
+                  <div class="prompt-line" data-i18n-html="vibe-i-prompt-line1"><span class="pt-label">나는:</span> [교사 / 교과목]</div>
+                  <div class="prompt-line" data-i18n-html="vibe-i-prompt-line2"><span class="pt-label">목적:</span> [어떤 수업 활동에 쓸 것인지]</div>
+                  <div class="prompt-line" data-i18n-html="vibe-i-prompt-line3"><span class="pt-label">사용자:</span> [학생 / 학년]</div>
+                  <div class="prompt-line" data-i18n-html="vibe-i-prompt-line4"><span class="pt-label">핵심 기능:</span> [학생이 할 수 있는 것 3가지]</div>
+                  <div class="prompt-line" data-i18n-html="vibe-i-prompt-line5"><span class="pt-label">형식:</span> HTML/CSS/JS 단일 파일</div>
                 </div>
               </div>
               <div class="substep">
-                <h4><span class="material-symbols-outlined">history_edu</span> 실제 교사 예시</h4>
+                <h4 data-i18n-html="vibe-i-real-example-h4"><span class="material-symbols-outlined">history_edu</span> 실제 교사 예시</h4>
                 <div class="code-block">
-                  <pre>"나는 중학교 사회 교사입니다.
+                  <pre data-i18n="vibe-i-example-code">"나는 중학교 사회 교사입니다.
 
 수업 시간에 학생들이 찬반 토론 의견을 제출하는 웹앱을 만들어줘.
 
@@ -328,7 +328,7 @@
 - HTML, CSS, JS 한 파일로 만들어줘"</pre>
                 </div>
               </div>
-              <div class="tip-box">
+              <div class="tip-box" data-i18n-html="vibe-i-tip">
                 <strong><span class="material-symbols-outlined">emoji_objects</span> 팁:</strong> "나는 교사입니다"라고 명시하면 AI가 교육적 맥락을 더 잘 이해합니다.
               </div>
             </div>
@@ -347,31 +347,31 @@
           <div class="step-body">
             <div class="step-content">
               <div class="substep">
-                <h4><span class="material-symbols-outlined">desktop_windows</span> 코드 실행하기 (2가지 방법)</h4>
+                <h4 data-i18n-html="vibe-b-run-methods-h4"><span class="material-symbols-outlined">desktop_windows</span> 코드 실행하기 (2가지 방법)</h4>
                 <div class="example-box">
-                  <div class="example-label">방법 1: 로컬 파일 (가장 쉬움)</div>
+                  <div class="example-label" data-i18n="vibe-b-method1-label">방법 1: 로컬 파일 (가장 쉬움)</div>
                   <ol style="padding-left:16px; margin-top:8px; display:flex; flex-direction:column; gap:4px;">
-                    <li style="font-size:0.9rem; color:var(--text-muted);">AI 코드를 복사 → <code>index.html</code> 파일로 저장</li>
-                    <li style="font-size:0.9rem; color:var(--text-muted);">파일을 더블클릭 → 브라우저에서 바로 실행</li>
+                    <li style="font-size:0.9rem; color:var(--text-muted);" data-i18n-html="vibe-b-method1-step1">AI 코드를 복사 → <code>index.html</code> 파일로 저장</li>
+                    <li style="font-size:0.9rem; color:var(--text-muted);" data-i18n="vibe-b-method1-step2">파일을 더블클릭 → 브라우저에서 바로 실행</li>
                   </ol>
                 </div>
                 <div class="example-box" style="margin-top:12px;">
-                  <div class="example-label">방법 2: Replit (설치 불필요, 즉시 공유)</div>
+                  <div class="example-label" data-i18n="vibe-b-method2-label">방법 2: Replit (설치 불필요, 즉시 공유)</div>
                   <ol style="padding-left:16px; margin-top:8px; display:flex; flex-direction:column; gap:4px;">
-                    <li style="font-size:0.9rem; color:var(--text-muted);">replit.com 접속 → 새 Repl 만들기</li>
-                    <li style="font-size:0.9rem; color:var(--text-muted);">코드 붙여넣기 → Run 버튼 클릭</li>
-                    <li style="font-size:0.9rem; color:var(--text-muted);">자동으로 URL 생성 → 학생들과 즉시 공유</li>
+                    <li style="font-size:0.9rem; color:var(--text-muted);" data-i18n="vibe-b-method2-step1">replit.com 접속 → 새 Repl 만들기</li>
+                    <li style="font-size:0.9rem; color:var(--text-muted);" data-i18n="vibe-b-method2-step2">코드 붙여넣기 → Run 버튼 클릭</li>
+                    <li style="font-size:0.9rem; color:var(--text-muted);" data-i18n="vibe-b-method2-step3">자동으로 URL 생성 → 학생들과 즉시 공유</li>
                   </ol>
                 </div>
               </div>
               <div class="substep">
-                <h4><span class="material-symbols-outlined">bug_report</span> 오류가 났을 때</h4>
+                <h4 data-i18n-html="vibe-b-debug-h4"><span class="material-symbols-outlined">bug_report</span> 오류가 났을 때</h4>
                 <div class="code-block">
-                  <pre>"아래 오류가 발생했어. 고쳐줘:
+                  <pre data-i18n="vibe-b-debug-code">"아래 오류가 발생했어. 고쳐줘:
 [오류 메시지 붙여넣기]"</pre>
                 </div>
               </div>
-              <div class="tip-box">
+              <div class="tip-box" data-i18n-html="vibe-b-tip">
                 <strong><span class="material-symbols-outlined">emoji_objects</span> 팁:</strong> 오류 메시지를 그대로 복사해서 AI에게 붙여넣으면 대부분 해결됩니다.
               </div>
             </div>
@@ -390,39 +390,39 @@
           <div class="step-body">
             <div class="step-content">
               <div class="substep">
-                <h4><span class="material-symbols-outlined">sync</span> 수업 후 발전 사이클</h4>
+                <h4 data-i18n-html="vibe-e-cycle-h4"><span class="material-symbols-outlined">sync</span> 수업 후 발전 사이클</h4>
                 <div class="cycle-diagram">
-                  <div class="cycle-item"><span class="material-symbols-outlined">school</span> 수업 적용</div>
+                  <div class="cycle-item"><span class="material-symbols-outlined">school</span> <span data-i18n="vibe-e-cycle-apply">수업 적용</span></div>
                   <div class="cycle-arrow">→</div>
-                  <div class="cycle-item"><span class="material-symbols-outlined">assignment</span> 피드백 수집</div>
+                  <div class="cycle-item"><span class="material-symbols-outlined">assignment</span> <span data-i18n="vibe-e-cycle-feedback">피드백 수집</span></div>
                   <div class="cycle-arrow">→</div>
-                  <div class="cycle-item"><span class="material-symbols-outlined">chat</span> AI에게 개선 요청</div>
+                  <div class="cycle-item"><span class="material-symbols-outlined">chat</span> <span data-i18n="vibe-e-cycle-request">AI에게 개선 요청</span></div>
                   <div class="cycle-arrow">→</div>
-                  <div class="cycle-item"><span class="material-symbols-outlined">workspace_premium</span> 다음 수업에 활용</div>
+                  <div class="cycle-item"><span class="material-symbols-outlined">workspace_premium</span> <span data-i18n="vibe-e-cycle-next">다음 수업에 활용</span></div>
                 </div>
               </div>
               <div class="substep">
-                <h4><span class="material-symbols-outlined">playlist_add_check</span> 좋은 개선 요청 예시</h4>
+                <h4 data-i18n-html="vibe-e-improvement-h4"><span class="material-symbols-outlined">playlist_add_check</span> 좋은 개선 요청 예시</h4>
                 <div class="feedback-examples">
                   <div class="feedback bad">
-                    <div class="feedback-label"><span class="material-symbols-outlined">close</span> 막연한 요청</div>
-                    <p>"학생들이 불편해했어. 고쳐줘"</p>
+                    <div class="feedback-label" data-i18n-html="vibe-e-feedback-bad-label"><span class="material-symbols-outlined">close</span> 막연한 요청</div>
+                    <p data-i18n="vibe-e-feedback-bad-text">"학생들이 불편해했어. 고쳐줘"</p>
                   </div>
                   <div class="feedback good">
-                    <div class="feedback-label"><span class="material-symbols-outlined">done</span> 구체적인 요청</div>
-                    <p>"모바일에서 버튼이 너무 작아서 못 눌렀어. 버튼 크기를 2배로 키워줘"</p>
+                    <div class="feedback-label" data-i18n-html="vibe-e-feedback-good-label"><span class="material-symbols-outlined">done</span> 구체적인 요청</div>
+                    <p data-i18n="vibe-e-feedback-good-text">"모바일에서 버튼이 너무 작아서 못 눌렀어. 버튼 크기를 2배로 키워줘"</p>
                   </div>
                 </div>
               </div>
               <div class="substep">
-                <h4><span class="material-symbols-outlined">school</span> 배포 및 학생 공유</h4>
+                <h4 data-i18n-html="vibe-e-deploy-h4"><span class="material-symbols-outlined">school</span> 배포 및 학생 공유</h4>
                 <ol style="padding-left:20px; display:flex; flex-direction:column; gap:6px; margin-top:8px;">
-                  <li style="font-size:0.9rem; color:var(--text-muted);">GitHub Pages 또는 Vercel에 업로드</li>
-                  <li style="font-size:0.9rem; color:var(--text-muted);">생성된 URL을 QR코드로 변환 (구글에서 "QR코드 생성기" 검색)</li>
-                  <li style="font-size:0.9rem; color:var(--text-muted);">수업 자료에 QR코드 삽입 → 학생들이 스캔</li>
+                  <li style="font-size:0.9rem; color:var(--text-muted);" data-i18n="vibe-e-deploy-step1">GitHub Pages 또는 Vercel에 업로드</li>
+                  <li style="font-size:0.9rem; color:var(--text-muted);" data-i18n="vibe-e-deploy-step2">생성된 URL을 QR코드로 변환 (구글에서 "QR코드 생성기" 검색)</li>
+                  <li style="font-size:0.9rem; color:var(--text-muted);" data-i18n="vibe-e-deploy-step3">수업 자료에 QR코드 삽입 → 학생들이 스캔</li>
                 </ol>
               </div>
-              <div class="tip-box">
+              <div class="tip-box" data-i18n-html="vibe-e-tip">
                 <strong><span class="material-symbols-outlined">emoji_objects</span> 팁:</strong> 첫 번째 앱이 완벽하지 않아도 됩니다. 매 수업마다 조금씩 발전시키는 것이 핵심입니다.
               </div>
             </div>
