@@ -948,7 +948,7 @@ const terminalLines = {
   ],
   en: [
     { type: 'prompt', text: "$ Won\u2019s Vibe Coding" },
-    { type: 'output', text: "✻ Chisoo\u2019s Vibe Coding v2.1.0 running...", delay: 400 },
+    { type: 'output', text: "✻ Chisu\u2019s Vibe Coding v2.1.0 running...", delay: 400 },
     { type: 'blank', delay: 200 },
     { type: 'prompt', text: '> Who am I?' },
     { type: 'info', text: '⠸ Analyzing identity...', delay: 600 },
