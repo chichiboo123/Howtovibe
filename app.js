@@ -15,8 +15,14 @@ const firebaseConfig = {
   appId: "1:899599719435:web:16222bfa1fff7279523b0e",
   measurementId: "G-LCTCPFLB0F"
 };
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
+let db;
+try {
+  firebase.initializeApp(firebaseConfig);
+  db = firebase.database();
+} catch (e) {
+  console.error('Firebase 초기화 실패:', e);
+  db = null;
+}
 
 // ============================================================
 //  THEME TOGGLE
@@ -305,10 +311,10 @@ function copyLessonPrompt() {
   ta.select();
   document.execCommand('copy');
   const btn = document.querySelector('.copy-btn');
-  const orig = btn.getAttribute('data-original') || btn.textContent;
-  btn.setAttribute('data-original', orig);
-  btn.textContent = currentLang === 'en' ? '✅ Copied!' : '✅ 복사됨!';
-  setTimeout(() => { btn.textContent = orig; }, 2000);
+  const textSpan = btn.querySelector('[data-i18n]') || btn;
+  const orig = textSpan.textContent;
+  textSpan.textContent = currentLang === 'en' ? '✅ Copied!' : '✅ 복사됨!';
+  setTimeout(() => { textSpan.textContent = orig; }, 2000);
 }
 
 // ============================================================
@@ -409,6 +415,7 @@ function loadGallery() {
 }
 
 function toggleLike(key) {
+  if (!db) return;
   const likedKeys = JSON.parse(localStorage.getItem('likedGallery') || '[]');
   const alreadyLiked = likedKeys.includes(key);
   db.ref('gallery/' + key + '/likes').transaction(function(current) {
@@ -443,6 +450,7 @@ function submitToNetwork() {
     alert(currentLang === 'en' ? 'Please set a password for editing/deleting.' : '수정/삭제를 위한 비밀번호를 설정해주세요.');
     return;
   }
+  if (!db) { alert(currentLang === 'en' ? '❌ Database unavailable.' : '❌ 데이터베이스에 연결할 수 없습니다.'); return; }
   const today = new Date();
   const dateStr = `${today.getFullYear()}.${String(today.getMonth() + 1).padStart(2, '0')}.${String(today.getDate()).padStart(2, '0')}`;
   db.ref('gallery').push({ name, title, desc, url, date: dateStr, pwHash: _ghash(pw), ts: Date.now(), likes: 0 })
@@ -488,6 +496,7 @@ function galleryDelete(key) {
 }
 
 function _doGalleryEdit(key, pw, isAdmin) {
+  if (!db) return;
   db.ref('gallery/' + key).once('value').then(snapshot => {
     const item = snapshot.val();
     if (!item) return;
@@ -510,6 +519,7 @@ function _doGalleryEdit(key, pw, isAdmin) {
 }
 
 function _doGalleryDelete(key, pw, isAdmin) {
+  if (!db) return;
   db.ref('gallery/' + key).once('value').then(snapshot => {
     const item = snapshot.val();
     if (!item) return;
@@ -526,6 +536,7 @@ function _doGalleryDelete(key, pw, isAdmin) {
 //  PRACTICE PROMPTS  — Firebase backend
 // ============================================================
 function loadPracticePrompts() {
+  if (!db) return;
   db.ref('practicePrompts').orderByChild('order').once('value').then(snapshot => {
     const list = document.getElementById('practicePromptsList');
     const emptyMsg = document.getElementById('practiceEmptyMsg');
@@ -556,6 +567,7 @@ function loadPracticePrompts() {
 }
 
 function copyPracticePrompt(key) {
+  if (!db) return;
   db.ref('practicePrompts/' + key).once('value').then(snapshot => {
     const p = snapshot.val();
     if (!p) return;
@@ -568,7 +580,7 @@ function copyPracticePrompt(key) {
     const btn = document.querySelector(`.practice-prompt-copy[data-key="${key}"]`);
     if (btn) {
       const orig = btn.textContent;
-      btn.textContent = '✅ 복사됨!';
+      btn.innerHTML = '✅ 복사됨!';
       setTimeout(() => { btn.textContent = orig; }, 2000);
     }
   });
@@ -718,6 +730,7 @@ function _applyCustomCache() {
 }
 
 function initAdminOverrideListeners() {
+  if (!db) return;
   // i18n overrides (all languages)
   db.ref('adminOverrides/i18n').on('value', function(snapshot) {
     _adminI18nCache = snapshot.val() || {};
@@ -732,6 +745,7 @@ function initAdminOverrideListeners() {
 
 function saveAdminText() {
   if (!_currentEditKey) return;
+  if (!db) { closeAdminTextModal(); return; }
   const val = document.getElementById('adminTextInput').value;
   if (_currentEditKey.startsWith('i18n:')) {
     const key = _currentEditKey.slice(5);
@@ -747,6 +761,7 @@ function saveAdminText() {
 
 function resetAdminText() {
   if (!_currentEditKey) return;
+  if (!db) { closeAdminTextModal(); return; }
   if (_currentEditKey.startsWith('i18n:')) {
     const key = _currentEditKey.slice(5);
     db.ref('adminOverrides/i18n/' + currentLang + '/' + key).remove();
@@ -779,6 +794,7 @@ function applyCustomTextOverrides() {
 
 // Admin: practice prompts  — Firebase backend
 function adminAddPrompt() {
+  if (!db) return;
   const title = document.getElementById('adminPromptTitle').value.trim();
   const content = document.getElementById('adminPromptContent').value.trim();
   if (!title || !content) { alert('제목과 내용을 모두 입력해주세요.'); return; }
@@ -791,6 +807,7 @@ function adminAddPrompt() {
 }
 
 function adminDeletePrompt(key) {
+  if (!db) return;
   if (!confirm('삭제하시겠습니까?')) return;
   db.ref('practicePrompts/' + key).remove().then(() => {
     loadPracticePrompts();
@@ -799,6 +816,7 @@ function adminDeletePrompt(key) {
 }
 
 function renderAdminPromptList() {
+  if (!db) return;
   db.ref('practicePrompts').orderByChild('order').once('value').then(snapshot => {
     const list = document.getElementById('adminPromptList');
     if (!list) return;
@@ -815,6 +833,7 @@ function renderAdminPromptList() {
 }
 
 function renderAdminGalleryList() {
+  if (!db) return;
   db.ref('gallery').orderByChild('ts').once('value').then(snapshot => {
     const list = document.getElementById('adminGalleryList');
     if (!list) return;
@@ -831,6 +850,7 @@ function renderAdminGalleryList() {
 }
 
 function adminDeleteGallery(key) {
+  if (!db) return;
   if (!confirm('갤러리 항목을 삭제하시겠습니까?')) return;
   db.ref('gallery/' + key).remove().then(function() {
     loadGallery();
