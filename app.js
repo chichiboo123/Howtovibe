@@ -172,6 +172,10 @@ const en = {
 
 let currentLang = localStorage.getItem('lang') || 'ko';
 
+// Admin text override caches — must be declared BEFORE applyTranslations() is called
+let _adminI18nCache = {};   // { lang: { key: val } }
+let _adminCustomCache = {}; // { textId: val }
+
 function applyTranslations(lang) {
   if (lang === 'ko') {
     document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -696,8 +700,6 @@ function _onTextEditClick(e) {
 }
 
 // ---- Admin text overrides: Firebase-backed, real-time across devices ----
-let _adminI18nCache = {};   // { lang: { key: val } }
-let _adminCustomCache = {}; // { textId: val }
 
 function _applyI18nCache(lang) {
   const overrides = _adminI18nCache[lang] || {};
