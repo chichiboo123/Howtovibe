@@ -201,6 +201,12 @@ body {
   letter-spacing: 0.05em;
 }
 
+.theme-toggle .material-symbols-outlined {
+  font-size: 18px;
+  display: block;
+  line-height: 1;
+}
+
 .nav-toggle {
   display: none;
   background: none;
@@ -1688,6 +1694,23 @@ code {
   border-color: var(--primary);
 }
 
+.network-field textarea {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.95rem;
+  transition: var(--transition);
+  resize: vertical;
+}
+
+.network-field textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
 .gallery-title {
   font-size: 1.1rem;
   font-weight: 600;
@@ -1782,9 +1805,31 @@ code {
   .tool-item-name { min-width: auto; }
   .vibe-letter { width: 56px; height: 56px; font-size: 1.6rem; }
   .lesson-form { padding: 24px; }
-  .network-form { padding: 24px; }
+  .network-form { padding: 20px 16px; }
   .lesson-output { padding: 24px; }
   .lesson-output-header { flex-direction: column; align-items: flex-start; }
+  /* 갤러리 */
+  .gallery-grid { grid-template-columns: 1fr; }
+  .gallery-item-actions { flex-wrap: wrap; gap: 6px; }
+  /* 히어로 */
+  .hero-stats { gap: 12px; }
+  .stat-num { font-size: 1.4rem; }
+  /* 폼 */
+  .network-field input,
+  .network-field textarea { font-size: 16px; } /* iOS 줌 방지 */
+  /* 타임라인 */
+  .timeline-section { padding: 20px 16px; }
+  /* 스텝 */
+  .step-header { gap: 12px; }
+}
+
+@media (max-width: 480px) {
+  .hero-badge { font-size: 0.75rem; padding: 5px 12px; }
+  .hero-actions { flex-direction: column; gap: 12px; width: 100%; }
+  .hero-actions .btn { width: 100%; text-align: center; }
+  .concept-grid { grid-template-columns: 1fr; }
+  .network-form { padding: 16px 12px; }
+  .gallery-item { padding: 16px; }
 }
 
 /* ============================================================
