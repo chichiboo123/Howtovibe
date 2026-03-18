@@ -62,10 +62,10 @@ function cacheKorean() {
 
 const en = {
   'nav-logo': 'Teacher Vibe Coding',
-  'nav-why': 'Head Chef Vibe Coding (WHY)',
-  'nav-how': 'Meal Kit (HOW)',
+  'nav-why': 'Head Chef Vibe Coding (Why)',
+  'nav-how': 'Meal Kit (How)',
   'nav-vibe': 'VIBE Framework',
-  'nav-lesson': 'Fine Dining (WHAT)',
+  'nav-lesson': 'Fine Dining (What)',
   'nav-network': 'Network',
   'hero-badge': 'Vibe Coding for All Teachers',
   'hero-title': 'Build Web Apps<br/><span class="gradient-text">That Change Your Classroom</span>',
