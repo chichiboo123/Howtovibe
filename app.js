@@ -65,7 +65,7 @@ const en = {
   'nav-why': 'WHY (Chichiboo Vibe Coding)',
   'nav-how': 'HOW (Meal Kit)',
   'nav-lesson': 'WHAT (Fine Dining)',
-  'nav-network': 'Network',
+  'nav-network': 'Community (오픈키친)',
   'hero-badge': 'Vibe Coding for All Teachers',
   'hero-title': 'Build Web Apps<br/><span class="gradient-text">That Change Your Classroom</span>',
   'hero-desc': 'With AI, teachers can create<br/><strong>their own lesson apps</strong> today.',
@@ -154,9 +154,9 @@ const en = {
   'lesson-next-2': 'Paste it into a generative AI tool',
   'lesson-next-3': 'Save generated code as index.html',
   'lesson-next-4': 'Open in browser to check',
-  'ch05-tag': 'CHAPTER 04 · Network',
+  'ch05-tag': 'CHAPTER 04 · Open Kitchen',
   'ch05-title': 'What We Built',
-  'ch05-desc': "Share your lesson apps. Get inspired by each other's work.",
+  'ch05-desc': "Experience each other's apps firsthand and exchange creative inspiration.",
   'network-name-label': 'Name (nickname ok)',
   'network-name-placeholder': 'e.g. Teacher Kim',
   'network-title-label': 'App Name',
@@ -308,8 +308,6 @@ document.querySelectorAll('.nav-link').forEach(l => l.addEventListener('click', 
 function toggleStep(id) { document.getElementById(id).classList.toggle('open'); }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const first = document.getElementById('step-v');
-  if (first) first.classList.add('open');
   renderEvoCards();
   renderEssenceCards();
   loadGallery();
