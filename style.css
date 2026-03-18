@@ -440,6 +440,7 @@ label .material-symbols-outlined { font-size: 1rem; vertical-align: middle; }
   overflow-y: auto;
   font-size: 0.8rem;
   line-height: 1.8;
+  font-family: 'Orbit', sans-serif;
 }
 .t-link {
   color: #67e8f9;
