@@ -141,9 +141,10 @@ body {
 .nav-logo {
   font-size: 1.1rem;
   font-weight: 700;
+  font-family: 'Orbit', sans-serif;
   color: var(--text);
   text-decoration: none;
-  letter-spacing: -0.02em;
+  letter-spacing: 0.01em;
   white-space: nowrap;
 }
 
@@ -276,7 +277,8 @@ label .material-symbols-outlined { font-size: 1rem; vertical-align: middle; }
   min-height: 100vh;
   display: flex;
   align-items: center;
-  padding: 80px 24px 60px;
+  justify-content: center;
+  padding: 80px clamp(24px, 5vw, 80px) 60px;
   position: relative;
   overflow: hidden;
   gap: 60px;
@@ -302,9 +304,8 @@ label .material-symbols-outlined { font-size: 1rem; vertical-align: middle; }
 }
 
 .hero-content {
-  flex: 1;
-  max-width: 600px;
-  margin: 0 auto;
+  flex: 0 1 560px;
+  min-width: 280px;
 }
 
 .hero-badge {
@@ -395,8 +396,7 @@ label .material-symbols-outlined { font-size: 1rem; vertical-align: middle; }
 
 /* Terminal */
 .hero-visual {
-  flex: 1;
-  max-width: 500px;
+  flex: 0 1 480px;
   min-width: 280px;
 }
 
@@ -436,9 +436,17 @@ label .material-symbols-outlined { font-size: 1rem; vertical-align: middle; }
 .terminal-body {
   padding: 20px;
   min-height: 280px;
+  max-height: 420px;
+  overflow-y: auto;
   font-size: 0.8rem;
   line-height: 1.8;
 }
+.t-link {
+  color: #67e8f9;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.t-link:hover { color: #06b6d4; }
 
 .t-line { margin-bottom: 4px; }
 .t-prompt { color: var(--primary-light); }
