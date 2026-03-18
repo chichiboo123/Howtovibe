@@ -174,6 +174,65 @@ const en = {
   'cta-btn': 'Start Fine Dining →',
   'footer-main': 'Created by. 교육뮤지컬 꿈꾸는 치수쌤',
   'footer-sub': 'Made with Vibe Coding · 2026',
+
+  // Quote
+  'quote-text': '"Perfection is achieved, not when there is nothing more to add,<br/>but when there is nothing left to take away."',
+
+  // Tool tag
+  'recommended-tag': 'Recommended',
+
+  // Practice Prompts section title
+  'practice-prompts-title': 'Practice Prompts',
+
+  // VIBE Step V — Visualize
+  'vibe-v-teacher-example-h4': '<span class="material-symbols-outlined">track_changes</span> Teacher Activity Example',
+  'vibe-v-teacher-example-desc': 'Imagine your students need an app to submit group discussion results.',
+  'vibe-v-viz-questions-label': 'Visualization Questions',
+  'vibe-v-q1': 'What will students input in this app?',
+  'vibe-v-q2': 'What screen does the teacher see?',
+  'vibe-v-q3': 'At which stage of the lesson is it used?',
+  'vibe-v-tip': '<strong><span class="material-symbols-outlined">emoji_objects</span> Tip:</strong> Sketch your screen on paper first. A drawing helps you explain more precisely to AI.',
+
+  // VIBE Step I — Interact
+  'vibe-i-prompt-structure-h4': '<span class="material-symbols-outlined">assignment</span> Ideal First Prompt Structure',
+  'vibe-i-prompt-line1': '<span class="pt-label">I am:</span> [Teacher / Subject]',
+  'vibe-i-prompt-line2': '<span class="pt-label">Purpose:</span> [What lesson activity it\'s for]',
+  'vibe-i-prompt-line3': '<span class="pt-label">Users:</span> [Students / Grade level]',
+  'vibe-i-prompt-line4': '<span class="pt-label">Key Features:</span> [3 things students can do]',
+  'vibe-i-prompt-line5': '<span class="pt-label">Format:</span> Single HTML/CSS/JS file',
+  'vibe-i-real-example-h4': '<span class="material-symbols-outlined">history_edu</span> Real Teacher Example',
+  'vibe-i-example-code': '"I am a middle school social studies teacher.\n\nPlease create a web app for students to submit debate opinions.\n\n- Students enter their name, choose agree/disagree, and write a reason\n- Show overall results as a bar chart after submission\n- Teacher mode: button to reset results\n- Must look good on mobile\n- Build as a single HTML, CSS, JS file"',
+  'vibe-i-tip': '<strong><span class="material-symbols-outlined">emoji_objects</span> Tip:</strong> Stating "I am a teacher" helps AI better understand the educational context.',
+
+  // VIBE Step B — Build
+  'vibe-b-run-methods-h4': '<span class="material-symbols-outlined">desktop_windows</span> Running the Code (2 Methods)',
+  'vibe-b-method1-label': 'Method 1: Local File (Easiest)',
+  'vibe-b-method1-step1': 'Copy AI code → Save as <code>index.html</code>',
+  'vibe-b-method1-step2': 'Double-click the file → Opens instantly in browser',
+  'vibe-b-method2-label': 'Method 2: Replit (No install, instant sharing)',
+  'vibe-b-method2-step1': 'Go to replit.com → Create a new Repl',
+  'vibe-b-method2-step2': 'Paste code → Click Run',
+  'vibe-b-method2-step3': 'URL auto-generated → Share with students instantly',
+  'vibe-b-debug-h4': '<span class="material-symbols-outlined">bug_report</span> When an Error Occurs',
+  'vibe-b-debug-code': '"I got this error. Please fix it:\n[paste error message here]"',
+  'vibe-b-tip': '<strong><span class="material-symbols-outlined">emoji_objects</span> Tip:</strong> Copy the error message as-is and paste it to AI — most issues are solved immediately.',
+
+  // VIBE Step E — Execute & Evolve
+  'vibe-e-cycle-h4': '<span class="material-symbols-outlined">sync</span> Post-Lesson Improvement Cycle',
+  'vibe-e-cycle-apply': 'Apply in Class',
+  'vibe-e-cycle-feedback': 'Collect Feedback',
+  'vibe-e-cycle-request': 'Request AI Improvements',
+  'vibe-e-cycle-next': 'Use in Next Lesson',
+  'vibe-e-improvement-h4': '<span class="material-symbols-outlined">playlist_add_check</span> Good Improvement Request Examples',
+  'vibe-e-feedback-bad-label': '<span class="material-symbols-outlined">close</span> Vague Request',
+  'vibe-e-feedback-bad-text': '"Students found it uncomfortable. Fix it."',
+  'vibe-e-feedback-good-label': '<span class="material-symbols-outlined">done</span> Specific Request',
+  'vibe-e-feedback-good-text': '"Buttons were too small to tap on mobile. Please make them twice as large."',
+  'vibe-e-deploy-h4': '<span class="material-symbols-outlined">school</span> Deploy & Share with Students',
+  'vibe-e-deploy-step1': 'Upload to GitHub Pages or Vercel',
+  'vibe-e-deploy-step2': 'Convert the URL to a QR code (search "QR code generator" on Google)',
+  'vibe-e-deploy-step3': 'Insert QR code into lesson materials → Students scan it',
+  'vibe-e-tip': '<strong><span class="material-symbols-outlined">emoji_objects</span> Tip:</strong> Your first app doesn\'t need to be perfect. Improving it a little each lesson is the key.',
 };
 
 let currentLang = localStorage.getItem('lang') || 'ko';
