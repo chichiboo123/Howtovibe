@@ -452,7 +452,7 @@ label .material-symbols-outlined { font-size: 1rem; vertical-align: middle; }
 .t-line { margin-bottom: 4px; }
 .t-prompt { color: var(--primary-light); }
 .t-cmd { color: var(--text); }
-.t-output { color: var(--text-muted); }
+.t-output { color: #ffffff; }
 .t-success { color: var(--green); }
 .t-info { color: var(--accent); }
 .t-cursor {
