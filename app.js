@@ -923,33 +923,51 @@ function adminDeleteGallery(key) {
 const terminalLines = {
   ko: [
     { type: 'prompt', text: "$ Won\u2019s Vibe Coding" },
-    { type: 'output', text: '✻ 치수쌤 바이브코딩 v2.1.0 시작됨', delay: 400 },
+    { type: 'output', text: '✻ 치수쌤 바이브코딩 v2.1.0 실행 중...', delay: 400 },
     { type: 'blank', delay: 200 },
-    { type: 'prompt', text: '> 나는 초등학교 교사야. 이미지카드 앱 만들어줘' },
-    { type: 'info', text: '⠸ 분석 중...', delay: 600 },
-    { type: 'output', text: '📁 index.html 생성 중...', delay: 800 },
-    { type: 'output', text: '🎨 학생 친화적 UI 설계 중...', delay: 600 },
-    { type: 'output', text: '⚡ 실시간 소통 기능 추가 중...', delay: 500 },
-    { type: 'success', text: '✓ 완료! 이미지 카드 앱이 생성되었습니다.', delay: 600 },
+    { type: 'prompt', text: '> 나는 누구야?' },
+    { type: 'info', text: '⠸ 정체성 분석 중...', delay: 600 },
+    { type: 'output', text: '👨‍🏫 경기도교육청 초등교사 로드 완료', delay: 500 },
+    { type: 'output', text: '🎭 교육뮤지컬 엔진 연결 중...', delay: 600 },
+    { type: 'output', text: '💡 따뜻한 디지털 교육 실행 중...', delay: 500 },
+    { type: 'output', text: '📘 \u300e세상에서 가장 쉬운 뮤지컬 수업\u300f 저자 로드 완료', delay: 600 },
+    { type: 'success', text: "\u2713 완료! \u2018교육뮤지컬 꿈꾸는 치수쌤\u2019이 활성화되었습니다.", delay: 700 },
     { type: 'blank', delay: 300 },
-    { type: 'prompt', text: '> 모바일에서도 잘 보이게 수정해줘' },
-    { type: 'info', text: '⠸ 반응형 디자인 적용 중...', delay: 600 },
-    { type: 'success', text: '✓ QR코드로 학생들과 공유하세요!', delay: 500 },
+    { type: 'prompt', text: '> 어떤 걸 만들고 있어?' },
+    { type: 'info', text: '⠸ 프로젝트 스캔 중...', delay: 600 },
+    { type: 'output', text: '🎶 교육과정 연계 예술·기술 융합수업 디자인 중...', delay: 600 },
+    { type: 'output', text: '🌐 생각과 감성을 키우는 디지털 수업 도구 개발 중...', delay: 500 },
+    { type: 'output', text: '🤝 디지털 기반 사회정서·세계시민교육 활동 진행 중...', delay: 600 },
+    { type: 'success', text: '✓ 실행 완료! 의미 있는 배움이 생성되었습니다.', delay: 700 },
+    { type: 'blank', delay: 300 },
+    { type: 'prompt', text: '> 더 알고 싶어' },
+    { type: 'info', text: '⠸ 외부 링크 연결 중...', delay: 600 },
+    { type: 'link', text: '🔗 litt.ly/chichiboo', href: 'https://litt.ly/chichiboo', delay: 500 },
+    { type: 'success', text: '✓ 접속하면 더 많은 프로젝트를 확인할 수 있습니다.', delay: 500 },
   ],
   en: [
     { type: 'prompt', text: "$ Won\u2019s Vibe Coding" },
-    { type: 'output', text: "\u2733 Chichiboo\u2019s Vibe Coding v2.1.0 started", delay: 400 },
+    { type: 'output', text: "✻ Chisoo\u2019s Vibe Coding v2.1.0 running...", delay: 400 },
     { type: 'blank', delay: 200 },
-    { type: 'prompt', text: "> I'm an elementary school teacher. Make me an image card app" },
-    { type: 'info', text: '⠸ Analyzing...', delay: 600 },
-    { type: 'output', text: '📁 Creating index.html...', delay: 800 },
-    { type: 'output', text: '🎨 Designing student-friendly UI...', delay: 600 },
-    { type: 'output', text: '⚡ Adding real-time interaction...', delay: 500 },
-    { type: 'success', text: '✓ Done! Image card app created.', delay: 600 },
+    { type: 'prompt', text: '> Who am I?' },
+    { type: 'info', text: '⠸ Analyzing identity...', delay: 600 },
+    { type: 'output', text: '👨‍🏫 Elementary Teacher (Gyeonggi Office of Education) loaded', delay: 500 },
+    { type: 'output', text: '🎭 Educational Musical Engine connected', delay: 600 },
+    { type: 'output', text: '💡 Warm Digital Education running...', delay: 500 },
+    { type: 'output', text: '📘 Author of "The Easiest Musical Class in the World" loaded', delay: 600 },
+    { type: 'success', text: '✓ Complete! "Dreaming of Educational Musicals, Chisoo" is now activated.', delay: 700 },
     { type: 'blank', delay: 300 },
-    { type: 'prompt', text: '> Make it look good on mobile too' },
-    { type: 'info', text: '⠸ Applying responsive design...', delay: 600 },
-    { type: 'success', text: '✓ Share with students via QR code!', delay: 500 },
+    { type: 'prompt', text: '> What am I creating?' },
+    { type: 'info', text: '⠸ Scanning projects...', delay: 600 },
+    { type: 'output', text: '🎶 Designing curriculum-connected arts & technology integrated lessons...', delay: 600 },
+    { type: 'output', text: '🌐 Developing digital learning tools that grow thinking and emotion...', delay: 500 },
+    { type: 'output', text: '🤝 Running SEL & global citizenship projects through digital learning...', delay: 600 },
+    { type: 'success', text: '✓ Execution complete! Meaningful learning has been generated.', delay: 700 },
+    { type: 'blank', delay: 300 },
+    { type: 'prompt', text: '> Want to know more?' },
+    { type: 'info', text: '⠸ Connecting external link...', delay: 600 },
+    { type: 'link', text: '🔗 litt.ly/chichiboo', href: 'https://litt.ly/chichiboo', delay: 500 },
+    { type: 'success', text: '✓ Visit to explore more projects.', delay: 500 },
   ],
 };
 
@@ -972,10 +990,19 @@ function typeChar() {
       }
       const div = document.createElement('div');
       div.className = 't-line';
-      const span = document.createElement('span');
-      span.className = line.type === 'prompt' ? 't-prompt' : line.type === 'success' ? 't-success' : line.type === 'info' ? 't-info' : 't-output';
-      div.appendChild(span);
-      currentEl = span;
+      let el;
+      if (line.type === 'link') {
+        el = document.createElement('a');
+        el.href = line.href;
+        el.target = '_blank';
+        el.rel = 'noopener noreferrer';
+        el.className = 't-link';
+      } else {
+        el = document.createElement('span');
+        el.className = line.type === 'prompt' ? 't-prompt' : line.type === 'success' ? 't-success' : line.type === 'info' ? 't-info' : 't-output';
+      }
+      div.appendChild(el);
+      currentEl = el;
       document.getElementById('terminalBody').appendChild(div);
       charIndex = 0;
       typeNextChar();
@@ -987,6 +1014,8 @@ function typeNextChar() {
   const line = lines[lineIndex];
   if (charIndex < line.text.length) {
     currentEl.textContent += line.text[charIndex++];
+    const tb = document.getElementById('terminalBody');
+    if (tb) tb.scrollTop = tb.scrollHeight;
     setTimeout(typeNextChar, line.type === 'prompt' ? 40 : 20);
   } else {
     lineIndex++; currentEl = null; typeChar();
