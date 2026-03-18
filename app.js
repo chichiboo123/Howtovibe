@@ -232,7 +232,7 @@ function toggleStep(id) { document.getElementById(id).classList.toggle('open'); 
 document.addEventListener('DOMContentLoaded', () => {
   const first = document.getElementById('step-v');
   if (first) first.classList.add('open');
-  loadGallery();
+  _setupGalleryListener(); // 실시간 리스너 1회 등록
   loadPracticePrompts();
   _initCustomTextIds();
   initAdminOverrideListeners();
@@ -368,12 +368,18 @@ function _renderGallery(snapshot) {
   grid.innerHTML = parts.join('');
 }
 
-function loadGallery() {
-  // 기존 리스너 전부 제거 후 실시간 리스너 등록
-  db.ref('gallery').off('value');
+// 실시간 리스너 — 페이지 로드 시 딱 한 번 등록, 절대 off() 하지 않음
+function _setupGalleryListener() {
   db.ref('gallery').on('value', _renderGallery, function(err) {
-    console.error('Gallery load error:', err);
+    console.error('Gallery read error:', err.code, err.message);
   });
+}
+
+// 언어 변경 시 labels만 바꿔 다시 그려야 할 때 사용 (once 단발 조회)
+function loadGallery() {
+  db.ref('gallery').once('value')
+    .then(_renderGallery)
+    .catch(function(err) { console.error('Gallery fetch error:', err); });
 }
 
 function toggleLike(key) {
@@ -485,7 +491,7 @@ function _doGalleryDelete(key, pw, isAdmin) {
       return;
     }
     if (!confirm(currentLang === 'en' ? 'Delete this item?' : '삭제하시겠습니까?')) return;
-    db.ref('gallery/' + key).remove().then(() => loadGallery());
+    db.ref('gallery/' + key).remove(); // 실시간 리스너가 자동으로 UI 갱신
   });
 }
 
@@ -802,8 +808,7 @@ function renderAdminGalleryList() {
 function adminDeleteGallery(key) {
   if (!confirm('갤러리 항목을 삭제하시겠습니까?')) return;
   db.ref('gallery/' + key).remove().then(() => {
-    loadGallery();
-    renderAdminGalleryList();
+    renderAdminGalleryList(); // 실시간 리스너가 갤러리 UI 자동 갱신
   });
 }
 
