@@ -284,6 +284,7 @@ langToggle.addEventListener('click', () => {
   localStorage.setItem('lang', currentLang);
   applyTranslations(currentLang);
   loadGallery();
+  resetTerminal();
 });
 
 // ---- Navbar ----
@@ -971,10 +972,12 @@ const terminalLines = {
   ],
 };
 
-const lines = terminalLines[currentLang] || terminalLines.ko;
+let lines = terminalLines[currentLang] || terminalLines.ko;
 let lineIndex = 0, charIndex = 0, currentEl = null;
+let _termGen = 0; // 세대 카운터: 언어 전환 시 구형 타이머 무효화
 
-function typeChar() {
+function typeChar(gen) {
+  if (gen !== _termGen) return; // 구형 세대 타이머 무효화
   if (lineIndex >= lines.length) {
     const cur = document.createElement('span');
     cur.className = 't-cursor';
@@ -984,9 +987,10 @@ function typeChar() {
   const line = lines[lineIndex];
   if (!currentEl) {
     setTimeout(() => {
+      if (gen !== _termGen) return;
       if (line.type === 'blank') {
         document.getElementById('terminalBody').appendChild(document.createElement('br'));
-        lineIndex++; currentEl = null; typeChar(); return;
+        lineIndex++; currentEl = null; typeChar(gen); return;
       }
       const div = document.createElement('div');
       div.className = 't-line';
@@ -1005,24 +1009,35 @@ function typeChar() {
       currentEl = el;
       document.getElementById('terminalBody').appendChild(div);
       charIndex = 0;
-      typeNextChar();
+      typeNextChar(gen);
     }, line.delay || 0);
   }
 }
 
-function typeNextChar() {
+function typeNextChar(gen) {
+  if (gen !== _termGen) return; // 구형 세대 타이머 무효화
   const line = lines[lineIndex];
   if (charIndex < line.text.length) {
     currentEl.textContent += line.text[charIndex++];
     const tb = document.getElementById('terminalBody');
     if (tb) tb.scrollTop = tb.scrollHeight;
-    setTimeout(typeNextChar, line.type === 'prompt' ? 40 : 20);
+    setTimeout(() => typeNextChar(gen), line.type === 'prompt' ? 40 : 20);
   } else {
-    lineIndex++; currentEl = null; typeChar();
+    lineIndex++; currentEl = null; typeChar(gen);
   }
 }
 
-setTimeout(typeChar, 800);
+function resetTerminal() {
+  _termGen++;
+  lineIndex = 0; charIndex = 0; currentEl = null;
+  lines = terminalLines[currentLang] || terminalLines.ko;
+  const tb = document.getElementById('terminalBody');
+  if (tb) tb.innerHTML = '';
+  const gen = _termGen;
+  setTimeout(() => typeChar(gen), 300);
+}
+
+setTimeout(() => typeChar(_termGen), 800);
 
 // ---- Active nav link ----
 const sections = document.querySelectorAll('section[id]');
