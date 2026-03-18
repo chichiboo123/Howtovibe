@@ -2550,3 +2550,146 @@ body.admin-active { padding-top: 40px; }
 @media (max-width: 768px) {
   .admin-trigger { bottom: 14px; right: 14px; }
 }
+
+/* ============================================================
+   ADVANTAGE GRID (Chapter 01 — 바이브코딩의 장점)
+   ============================================================ */
+.advantage-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+}
+
+.advantage-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 36px 28px;
+  text-align: center;
+  transition: var(--transition);
+}
+
+.advantage-card:hover {
+  border-color: var(--primary);
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px rgba(99,102,241,0.18);
+}
+
+.advantage-icon {
+  font-size: 3rem;
+  margin-bottom: 16px;
+  line-height: 1;
+}
+
+.advantage-card h4 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  margin-bottom: 14px;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+
+.advantage-card p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.75;
+}
+
+/* ============================================================
+   HOW SECTION PART HEADERS
+   ============================================================ */
+.how-part-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text);
+  margin: 56px 0 24px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--primary);
+}
+
+.how-part-title:first-of-type { margin-top: 0; }
+
+.how-part-desc {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-bottom: 28px;
+  line-height: 1.6;
+}
+
+.how-part-title .material-symbols-outlined {
+  font-size: 1.25rem;
+  vertical-align: middle;
+  color: var(--primary-light);
+}
+
+/* ============================================================
+   COMPREHENSIVE LIGHT MODE FIXES
+   ============================================================ */
+
+/* Evolution cards — list items were hardcoded white */
+[data-theme="light"] .evo-block-list li {
+  color: var(--text);
+}
+
+/* Evolution cards — "now" highlight text was hardcoded white */
+[data-theme="light"] .evo-hl-to {
+  color: var(--text);
+}
+
+/* Essence cards — body text was hardcoded white */
+[data-theme="light"] .essence-body {
+  color: var(--text);
+}
+
+/* Essence cards — good contrast color (bright green → darker green in light) */
+[data-theme="light"] .contrast-good {
+  color: #16a34a;
+}
+
+/* VIBE letters — light theme visibility */
+[data-theme="light"] .vibe-letter:nth-child(1) { color: #4f46e5; }
+[data-theme="light"] .vibe-letter:nth-child(2) { color: #0891b2; }
+[data-theme="light"] .vibe-letter:nth-child(3) { color: #16a34a; }
+[data-theme="light"] .vibe-letter:nth-child(4) { color: #d97706; }
+
+/* VIBE step number colors — light theme */
+[data-theme="light"] .step-num.vibe-i { color: #0891b2; }
+[data-theme="light"] .step-num.vibe-b { color: #16a34a; }
+[data-theme="light"] .step-num.vibe-e { color: #d97706; }
+
+/* Terminal text colors stay dark — intentional dark bg */
+/* Step header hover — light mode already has rgba(0,0,0,0.02) override above */
+
+/* Advantage card in light mode */
+[data-theme="light"] .advantage-card {
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+}
+[data-theme="light"] .advantage-card:hover {
+  box-shadow: 0 12px 40px rgba(99,102,241,0.12);
+}
+
+/* How part title border in light mode */
+[data-theme="light"] .how-part-title {
+  border-bottom-color: var(--primary);
+}
+
+/* Ensure all text in step-body and substep is visible in light mode */
+[data-theme="light"] .substep p,
+[data-theme="light"] .substep li,
+[data-theme="light"] .prompt-line,
+[data-theme="light"] .cycle-item {
+  color: var(--text-muted);
+}
+
+/* Vibe overview letter backgrounds — light theme */
+[data-theme="light"] .vibe-letter:nth-child(1) { background: rgba(99,102,241,0.1); border-color: rgba(99,102,241,0.3); }
+[data-theme="light"] .vibe-letter:nth-child(2) { background: rgba(6,182,212,0.1); border-color: rgba(6,182,212,0.3); }
+[data-theme="light"] .vibe-letter:nth-child(3) { background: rgba(34,197,94,0.1); border-color: rgba(34,197,94,0.3); }
+[data-theme="light"] .vibe-letter:nth-child(4) { background: rgba(245,158,11,0.1); border-color: rgba(245,158,11,0.3); }
+
+@media (max-width: 640px) {
+  .advantage-grid { grid-template-columns: 1fr; }
+}

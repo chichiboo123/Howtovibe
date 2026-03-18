@@ -18,10 +18,9 @@
     <div class="nav-inner">
       <a href="#hero" class="nav-logo"><img src="favicon.svg" alt="" style="height:1.3em;vertical-align:middle;margin-right:0.35em;"><span data-i18n="nav-logo">치수쌤 바이브코딩 클래스</span></a>
       <ul class="nav-links">
-        <li><a href="#why" class="nav-link" data-i18n="nav-why">원셰프의 바이브코딩 (Why)</a></li>
-        <li><a href="#how" class="nav-link" data-i18n="nav-how">밀키트 (How)</a></li>
-        <li><a href="#vibe" class="nav-link" data-i18n="nav-vibe">VIBE 프레임워크</a></li>
-        <li><a href="#lesson" class="nav-link" data-i18n="nav-lesson">파인다이닝 (What)</a></li>
+        <li><a href="#why" class="nav-link" data-i18n="nav-why">WHY (원셰프의 바이브코딩)</a></li>
+        <li><a href="#how" class="nav-link" data-i18n="nav-how">HOW (밀키트)</a></li>
+        <li><a href="#lesson" class="nav-link" data-i18n="nav-lesson">WHAT (파인다이닝)</a></li>
         <li><a href="#network" class="nav-link" data-i18n="nav-network">네트워크</a></li>
       </ul>
       <div class="nav-controls">
@@ -68,42 +67,107 @@
     </div>
   </section>
 
-  <!-- CHAPTER 01: 원셰프 (Why) -->
+  <!-- CHAPTER 01: 원셰프의 바이브코딩 (Why) -->
   <section id="why" class="section">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag" data-i18n="ch01-tag">CHAPTER 01 · 원셰프</span>
-        <h2 class="section-title" data-i18n="ch01-title">왜 교사가 웹앱을 만들어야 할까?</h2>
-        <p class="section-desc" data-i18n-html="ch01-desc">수업 자료가 한글에서 PPT, Canva를 거쳐 웹앱으로 진화하고 있습니다.<br/> 그 흐름의 중심에 AI가 있습니다.</p>
+        <span class="section-tag" data-i18n="ch01-tag">CHAPTER 01 · 원셰프의 바이브코딩(Why)</span>
+        <h2 class="section-title" data-i18n="ch01-title">원셰프의 바이브코딩</h2>
+        <p class="section-desc" data-i18n="ch01-desc">AI와 함께, 교사가 직접 수업 도구를 만드는 시대가 왔습니다.</p>
       </div>
 
-      <!-- Evolution Cards (rendered by JS) -->
-      <div id="evo-cards-container"></div>
-
-      <div class="concept-grid">
-        <div class="concept-card primary">
-          <div class="concept-icon"><span class="material-symbols-outlined">school</span></div>
-          <h3 data-i18n="concept1-title">교실 사례: 수업 활동 앱</h3>
-          <p data-i18n="concept1-desc">선생님이 직접 만든 모둠 활동 앱. 학생들이 스마트폰으로 접속해 실시간으로 결과를 공유합니다.</p>
+      <!-- Accordion 1: 왜 지금, 바이브코딩? -->
+      <div class="step open" id="why-a1">
+        <div class="step-header" onclick="toggleStep('why-a1')">
+          <div class="step-num">01</div>
+          <div class="step-title-wrap">
+            <h3 data-i18n="why-sub1-title">왜 지금, 바이브코딩?</h3>
+            <p data-i18n="why-sub1-desc">수업 자료의 진화와 AI의 역할</p>
+          </div>
+          <span class="step-toggle">▼</span>
         </div>
-        <div class="concept-card">
-          <div class="concept-icon"><span class="material-symbols-outlined">timer</span></div>
-          <h3 data-i18n="concept2-title">당일 제작 가능</h3>
-          <p data-i18n="concept2-desc">오늘 아이디어가 생겼다면, 오늘 웹앱을 완성할 수 있습니다. AI가 코드를 대신 작성해줍니다.</p>
-        </div>
-        <div class="concept-card">
-          <div class="concept-icon"><span class="material-symbols-outlined">link</span></div>
-          <h3 data-i18n="concept3-title">링크 하나로 공유</h3>
-          <p data-i18n="concept3-desc">프린트 없이도 됩니다. 링크 하나를 공유하면 학생 누구나 접속할 수 있는 인터랙티브 수업 자료가 됩니다.</p>
-        </div>
-        <div class="concept-card">
-          <div class="concept-icon"><span class="material-symbols-outlined">edit</span></div>
-          <h3 data-i18n="concept4-title">내 수업에 딱 맞게</h3>
-          <p data-i18n="concept4-desc">기성 플랫폼의 제약 없이, 내 학생들에게 완벽히 맞는 도구를 직접 만들 수 있습니다.</p>
+        <div class="step-body">
+          <div class="step-content">
+            <!-- Evolution Cards (rendered by JS) -->
+            <div id="evo-cards-container"></div>
+            <div class="concept-grid">
+              <div class="concept-card primary">
+                <div class="concept-icon"><span class="material-symbols-outlined">school</span></div>
+                <h3 data-i18n="concept1-title">교실 사례: 수업 활동 앱</h3>
+                <p data-i18n="concept1-desc">선생님이 직접 만든 모둠 활동 앱. 학생들이 스마트폰으로 접속해 실시간으로 결과를 공유합니다.</p>
+              </div>
+              <div class="concept-card">
+                <div class="concept-icon"><span class="material-symbols-outlined">timer</span></div>
+                <h3 data-i18n="concept2-title">당일 제작 가능</h3>
+                <p data-i18n="concept2-desc">오늘 아이디어가 생겼다면, 오늘 웹앱을 완성할 수 있습니다. AI가 코드를 대신 작성해줍니다.</p>
+              </div>
+              <div class="concept-card">
+                <div class="concept-icon"><span class="material-symbols-outlined">link</span></div>
+                <h3 data-i18n="concept3-title">링크 하나로 공유</h3>
+                <p data-i18n="concept3-desc">프린트 없이도 됩니다. 링크 하나를 공유하면 학생 누구나 접속할 수 있는 인터랙티브 수업 자료가 됩니다.</p>
+              </div>
+              <div class="concept-card">
+                <div class="concept-icon"><span class="material-symbols-outlined">edit</span></div>
+                <h3 data-i18n="concept4-title">내 수업에 딱 맞게</h3>
+                <p data-i18n="concept4-desc">기성 플랫폼의 제약 없이, 내 학생들에게 완벽히 맞는 도구를 직접 만들 수 있습니다.</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="quote-block">
+      <!-- Accordion 2: 바이브코딩의 본질 -->
+      <div class="step" id="why-a2">
+        <div class="step-header" onclick="toggleStep('why-a2')">
+          <div class="step-num">02</div>
+          <div class="step-title-wrap">
+            <h3 data-i18n="why-sub2-title">바이브코딩의 본질</h3>
+            <p data-i18n="why-sub2-desc">코딩 기술보다 중요한 4가지 핵심 원칙</p>
+          </div>
+          <span class="step-toggle">▼</span>
+        </div>
+        <div class="step-body">
+          <div class="step-content">
+            <div id="essence-cards-container"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Accordion 3: 바이브코딩의 장점 -->
+      <div class="step" id="why-a3">
+        <div class="step-header" onclick="toggleStep('why-a3')">
+          <div class="step-num">03</div>
+          <div class="step-title-wrap">
+            <h3 data-i18n="why-sub3-title">바이브코딩의 장점</h3>
+            <p data-i18n="why-sub3-desc">빠르고, 쉽고, 창의적인</p>
+          </div>
+          <span class="step-toggle">▼</span>
+        </div>
+        <div class="step-body">
+          <div class="step-content">
+            <div class="advantage-grid">
+              <div class="advantage-card">
+                <div class="advantage-icon">⚡</div>
+                <h4 data-i18n="adv1-title">빠르다</h4>
+                <p data-i18n="adv1-desc">아이디어에서 완성된 웹앱까지 단 하루면 충분합니다. AI가 코드를 대신 작성하기 때문에 개발 속도가 비약적으로 빨라집니다.</p>
+              </div>
+              <div class="advantage-card">
+                <div class="advantage-icon">🙌</div>
+                <h4 data-i18n="adv2-title">쉽다</h4>
+                <p data-i18n="adv2-desc">코딩 지식이 전혀 없어도 됩니다. 원하는 것을 말로 설명하면 AI가 작동하는 코드를 만들어 줍니다. 누구나 시작할 수 있습니다.</p>
+              </div>
+              <div class="advantage-card">
+                <div class="advantage-icon">✨</div>
+                <h4 data-i18n="adv3-title">창의적이다</h4>
+                <p data-i18n="adv3-desc">기성 플랫폼의 제약에서 벗어나 오로지 내 수업만을 위한 도구를 직접 만들 수 있습니다. 상상한 모든 아이디어를 현실로 만드세요.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quote at bottom of chapter -->
+      <div class="quote-block" style="margin-top:32px;">
         <blockquote>
           <span style="font-size:1.05em; color:var(--text-muted); display:block; margin-bottom:10px;">"La perfection est atteinte, non pas lorsqu'il n'y a plus rien à ajouter, mais lorsqu'il n'y a plus rien à retrancher."</span>
           <span data-i18n-html="quote-text">"완벽함은 더 이상 보탤 것이 없을 때가 아니라,<br/>더 이상 덜어낼 것이 없을 때 이루어진다."</span><br/>
@@ -113,27 +177,17 @@
     </div>
   </section>
 
-  <!-- VIBE ESSENCE: 바이브코딩의 본질 -->
-  <section id="vibe-essence" class="section">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-tag" data-i18n="essence-tag">CHAPTER 01 · 바이브코딩의 본질</span>
-        <h2 class="section-title" data-i18n="essence-title">바이브코딩의 본질</h2>
-        <p class="section-desc" data-i18n="essence-desc">코딩 기술보다 중요한 것이 있습니다. 바이브코딩의 4가지 핵심 원칙.</p>
-      </div>
-      <div id="essence-cards-container"></div>
-    </div>
-  </section>
-
   <!-- CHAPTER 02: 밀키트 (How) -->
   <section id="how" class="section section-alt">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag" data-i18n="ch02-tag">CHAPTER 02 · 밀키트</span>
+        <span class="section-tag" data-i18n="ch02-tag">CHAPTER 02 · 밀키트 (How)</span>
         <h2 class="section-title" data-i18n="ch02-title">필요한 도구 준비하기</h2>
         <p class="section-desc" data-i18n="ch02-desc">요리처럼, 좋은 도구가 있으면 더 쉽게 만들 수 있습니다. 역할별로 도구를 이해해보세요.</p>
       </div>
 
+      <!-- Part 1: 도구 소개 -->
+      <h3 class="how-part-title" data-i18n="how-part1-title"><span class="material-symbols-outlined">lightbulb</span> 도구 소개</h3>
       <div class="tool-categories">
         <!-- 아이디어 확장 -->
         <div class="tool-category">
@@ -203,40 +257,9 @@
         </div>
       </div>
 
-      <div class="setup-checklist">
-        <h3>
-          <span class="material-symbols-outlined">checklist</span>
-          <span data-i18n="checklist-title">연수 시작 전 체크리스트</span>
-        </h3>
-        <div class="checklist-items">
-          <label class="check-item"><input type="checkbox" /><span data-i18n="check1">생성형 AI 계정 준비</span></label>
-          <label class="check-item"><input type="checkbox" /><span data-i18n="check2">만들고 싶은 수업 활동 아이디어 1가지 메모</span></label>
-          <label class="check-item"><input type="checkbox" /><span data-i18n="check3">GitHub 계정 생성 (무료)</span></label>
-          <label class="check-item"><input type="checkbox" /><span data-i18n="check4">여유 시간과 편안한 작업 환경</span></label>
-        </div>
-      </div>
-      <!-- Practice Prompts (admin-managed) -->
-      <div class="practice-prompts-section" id="practicePromptsSection">
-        <div class="practice-prompts-header">
-          <h3><span class="material-symbols-outlined">emoji_objects</span> <span data-i18n="practice-prompts-title">실습 프롬프트</span></h3>
-          <p data-i18n="practice-prompts-desc">아래 프롬프트를 복사해서 생성형 AI에 붙여넣어 실습해보세요.</p>
-        </div>
-        <div class="practice-prompts-list" id="practicePromptsList">
-          <p class="practice-empty-msg" id="practiceEmptyMsg" data-i18n="practice-empty">아직 등록된 실습 프롬프트가 없습니다.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CHAPTER 03: VIBE 프레임워크 -->
-  <section id="vibe" class="section">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-tag" data-i18n="ch03-tag">CHAPTER 03 · VIBE 프레임워크</span>
-        <h2 class="section-title" data-i18n="ch03-title">V.I.B.E로 수업 앱 만들기</h2>
-        <p class="section-desc" data-i18n="ch03-desc">네 단계만 기억하세요. 아이디어에서 완성된 수업 앱까지의 여정입니다.</p>
-      </div>
-
+      <!-- Part 2: VIBE 프레임워크 -->
+      <h3 class="how-part-title" data-i18n="how-part2-title"><span class="material-symbols-outlined">bolt</span> VIBE 프레임워크</h3>
+      <p class="how-part-desc" data-i18n="how-part2-desc">네 단계만 기억하세요. 아이디어에서 완성된 수업 앱까지의 여정입니다.</p>
       <div class="vibe-overview">
         <div class="vibe-letter">V</div>
         <div class="vibe-letter">I</div>
@@ -411,6 +434,17 @@
           </div>
         </div>
       </div>
+
+      <!-- Part 3: 실습 프롬프트 -->
+      <div class="practice-prompts-section" id="practicePromptsSection">
+        <div class="practice-prompts-header">
+          <h3><span class="material-symbols-outlined">emoji_objects</span> <span data-i18n="practice-prompts-title">실습 프롬프트</span></h3>
+          <p data-i18n="practice-prompts-desc">아래 프롬프트를 복사해서 생성형 AI에 붙여넣어 실습해보세요.</p>
+        </div>
+        <div class="practice-prompts-list" id="practicePromptsList">
+          <p class="practice-empty-msg" id="practiceEmptyMsg" data-i18n="practice-empty">아직 등록된 실습 프롬프트가 없습니다.</p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -418,7 +452,7 @@
   <section id="lesson" class="section section-alt">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag" data-i18n="ch04-tag">CHAPTER 04 · 파인다이닝</span>
+        <span class="section-tag" data-i18n="ch04-tag">CHAPTER 03 · 파인다이닝</span>
         <h2 class="section-title" data-i18n="ch04-title">나만의 수업 웹앱 만들기</h2>
         <p class="section-desc" data-i18n="ch04-desc">아래 내용을 입력하면, AI에게 바로 사용할 수 있는 프롬프트를 자동으로 생성해드립니다</p>
       </div>
@@ -489,7 +523,7 @@
   <section id="network" class="section">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag" data-i18n="ch05-tag">CHAPTER 05 · 네트워크</span>
+        <span class="section-tag" data-i18n="ch05-tag">CHAPTER 04 · 네트워크</span>
         <h2 class="section-title" data-i18n="ch05-title">우리가 만든 것들</h2>
         <p class="section-desc" data-i18n="ch05-desc">직접 만든 수업 웹앱을 공유해주세요. 서로의 작품에서 영감을 얻을 수 있습니다.</p>
       </div>
