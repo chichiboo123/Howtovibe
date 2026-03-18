@@ -232,7 +232,7 @@ function toggleStep(id) { document.getElementById(id).classList.toggle('open'); 
 document.addEventListener('DOMContentLoaded', () => {
   const first = document.getElementById('step-v');
   if (first) first.classList.add('open');
-  _setupGalleryListener(); // 실시간 리스너 1회 등록
+  loadGallery();
   loadPracticePrompts();
   _initCustomTextIds();
   initAdminOverrideListeners();
@@ -308,30 +308,24 @@ function copyLessonPrompt() {
 }
 
 // ============================================================
-//  GALLERY (with password + edit/delete)  — Firebase backend
+//  GALLERY — Firebase REST API 방식 (SDK 리스너 대신 fetch 사용)
 // ============================================================
+const _DB_URL = 'https://won-s-vibe-default-rtdb.firebaseio.com';
+
 function _ghash(pw) {
   return Array.from(pw).reduce((h, c) => ((h << 5) - h + c.charCodeAt(0)) | 0, 0);
 }
 
 function escapeHtml(str) {
   const d = document.createElement('div');
-  d.appendChild(document.createTextNode(str));
+  d.appendChild(document.createTextNode(String(str || '')));
   return d.innerHTML;
 }
 
-function _renderGallery(snapshot) {
+function _renderItems(items) {
   const grid = document.getElementById('galleryGrid');
   const empty = document.getElementById('galleryEmpty');
-  if (!snapshot || !snapshot.exists()) {
-    grid.style.display = 'none';
-    empty.style.display = 'block';
-    return;
-  }
-  const items = [];
-  snapshot.forEach(function(child) { items.push(Object.assign({ key: child.key }, child.val())); });
-  items.sort(function(a, b) { return (b.ts || 0) - (a.ts || 0); });
-  if (items.length === 0) {
+  if (!items || items.length === 0) {
     grid.style.display = 'none';
     empty.style.display = 'block';
     return;
@@ -340,8 +334,8 @@ function _renderGallery(snapshot) {
   grid.style.display = 'grid';
   const likedKeys = JSON.parse(localStorage.getItem('likedGallery') || '[]');
   const visitLabel = currentLang === 'en' ? 'Visit App' : '앱 방문하기';
-  const editLabel = currentLang === 'en' ? 'Edit' : '수정';
-  const delLabel = currentLang === 'en' ? 'Delete' : '삭제';
+  const editLabel  = currentLang === 'en' ? 'Edit' : '수정';
+  const delLabel   = currentLang === 'en' ? 'Delete' : '삭제';
   const parts = [];
   for (let i = 0; i < items.length; i++) {
     const item = items[i];
@@ -368,34 +362,46 @@ function _renderGallery(snapshot) {
   grid.innerHTML = parts.join('');
 }
 
-// 실시간 리스너 — 페이지 로드 시 딱 한 번 등록, 절대 off() 하지 않음
-function _setupGalleryListener() {
-  db.ref('gallery').on('value', _renderGallery, function(err) {
-    console.error('Gallery read error:', err.code, err.message);
-  });
-}
-
-// 언어 변경 시 labels만 바꿔 다시 그려야 할 때 사용 (once 단발 조회)
+// REST API로 gallery 데이터 가져오기 — Object.entries()로 배열 변환
 function loadGallery() {
-  db.ref('gallery').once('value')
-    .then(_renderGallery)
-    .catch(function(err) { console.error('Gallery fetch error:', err); });
+  fetch(_DB_URL + '/gallery.json')
+    .then(function(res) {
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return res.json();
+    })
+    .then(function(data) {
+      // Firebase REST API는 객체({key: {…}, …}) 또는 null 반환
+      if (!data || typeof data !== 'object') {
+        _renderItems([]);
+        return;
+      }
+      // Object.entries()로 배열로 변환 후 최신순 정렬
+      var items = Object.entries(data).map(function(pair) {
+        return Object.assign({ key: pair[0] }, pair[1]);
+      });
+      items.sort(function(a, b) { return (b.ts || 0) - (a.ts || 0); });
+      _renderItems(items);
+    })
+    .catch(function(err) {
+      console.error('Gallery fetch error:', err);
+      _renderItems([]);
+    });
 }
 
 function toggleLike(key) {
   const likedKeys = JSON.parse(localStorage.getItem('likedGallery') || '[]');
   const alreadyLiked = likedKeys.includes(key);
-  const ref = db.ref('gallery/' + key + '/likes');
-  ref.transaction(current => {
+  db.ref('gallery/' + key + '/likes').transaction(function(current) {
     if (alreadyLiked) return Math.max((current || 1) - 1, 0);
     return (current || 0) + 1;
-  }).then(() => {
+  }).then(function() {
     if (alreadyLiked) {
-      localStorage.setItem('likedGallery', JSON.stringify(likedKeys.filter(k => k !== key)));
+      localStorage.setItem('likedGallery', JSON.stringify(likedKeys.filter(function(k) { return k !== key; })));
     } else {
       likedKeys.push(key);
       localStorage.setItem('likedGallery', JSON.stringify(likedKeys));
     }
+    loadGallery();
   });
 }
 
@@ -420,8 +426,9 @@ function submitToNetwork() {
   const today = new Date();
   const dateStr = `${today.getFullYear()}.${String(today.getMonth() + 1).padStart(2, '0')}.${String(today.getDate()).padStart(2, '0')}`;
   db.ref('gallery').push({ name, title, desc, url, date: dateStr, pwHash: _ghash(pw), ts: Date.now(), likes: 0 })
-    .then(() => {
-      ['networkName', 'networkTitle', 'networkDesc', 'networkUrl', 'networkPw'].forEach(id => document.getElementById(id).value = '');
+    .then(function() {
+      ['networkName', 'networkTitle', 'networkDesc', 'networkUrl', 'networkPw'].forEach(function(id) { document.getElementById(id).value = ''; });
+      loadGallery();
       alert(currentLang === 'en' ? '🎉 Shared successfully!' : '🎉 공유되었습니다!');
     })
     .catch(err => {
@@ -491,7 +498,7 @@ function _doGalleryDelete(key, pw, isAdmin) {
       return;
     }
     if (!confirm(currentLang === 'en' ? 'Delete this item?' : '삭제하시겠습니까?')) return;
-    db.ref('gallery/' + key).remove(); // 실시간 리스너가 자동으로 UI 갱신
+    db.ref('gallery/' + key).remove().then(function() { loadGallery(); });
   });
 }
 
@@ -807,8 +814,9 @@ function renderAdminGalleryList() {
 
 function adminDeleteGallery(key) {
   if (!confirm('갤러리 항목을 삭제하시겠습니까?')) return;
-  db.ref('gallery/' + key).remove().then(() => {
-    renderAdminGalleryList(); // 실시간 리스너가 갤러리 UI 자동 갱신
+  db.ref('gallery/' + key).remove().then(function() {
+    loadGallery();
+    renderAdminGalleryList();
   });
 }
 
