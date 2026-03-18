@@ -26,7 +26,11 @@ const savedTheme = localStorage.getItem('theme') || 'dark';
 htmlEl.setAttribute('data-theme', savedTheme);
 
 const themeToggle = document.getElementById('themeToggle');
-function updateThemeBtn(t) { themeToggle.textContent = t === 'dark' ? '☀️' : '🌙'; }
+function updateThemeBtn(t) {
+  themeToggle.innerHTML = t === 'dark'
+    ? '<span class="material-symbols-outlined">light_mode</span>'
+    : '<span class="material-symbols-outlined">dark_mode</span>';
+}
 updateThemeBtn(savedTheme);
 themeToggle.addEventListener('click', () => {
   const next = htmlEl.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
@@ -57,7 +61,7 @@ const en = {
   'nav-vibe': 'VIBE Framework',
   'nav-lesson': 'Fine Dining (WHAT)',
   'nav-network': 'Network',
-  'hero-badge': '2026 · AI Workshop for Teachers',
+  'hero-badge': 'Vibe Coding for All Teachers',
   'hero-title': 'Build Web Apps<br/><span class="gradient-text">That Change Your Classroom</span>',
   'hero-desc': 'With AI, teachers can create<br/><strong>their own lesson apps</strong> today.',
   'hero-btn-start': 'Start Workshop →',
@@ -65,8 +69,8 @@ const en = {
   'hero-stat1-num': '4 Stages',
   'hero-stat1-label': 'Structured Workshop',
   'hero-stat2-label': 'Education Framework',
-  'hero-stat3-num': 'Free',
-  'hero-stat3-label': 'Fully Open',
+  'hero-stat3-num': 'Challenge',
+  'hero-stat3-label': 'Start Today',
   'ch01-tag': 'CHAPTER 01 · Head Chef',
   'ch01-title': 'Why Should Teachers Build Web Apps?',
   'ch01-desc': 'Classroom materials have evolved from Hangul to PPT, Canva, and now Web Apps.<br/> AI is at the center of this shift.',
@@ -151,7 +155,7 @@ const en = {
   'network-url-placeholder': 'https://...',
   'network-pw-label': '🔑 Set Password',
   'network-pw-placeholder': 'Password for editing/deleting',
-  'network-pw-notice': '🔒 This password is encrypted and stored securely — nobody, including the admin, can see it. Keep it somewhere safe.',
+  'network-pw-notice': '🔒 Password is encrypted and stored securely. Required for editing or deleting.',
   'network-submit-btn': '🚀 Share',
   'gallery-title': '🎨 Work Gallery',
   'gallery-empty': 'No works shared yet. Be the first!',
@@ -231,8 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
   loadGallery();
   loadPracticePrompts();
   _initCustomTextIds();
-  applyAdminTextOverrides(currentLang);
-  applyCustomTextOverrides(currentLang);
+  initAdminOverrideListeners();
 });
 
 // ---- Timeline ----
@@ -317,54 +320,58 @@ function escapeHtml(str) {
   return d.innerHTML;
 }
 
-let _galleryListener = null;
+function _renderGallery(snapshot) {
+  const grid = document.getElementById('galleryGrid');
+  const empty = document.getElementById('galleryEmpty');
+  if (!snapshot || !snapshot.exists()) {
+    grid.style.display = 'none';
+    empty.style.display = 'block';
+    return;
+  }
+  const items = [];
+  snapshot.forEach(function(child) { items.push(Object.assign({ key: child.key }, child.val())); });
+  items.sort(function(a, b) { return (b.ts || 0) - (a.ts || 0); });
+  if (items.length === 0) {
+    grid.style.display = 'none';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+  grid.style.display = 'grid';
+  const likedKeys = JSON.parse(localStorage.getItem('likedGallery') || '[]');
+  const visitLabel = currentLang === 'en' ? 'Visit App' : '앱 방문하기';
+  const editLabel = currentLang === 'en' ? 'Edit' : '수정';
+  const delLabel = currentLang === 'en' ? 'Delete' : '삭제';
+  const parts = [];
+  for (let i = 0; i < items.length; i++) {
+    const item = items[i];
+    const liked = likedKeys.includes(item.key);
+    const likeCount = item.likes || 0;
+    const descHtml = item.desc ? '<div class="gallery-item-desc">' + escapeHtml(item.desc) + '</div>' : '';
+    parts.push(
+      '<div class="gallery-item">' +
+        '<div class="gallery-item-header">' +
+          '<span class="gallery-name">' + escapeHtml(item.name) + '</span>' +
+          '<span class="gallery-date">' + escapeHtml(item.date) + '</span>' +
+        '</div>' +
+        '<div class="gallery-item-title">' + escapeHtml(item.title) + '</div>' +
+        descHtml +
+        '<a href="' + escapeHtml(item.url) + '" target="_blank" rel="noopener noreferrer" class="gallery-link">🔗 ' + visitLabel + '</a>' +
+        '<div class="gallery-item-actions">' +
+          '<button class="gallery-like-btn' + (liked ? ' liked' : '') + '" onclick="toggleLike(\'' + item.key + '\')">' + (liked ? '❤️' : '🤍') + ' ' + likeCount + '</button>' +
+          '<button class="gallery-action-btn" onclick="galleryEdit(\'' + item.key + '\')">' + editLabel + '</button>' +
+          '<button class="gallery-action-btn del" onclick="galleryDelete(\'' + item.key + '\')">' + delLabel + '</button>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+  grid.innerHTML = parts.join('');
+}
 
 function loadGallery() {
-  // 기존 리스너 제거 후 실시간 리스너 등록
-  if (_galleryListener) db.ref('gallery').off('value', _galleryListener);
-  _galleryListener = db.ref('gallery').on('value', snapshot => {
-    const grid = document.getElementById('galleryGrid');
-    const empty = document.getElementById('galleryEmpty');
-    if (!snapshot.exists()) {
-      grid.style.display = 'none';
-      empty.style.display = 'block';
-      return;
-    }
-    const items = [];
-    snapshot.forEach(child => items.push({ key: child.key, ...child.val() }));
-    // 최신순 정렬 (클라이언트)
-    items.sort((a, b) => (b.ts || 0) - (a.ts || 0));
-    if (items.length === 0) {
-      grid.style.display = 'none';
-      empty.style.display = 'block';
-      return;
-    }
-    empty.style.display = 'none';
-    grid.style.display = 'grid';
-    const likedKeys = JSON.parse(localStorage.getItem('likedGallery') || '[]');
-    const visitLabel = currentLang === 'en' ? 'Visit App' : '앱 방문하기';
-    const editLabel = currentLang === 'en' ? 'Edit' : '수정';
-    const delLabel = currentLang === 'en' ? 'Delete' : '삭제';
-    grid.innerHTML = items.map(item => {
-      const liked = likedKeys.includes(item.key);
-      const likeCount = item.likes || 0;
-      return `
-      <div class="gallery-item">
-        <div class="gallery-item-header">
-          <span class="gallery-name">${escapeHtml(item.name)}</span>
-          <span class="gallery-date">${escapeHtml(item.date)}</span>
-        </div>
-        <div class="gallery-item-title">${escapeHtml(item.title)}</div>
-        ${item.desc ? `<div class="gallery-item-desc">${escapeHtml(item.desc)}</div>` : ''}
-        <a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="gallery-link">🔗 ${visitLabel}</a>
-        <div class="gallery-item-actions">
-          <button class="gallery-like-btn${liked ? ' liked' : ''}" onclick="toggleLike('${item.key}')">${liked ? '❤️' : '🤍'} ${likeCount}</button>
-          <button class="gallery-action-btn" onclick="galleryEdit('${item.key}')">${editLabel}</button>
-          <button class="gallery-action-btn del" onclick="galleryDelete('${item.key}')">${delLabel}</button>
-        </div>
-      </div>`;
-    }).join('');
-  }, err => {
+  // 기존 리스너 전부 제거 후 실시간 리스너 등록
+  db.ref('gallery').off('value');
+  db.ref('gallery').on('value', _renderGallery, function(err) {
     console.error('Gallery load error:', err);
   });
 }
@@ -659,17 +666,50 @@ function _onTextEditClick(e) {
   setTimeout(() => document.getElementById('adminTextInput').focus(), 100);
 }
 
+// ---- Admin text overrides: Firebase-backed, real-time across devices ----
+let _adminI18nCache = {};   // { lang: { key: val } }
+let _adminCustomCache = {}; // { textId: val }
+
+function _applyI18nCache(lang) {
+  const overrides = _adminI18nCache[lang] || {};
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (overrides[key] !== undefined) el.textContent = overrides[key];
+  });
+}
+
+function _applyCustomCache() {
+  document.querySelectorAll('[data-text-id]').forEach(el => {
+    const textId = el.getAttribute('data-text-id');
+    if (!el.hasAttribute('data-orig-text')) el.setAttribute('data-orig-text', el.textContent);
+    if (_adminCustomCache[textId] !== undefined) el.textContent = _adminCustomCache[textId];
+  });
+}
+
+function initAdminOverrideListeners() {
+  // i18n overrides (all languages)
+  db.ref('adminOverrides/i18n').on('value', function(snapshot) {
+    _adminI18nCache = snapshot.val() || {};
+    _applyI18nCache(currentLang);
+  });
+  // custom text overrides
+  db.ref('adminOverrides/custom').on('value', function(snapshot) {
+    _adminCustomCache = snapshot.val() || {};
+    _applyCustomCache();
+  });
+}
+
 function saveAdminText() {
   if (!_currentEditKey) return;
   const val = document.getElementById('adminTextInput').value;
   if (_currentEditKey.startsWith('i18n:')) {
     const key = _currentEditKey.slice(5);
-    localStorage.setItem(`admin_${currentLang}_${key}`, val);
-    document.querySelectorAll(`[data-i18n="${key}"]`).forEach(el => { el.textContent = val; });
+    db.ref('adminOverrides/i18n/' + currentLang + '/' + key).set(val);
+    document.querySelectorAll('[data-i18n="' + key + '"]').forEach(function(el) { el.textContent = val; });
   } else {
     const textId = _currentEditKey.slice(7);
-    localStorage.setItem(`admin_custom_${textId}`, val);
-    document.querySelectorAll(`[data-text-id="${textId}"]`).forEach(el => { el.textContent = val; });
+    db.ref('adminOverrides/custom/' + textId).set(val);
+    document.querySelectorAll('[data-text-id="' + textId + '"]').forEach(function(el) { el.textContent = val; });
   }
   closeAdminTextModal();
 }
@@ -678,20 +718,16 @@ function resetAdminText() {
   if (!_currentEditKey) return;
   if (_currentEditKey.startsWith('i18n:')) {
     const key = _currentEditKey.slice(5);
-    localStorage.removeItem(`admin_${currentLang}_${key}`);
+    db.ref('adminOverrides/i18n/' + currentLang + '/' + key).remove();
     const defVal = currentLang === 'ko'
-      ? document.querySelector(`[data-i18n="${key}"]`)?.getAttribute('data-ko')
+      ? document.querySelector('[data-i18n="' + key + '"]')?.getAttribute('data-ko')
       : en[key];
-    if (defVal) {
-      document.querySelectorAll(`[data-i18n="${key}"]`).forEach(el => { el.textContent = defVal; });
-    }
+    if (defVal) document.querySelectorAll('[data-i18n="' + key + '"]').forEach(function(el) { el.textContent = defVal; });
   } else {
     const textId = _currentEditKey.slice(7);
-    localStorage.removeItem(`admin_custom_${textId}`);
-    const el = document.querySelector(`[data-text-id="${textId}"]`);
-    if (el && el.hasAttribute('data-orig-text')) {
-      el.textContent = el.getAttribute('data-orig-text');
-    }
+    db.ref('adminOverrides/custom/' + textId).remove();
+    const el = document.querySelector('[data-text-id="' + textId + '"]');
+    if (el && el.hasAttribute('data-orig-text')) el.textContent = el.getAttribute('data-orig-text');
   }
   closeAdminTextModal();
 }
@@ -701,21 +737,13 @@ function closeAdminTextModal() {
   _currentEditKey = null;
 }
 
+// Called from applyTranslations — applies cached overrides synchronously
 function applyAdminTextOverrides(lang) {
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.getAttribute('data-i18n');
-    const saved = localStorage.getItem(`admin_${lang}_${key}`);
-    if (saved !== null) el.textContent = saved;
-  });
+  _applyI18nCache(lang);
 }
 
 function applyCustomTextOverrides() {
-  document.querySelectorAll('[data-text-id]').forEach(el => {
-    const textId = el.getAttribute('data-text-id');
-    if (!el.hasAttribute('data-orig-text')) el.setAttribute('data-orig-text', el.textContent);
-    const saved = localStorage.getItem(`admin_custom_${textId}`);
-    if (saved !== null) el.textContent = saved;
-  });
+  _applyCustomCache();
 }
 
 // Admin: practice prompts  — Firebase backend
