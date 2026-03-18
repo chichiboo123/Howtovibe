@@ -1310,6 +1310,8 @@ code {
 }
 
 @media (max-width: 768px) {
+  .nav-inner { gap: 8px; padding: 0 16px; }
+  .nav-logo { font-size: 0.85rem; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
   .nav-links { display: none; flex-direction: column; position: fixed; top: 64px; left: 0; right: 0; background: var(--bg); border-bottom: 1px solid var(--border); padding: 16px; gap: 4px; }
   .nav-links.open { display: flex; }
   .nav-toggle { display: block; }
