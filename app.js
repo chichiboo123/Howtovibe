@@ -157,7 +157,7 @@ const en = {
   'network-pw-placeholder': 'Password for editing/deleting',
   'network-pw-notice': '🔒 Password is encrypted and stored securely. Required for editing or deleting.',
   'network-submit-btn': '🚀 Share',
-  'gallery-title': '🎨 Work Gallery',
+  'gallery-title': '<span class="material-symbols-outlined">wall_art</span> Work Gallery',
   'gallery-empty': 'No works shared yet. Be the first!',
   'cta-title': 'Build Your First Lesson App Right Now',
   'cta-desc': "If you have an idea, that's enough.<br/>Complete your first app today.",

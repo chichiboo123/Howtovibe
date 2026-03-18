@@ -1715,6 +1715,13 @@ code {
   font-size: 1.1rem;
   font-weight: 600;
   margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.gallery-title .material-symbols-outlined {
+  font-size: 1.3rem;
+  vertical-align: middle;
 }
 
 .gallery-grid {
