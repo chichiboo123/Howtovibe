@@ -28,7 +28,7 @@ try {
 //  THEME TOGGLE
 // ============================================================
 const htmlEl = document.documentElement;
-const savedTheme = localStorage.getItem('theme') || 'dark';
+const savedTheme = localStorage.getItem('theme') || 'light';
 htmlEl.setAttribute('data-theme', savedTheme);
 
 const themeToggle = document.getElementById('themeToggle');
@@ -863,7 +863,7 @@ function adminDeleteGallery(key) {
 // ============================================================
 const terminalLines = {
   ko: [
-    { type: 'prompt', text: '$ Won's Vibe Coding' },
+    { type: 'prompt', text: "$ Won\u2019s Vibe Coding" },
     { type: 'output', text: '✻ 치수쌤 바이브코딩 v2.1.0 시작됨', delay: 400 },
     { type: 'blank', delay: 200 },
     { type: 'prompt', text: '> 나는 초등학교 교사야. 이미지카드 앱 만들어줘' },
@@ -878,8 +878,8 @@ const terminalLines = {
     { type: 'success', text: '✓ QR코드로 학생들과 공유하세요!', delay: 500 },
   ],
   en: [
-    { type: 'prompt', text: '$ Won's Vibe Coding' },
-    { type: 'output', text: '✻ Chichiboo's Vibe Coding v2.1.0 started', delay: 400 },
+    { type: 'prompt', text: "$ Won\u2019s Vibe Coding" },
+    { type: 'output', text: "\u2733 Chichiboo\u2019s Vibe Coding v2.1.0 started", delay: 400 },
     { type: 'blank', delay: 200 },
     { type: 'prompt', text: "> I'm an elementary school teacher. Make me an image card app" },
     { type: 'info', text: '⠸ Analyzing...', delay: 600 },
