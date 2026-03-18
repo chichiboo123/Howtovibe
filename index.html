@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title> 교사를 위한 바이브코딩 연수 | Vibe Coding for All Teachers </title>
+  <title>교사를 위한 바이브코딩 연수 | Teacher Vibe Coding</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="stylesheet" href="style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=dark_mode,light_mode,wall_art" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=admin_panel_settings,auto_awesome,auto_stories,bar_chart,bolt,bug_report,cancel,check_circle,checklist,chat,computer,content_copy,dark_mode,description,edit,edit_note,format_list_bulleted,key,language,light_mode,lightbulb,link,lock,menu,my_location,palette,person,push_pin,refresh,rocket_launch,school,settings,timer,wall_art" />
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-gov.min.css" />
 </head>
 <body>
@@ -24,9 +24,9 @@
         <li><a href="#network" class="nav-link" data-i18n="nav-network">네트워크</a></li>
       </ul>
       <div class="nav-controls">
-        <button class="theme-toggle" id="themeToggle" title="Toggle theme">☀️</button>
+        <button class="theme-toggle" id="themeToggle" title="Toggle theme"><span class="material-symbols-outlined">light_mode</span></button>
         <button class="lang-toggle" id="langToggle" title="Switch language">EN</button>
-        <button class="nav-toggle" id="navToggle">☰</button>
+        <button class="nav-toggle" id="navToggle"><span class="material-symbols-outlined">menu</span></button>
       </div>
     </div>
   </nav>
@@ -78,25 +78,28 @@
 
       <!-- Timeline -->
       <div class="timeline-section">
-        <h3 class="timeline-title" data-i18n="timeline-title">📚 수업 자료의 진화</h3>
+        <h3 class="timeline-title">
+          <span class="material-symbols-outlined">auto_stories</span>
+          <span data-i18n="timeline-title">수업 자료의 진화</span>
+        </h3>
         <div class="timeline">
           <div class="timeline-item" onclick="showTimelineDetail('hwp')" id="tl-hwp">
-            <div class="tl-icon">📝</div>
+            <div class="tl-icon"><span class="material-symbols-outlined">description</span></div>
             <div class="tl-label" data-i18n="tl-hwp-label">한글(HWP)</div>
           </div>
           <div class="timeline-arrow">→</div>
           <div class="timeline-item" onclick="showTimelineDetail('ppt')" id="tl-ppt">
-            <div class="tl-icon">📊</div>
+            <div class="tl-icon"><span class="material-symbols-outlined">bar_chart</span></div>
             <div class="tl-label" data-i18n="tl-ppt-label">PPT</div>
           </div>
           <div class="timeline-arrow">→</div>
           <div class="timeline-item" onclick="showTimelineDetail('canva')" id="tl-canva">
-            <div class="tl-icon">🎨</div>
+            <div class="tl-icon"><span class="material-symbols-outlined">palette</span></div>
             <div class="tl-label" data-i18n="tl-canva-label">Canva</div>
           </div>
           <div class="timeline-arrow">→</div>
           <div class="timeline-item active" onclick="showTimelineDetail('webapp')" id="tl-webapp">
-            <div class="tl-icon">🌐</div>
+            <div class="tl-icon"><span class="material-symbols-outlined">language</span></div>
             <div class="tl-label" data-i18n="tl-webapp-label">Web App</div>
           </div>
         </div>
@@ -109,22 +112,22 @@
 
       <div class="concept-grid">
         <div class="concept-card primary">
-          <div class="concept-icon">🏫</div>
+          <div class="concept-icon"><span class="material-symbols-outlined">school</span></div>
           <h3 data-i18n="concept1-title">교실 사례: 수업 활동 앱</h3>
           <p data-i18n="concept1-desc">선생님이 직접 만든 모둠 활동 앱. 학생들이 스마트폰으로 접속해 실시간으로 결과를 공유합니다.</p>
         </div>
         <div class="concept-card">
-          <div class="concept-icon">⏱️</div>
+          <div class="concept-icon"><span class="material-symbols-outlined">timer</span></div>
           <h3 data-i18n="concept2-title">당일 제작 가능</h3>
           <p data-i18n="concept2-desc">오늘 아이디어가 생겼다면, 오늘 웹앱을 완성할 수 있습니다. AI가 코드를 대신 작성해줍니다.</p>
         </div>
         <div class="concept-card">
-          <div class="concept-icon">🔗</div>
+          <div class="concept-icon"><span class="material-symbols-outlined">link</span></div>
           <h3 data-i18n="concept3-title">링크 하나로 공유</h3>
           <p data-i18n="concept3-desc">프린트 없이도 됩니다. 링크 하나를 공유하면 학생 누구나 접속할 수 있는 인터랙티브 수업 자료가 됩니다.</p>
         </div>
         <div class="concept-card">
-          <div class="concept-icon">✏️</div>
+          <div class="concept-icon"><span class="material-symbols-outlined">edit</span></div>
           <h3 data-i18n="concept4-title">내 수업에 딱 맞게</h3>
           <p data-i18n="concept4-desc">기성 플랫폼의 제약 없이, 내 학생들에게 완벽히 맞는 도구를 직접 만들 수 있습니다.</p>
         </div>
@@ -153,7 +156,7 @@
         <!-- 아이디어 확장 -->
         <div class="tool-category">
           <div class="tool-cat-header">
-            <span class="tool-cat-icon">💡</span>
+            <span class="tool-cat-icon"><span class="material-symbols-outlined">lightbulb</span></span>
             <div>
               <h3 class="tool-cat-title" data-i18n="cat1-title">아이디어 확장</h3>
               <p class="tool-cat-desc" data-i18n="cat1-desc">수업 아이디어를 구체적인 기능으로 발전시키는 도구</p>
@@ -174,7 +177,7 @@
         <!-- 코드 생성 -->
         <div class="tool-category">
           <div class="tool-cat-header">
-            <span class="tool-cat-icon">⚡</span>
+            <span class="tool-cat-icon"><span class="material-symbols-outlined">bolt</span></span>
             <div>
               <h3 class="tool-cat-title" data-i18n="cat2-title">코드 생성</h3>
               <p class="tool-cat-desc" data-i18n="cat2-desc">아이디어를 실제 동작하는 코드로 만들어주는 핵심 도구</p>
@@ -195,7 +198,7 @@
         <!-- 앱 제작 및 배포 -->
         <div class="tool-category">
           <div class="tool-cat-header">
-            <span class="tool-cat-icon">🚀</span>
+            <span class="tool-cat-icon"><span class="material-symbols-outlined">rocket_launch</span></span>
             <div>
               <h3 class="tool-cat-title" data-i18n="cat3-title">앱 제작 및 배포</h3>
               <p class="tool-cat-desc" data-i18n="cat3-desc">코드를 실제 웹앱으로 만들고 학생들과 공유하는 도구</p>
@@ -219,7 +222,10 @@
       </div>
 
       <div class="setup-checklist">
-        <h3 data-i18n="checklist-title">✅ 연수 시작 전 체크리스트</h3>
+        <h3>
+          <span class="material-symbols-outlined">checklist</span>
+          <span data-i18n="checklist-title">연수 시작 전 체크리스트</span>
+        </h3>
         <div class="checklist-items">
           <label class="check-item"><input type="checkbox" /><span data-i18n="check1">생성형 AI 계정 준비</span></label>
           <label class="check-item"><input type="checkbox" /><span data-i18n="check2">만들고 싶은 수업 활동 아이디어 1가지 메모</span></label>
@@ -230,7 +236,7 @@
       <!-- Practice Prompts (admin-managed) -->
       <div class="practice-prompts-section" id="practicePromptsSection">
         <div class="practice-prompts-header">
-          <h3>💡 실습 프롬프트</h3>
+          <h3><span class="material-symbols-outlined">lightbulb</span> 실습 프롬프트</h3>
           <p data-i18n="practice-prompts-desc">아래 프롬프트를 복사해서 생성형 AI에 붙여넣어 실습해보세요.</p>
         </div>
         <div class="practice-prompts-list" id="practicePromptsList">
@@ -261,7 +267,7 @@
           <div class="step-header" onclick="toggleStep('step-v')">
             <div class="step-num vibe-v">V</div>
             <div class="step-title-wrap">
-              <h3 data-i18n="vibe-v-title">Visualize — 상상하기</h3>
+              <h3 data-i18n="vibe-v-title">Visualize — 상상&amp;시각화</h3>
               <p data-i18n="vibe-v-sub">내 수업에서 어떤 앱이 필요한지 그려봅니다</p>
             </div>
             <span class="step-toggle">▼</span>
@@ -269,7 +275,7 @@
           <div class="step-body">
             <div class="step-content">
               <div class="substep">
-                <h4>🎯 교사 활동 예시</h4>
+                <h4><span class="material-symbols-outlined">my_location</span> 교사 활동 예시</h4>
                 <p>학생들이 모둠별로 토론 결과를 제출하는 앱이 필요하다고 상상해보세요.</p>
                 <div class="example-box">
                   <div class="example-label">시각화 질문들</div>
@@ -281,7 +287,7 @@
                 </div>
               </div>
               <div class="tip-box">
-                <strong>💡 팁:</strong> 종이에 먼저 화면을 스케치해보세요. 그림이 있으면 AI에게 더 정확하게 설명할 수 있습니다.
+                <strong><span class="material-symbols-outlined">lightbulb</span> 팁:</strong> 종이에 먼저 화면을 스케치해보세요. 그림이 있으면 AI에게 더 정확하게 설명할 수 있습니다.
               </div>
             </div>
           </div>
@@ -291,7 +297,7 @@
           <div class="step-header" onclick="toggleStep('step-i')">
             <div class="step-num vibe-i">I</div>
             <div class="step-title-wrap">
-              <h3 data-i18n="vibe-i-title">Interact — AI와 대화하기</h3>
+              <h3 data-i18n="vibe-i-title">Interact — AI 상호작용</h3>
               <p data-i18n="vibe-i-sub">상상한 것을 AI에게 설명하고 코드를 받습니다</p>
             </div>
             <span class="step-toggle">▼</span>
@@ -299,7 +305,7 @@
           <div class="step-body">
             <div class="step-content">
               <div class="substep">
-                <h4>📝 좋은 첫 프롬프트 구조</h4>
+                <h4><span class="material-symbols-outlined">edit_note</span> 좋은 첫 프롬프트 구조</h4>
                 <div class="prompt-template">
                   <div class="prompt-line"><span class="pt-label">나는:</span> [교사 / 교과목]</div>
                   <div class="prompt-line"><span class="pt-label">목적:</span> [어떤 수업 활동에 쓸 것인지]</div>
@@ -309,7 +315,7 @@
                 </div>
               </div>
               <div class="substep">
-                <h4>✍️ 실제 교사 예시</h4>
+                <h4><span class="material-symbols-outlined">chat</span> 실제 교사 예시</h4>
                 <div class="code-block">
                   <pre>"나는 중학교 사회 교사입니다.
 
@@ -323,7 +329,7 @@
                 </div>
               </div>
               <div class="tip-box">
-                <strong>💡 팁:</strong> "나는 교사입니다"라고 명시하면 AI가 교육적 맥락을 더 잘 이해합니다.
+                <strong><span class="material-symbols-outlined">lightbulb</span> 팁:</strong> "나는 교사입니다"라고 명시하면 AI가 교육적 맥락을 더 잘 이해합니다.
               </div>
             </div>
           </div>
@@ -333,7 +339,7 @@
           <div class="step-header" onclick="toggleStep('step-b')">
             <div class="step-num vibe-b">B</div>
             <div class="step-title-wrap">
-              <h3 data-i18n="vibe-b-title">Build — 구현하기</h3>
+              <h3 data-i18n="vibe-b-title">Build — 구현</h3>
               <p data-i18n="vibe-b-sub">AI가 만든 코드를 실행하고 결과를 확인합니다</p>
             </div>
             <span class="step-toggle">▼</span>
@@ -341,7 +347,7 @@
           <div class="step-body">
             <div class="step-content">
               <div class="substep">
-                <h4>🖥️ 코드 실행하기 (2가지 방법)</h4>
+                <h4><span class="material-symbols-outlined">computer</span> 코드 실행하기 (2가지 방법)</h4>
                 <div class="example-box">
                   <div class="example-label">방법 1: 로컬 파일 (가장 쉬움)</div>
                   <ol style="padding-left:16px; margin-top:8px; display:flex; flex-direction:column; gap:4px;">
@@ -359,14 +365,14 @@
                 </div>
               </div>
               <div class="substep">
-                <h4>🐛 오류가 났을 때</h4>
+                <h4><span class="material-symbols-outlined">bug_report</span> 오류가 났을 때</h4>
                 <div class="code-block">
                   <pre>"아래 오류가 발생했어. 고쳐줘:
 [오류 메시지 붙여넣기]"</pre>
                 </div>
               </div>
               <div class="tip-box">
-                <strong>💡 팁:</strong> 오류 메시지를 그대로 복사해서 AI에게 붙여넣으면 대부분 해결됩니다.
+                <strong><span class="material-symbols-outlined">lightbulb</span> 팁:</strong> 오류 메시지를 그대로 복사해서 AI에게 붙여넣으면 대부분 해결됩니다.
               </div>
             </div>
           </div>
@@ -376,7 +382,7 @@
           <div class="step-header" onclick="toggleStep('step-e')">
             <div class="step-num vibe-e">E</div>
             <div class="step-title-wrap">
-              <h3 data-i18n="vibe-e-title">Execute &amp; Evolve — 실행하고 발전시키기</h3>
+              <h3 data-i18n="vibe-e-title">Execute &amp; Evolve — 실행&amp;고도화</h3>
               <p data-i18n="vibe-e-sub">수업에서 사용해보고, 피드백을 반영해 개선합니다</p>
             </div>
             <span class="step-toggle">▼</span>
@@ -384,32 +390,32 @@
           <div class="step-body">
             <div class="step-content">
               <div class="substep">
-                <h4>🔁 수업 후 발전 사이클</h4>
+                <h4><span class="material-symbols-outlined">refresh</span> 수업 후 발전 사이클</h4>
                 <div class="cycle-diagram">
-                  <div class="cycle-item">🏫 수업 적용</div>
+                  <div class="cycle-item"><span class="material-symbols-outlined">school</span> 수업 적용</div>
                   <div class="cycle-arrow">→</div>
-                  <div class="cycle-item">📝 피드백 수집</div>
+                  <div class="cycle-item"><span class="material-symbols-outlined">edit_note</span> 피드백 수집</div>
                   <div class="cycle-arrow">→</div>
-                  <div class="cycle-item">💬 AI에게 개선 요청</div>
+                  <div class="cycle-item"><span class="material-symbols-outlined">chat</span> AI에게 개선 요청</div>
                   <div class="cycle-arrow">→</div>
-                  <div class="cycle-item">🚀 다음 수업에 활용</div>
+                  <div class="cycle-item"><span class="material-symbols-outlined">rocket_launch</span> 다음 수업에 활용</div>
                 </div>
               </div>
               <div class="substep">
-                <h4>📋 좋은 개선 요청 예시</h4>
+                <h4><span class="material-symbols-outlined">format_list_bulleted</span> 좋은 개선 요청 예시</h4>
                 <div class="feedback-examples">
                   <div class="feedback bad">
-                    <div class="feedback-label">❌ 막연한 요청</div>
+                    <div class="feedback-label"><span class="material-symbols-outlined">cancel</span> 막연한 요청</div>
                     <p>"학생들이 불편해했어. 고쳐줘"</p>
                   </div>
                   <div class="feedback good">
-                    <div class="feedback-label">✅ 구체적인 요청</div>
+                    <div class="feedback-label"><span class="material-symbols-outlined">check_circle</span> 구체적인 요청</div>
                     <p>"모바일에서 버튼이 너무 작아서 못 눌렀어. 버튼 크기를 2배로 키워줘"</p>
                   </div>
                 </div>
               </div>
               <div class="substep">
-                <h4>🎓 배포 및 학생 공유</h4>
+                <h4><span class="material-symbols-outlined">school</span> 배포 및 학생 공유</h4>
                 <ol style="padding-left:20px; display:flex; flex-direction:column; gap:6px; margin-top:8px;">
                   <li style="font-size:0.9rem; color:var(--text-muted);">GitHub Pages 또는 Vercel에 업로드</li>
                   <li style="font-size:0.9rem; color:var(--text-muted);">생성된 URL을 QR코드로 변환 (구글에서 "QR코드 생성기" 검색)</li>
@@ -417,7 +423,7 @@
                 </ol>
               </div>
               <div class="tip-box">
-                <strong>💡 팁:</strong> 첫 번째 앱이 완벽하지 않아도 됩니다. 매 수업마다 조금씩 발전시키는 것이 핵심입니다.
+                <strong><span class="material-symbols-outlined">lightbulb</span> 팁:</strong> 첫 번째 앱이 완벽하지 않아도 됩니다. 매 수업마다 조금씩 발전시키는 것이 핵심입니다.
               </div>
             </div>
           </div>
@@ -438,28 +444,49 @@
       <div class="lesson-builder">
         <div class="lesson-form">
           <div class="lesson-field">
-            <label for="lessonActivity" data-i18n="lesson-activity-label">🎯 활동 이름</label>
+            <label for="lessonActivity">
+              <span class="material-symbols-outlined">my_location</span>
+              <span data-i18n="lesson-activity-label">활동 이름</span>
+            </label>
             <input type="text" id="lessonActivity" data-i18n-placeholder="lesson-activity-placeholder" placeholder="예: 찬반 토론 의견 제출 앱" />
           </div>
           <div class="lesson-field">
-            <label for="lessonGoal" data-i18n="lesson-goal-label">📚 학습 목표</label>
+            <label for="lessonGoal">
+              <span class="material-symbols-outlined">auto_stories</span>
+              <span data-i18n="lesson-goal-label">학습 목표</span>
+            </label>
             <input type="text" id="lessonGoal" data-i18n-placeholder="lesson-goal-placeholder" placeholder="예: 환경 문제에 대한 학생들의 다양한 의견을 시각화하기" />
           </div>
           <div class="lesson-field">
-            <label for="lessonProcess" data-i18n="lesson-process-label">📋 활동 과정</label>
+            <label for="lessonProcess">
+              <span class="material-symbols-outlined">format_list_bulleted</span>
+              <span data-i18n="lesson-process-label">활동 과정</span>
+            </label>
             <textarea id="lessonProcess" rows="4" data-i18n-placeholder="lesson-process-placeholder" placeholder="예: 학생이 이름 입력 → 찬성/반대 선택 → 이유 작성 → 제출 → 전체 결과를 그래프로 보기"></textarea>
           </div>
           <div class="lesson-field">
-            <label for="lessonGrade" data-i18n="lesson-grade-label">👨‍🎓 대상 학년 (선택)</label>
+            <label for="lessonGrade">
+              <span class="material-symbols-outlined">school</span>
+              <span data-i18n="lesson-grade-label">대상 학년 (선택)</span>
+            </label>
             <input type="text" id="lessonGrade" data-i18n-placeholder="lesson-grade-placeholder" placeholder="예: 중학교 2학년" />
           </div>
-          <button class="btn btn-primary" onclick="generateLessonPrompt()" data-i18n="lesson-gen-btn">✨ 프롬프트 자동 생성하기</button>
+          <button class="btn btn-primary" onclick="generateLessonPrompt()">
+            <span class="material-symbols-outlined">auto_awesome</span>
+            <span data-i18n="lesson-gen-btn">프롬프트 자동 생성하기</span>
+          </button>
         </div>
 
         <div class="lesson-output" id="lessonOutput" style="display:none;">
           <div class="lesson-output-header">
-            <h3 data-i18n="lesson-output-title">📝 생성된 프롬프트</h3>
-            <button class="copy-btn" onclick="copyLessonPrompt()" data-i18n="lesson-copy-btn">📋 복사하기</button>
+            <h3>
+              <span class="material-symbols-outlined">edit_note</span>
+              <span data-i18n="lesson-output-title">생성된 프롬프트</span>
+            </h3>
+            <button class="copy-btn" onclick="copyLessonPrompt()">
+              <span class="material-symbols-outlined">content_copy</span>
+              <span data-i18n="lesson-copy-btn">복사하기</span>
+            </button>
           </div>
           <textarea id="lessonPromptText" rows="16" readonly></textarea>
           <div class="lesson-next-steps">
@@ -488,27 +515,48 @@
       <div class="network-submit">
         <div class="network-form">
           <div class="network-field">
-            <label for="networkName" data-i18n="network-name-label">👤 이름 (닉네임 가능)</label>
+            <label for="networkName">
+              <span class="material-symbols-outlined">person</span>
+              <span data-i18n="network-name-label">이름 (닉네임 가능)</span>
+            </label>
             <input type="text" id="networkName" data-i18n-placeholder="network-name-placeholder" placeholder="예: 김선생님, 수학쌤" />
           </div>
           <div class="network-field">
-            <label for="networkTitle" data-i18n="network-title-label">📌 앱 이름</label>
+            <label for="networkTitle">
+              <span class="material-symbols-outlined">push_pin</span>
+              <span data-i18n="network-title-label">앱 이름</span>
+            </label>
             <input type="text" id="networkTitle" data-i18n-placeholder="network-title-placeholder" placeholder="예: 모둠 토론 의견 제출 앱" />
           </div>
           <div class="network-field">
-            <label for="networkDesc" data-i18n="network-desc-label">📝 앱 소개</label>
+            <label for="networkDesc">
+              <span class="material-symbols-outlined">edit_note</span>
+              <span data-i18n="network-desc-label">앱 소개</span>
+            </label>
             <textarea id="networkDesc" rows="2" data-i18n-placeholder="network-desc-placeholder" placeholder="예: 학생들이 의견을 제출하고 실시간으로 결과를 확인하는 앱"></textarea>
           </div>
           <div class="network-field">
-            <label for="networkUrl" data-i18n="network-url-label">🔗 웹앱 링크</label>
+            <label for="networkUrl">
+              <span class="material-symbols-outlined">link</span>
+              <span data-i18n="network-url-label">웹앱 링크</span>
+            </label>
             <input type="url" id="networkUrl" data-i18n-placeholder="network-url-placeholder" placeholder="https://..." />
           </div>
           <div class="network-field">
-            <label for="networkPw" data-i18n="network-pw-label">🔑 비밀번호 설정</label>
+            <label for="networkPw">
+              <span class="material-symbols-outlined">key</span>
+              <span data-i18n="network-pw-label">비밀번호 설정</span>
+            </label>
             <input type="password" id="networkPw" data-i18n-placeholder="network-pw-placeholder" placeholder="수정/삭제 시 필요한 비밀번호" />
-            <p class="gallery-pw-notice" data-i18n="network-pw-notice">🔒 비밀번호는 암호화되어 저장되며, 관리자도 확인할 수 없습니다. 수정 및 삭제시 필요합니다.</p>
+            <p class="gallery-pw-notice">
+              <span class="material-symbols-outlined">lock</span>
+              <span data-i18n="network-pw-notice">비밀번호는 암호화되어 저장되며, 관리자도 확인할 수 없습니다. 수정 및 삭제시 필요합니다.</span>
+            </p>
           </div>
-          <button class="btn btn-primary" onclick="submitToNetwork()" data-i18n="network-submit-btn">🚀 공유하기</button>
+          <button class="btn btn-primary" onclick="submitToNetwork()">
+            <span class="material-symbols-outlined">rocket_launch</span>
+            <span data-i18n="network-submit-btn">공유하기</span>
+          </button>
         </div>
       </div>
 
@@ -531,22 +579,22 @@
         <div class="cta-steps">
           <div class="cta-step">
             <span class="cta-num">V</span>
-            <span data-i18n="cta-step1">상상하기</span>
+            <span data-i18n="cta-step1">상상&amp;시각화</span>
           </div>
           <div class="cta-arrow">→</div>
           <div class="cta-step">
             <span class="cta-num">I</span>
-            <span data-i18n="cta-step2">AI와 소통하기</span>
+            <span data-i18n="cta-step2">AI 상호작용</span>
           </div>
           <div class="cta-arrow">→</div>
           <div class="cta-step">
             <span class="cta-num">B</span>
-            <span data-i18n="cta-step3">구현하기</span>
+            <span data-i18n="cta-step3">구현</span>
           </div>
           <div class="cta-arrow">→</div>
           <div class="cta-step">
             <span class="cta-num">E</span>
-            <span data-i18n="cta-step4">발전시키기</span>
+            <span data-i18n="cta-step4">실행&amp;고도화</span>
           </div>
         </div>
         <div style="margin-top: 36px;">
@@ -565,21 +613,21 @@
 
   <!-- Admin Bar -->
   <div class="admin-bar" id="adminBar">
-    <span>🔐 관리자 모드</span>
-    <button onclick="toggleTextEditMode()">✏️ 텍스트 편집</button>
-    <button onclick="openAdminPanel()">⚙️ 설정</button>
+    <span><span class="material-symbols-outlined">admin_panel_settings</span> 관리자 모드</span>
+    <button onclick="toggleTextEditMode()"><span class="material-symbols-outlined">edit</span> 텍스트 편집</button>
+    <button onclick="openAdminPanel()"><span class="material-symbols-outlined">settings</span> 설정</button>
     <button onclick="adminLogout()">로그아웃</button>
   </div>
 
   <!-- Admin Trigger (hidden button) -->
-  <button class="admin-trigger" id="adminTrigger" onclick="openAdminModal()" title="">⚙</button>
+  <button class="admin-trigger" id="adminTrigger" onclick="openAdminModal()" title=""><span class="material-symbols-outlined">settings</span></button>
 
   <!-- Admin Overlay (login + panel) -->
   <div class="admin-overlay" id="adminOverlay">
     <div class="admin-modal-box">
       <!-- Login -->
       <div id="adminLoginView">
-        <h3>🔐 관리자</h3>
+        <h3><span class="material-symbols-outlined">admin_panel_settings</span> 관리자</h3>
         <div class="admin-login-form">
           <input type="password" id="adminPwInput" placeholder="비밀번호 입력" onkeydown="if(event.key==='Enter')adminLogin()" />
           <div class="admin-btn-row">
@@ -591,18 +639,18 @@
       <!-- Panel -->
       <div id="adminPanelView" style="display:none;">
         <div class="admin-panel-header">
-          <h3>🔐 관리자 패널</h3>
+          <h3><span class="material-symbols-outlined">admin_panel_settings</span> 관리자 패널</h3>
           <button class="admin-btn" style="flex:0;padding:5px 12px;" onclick="closeAdminModal()">닫기</button>
         </div>
 
         <div class="admin-section">
-          <h4>✏️ 텍스트 편집</h4>
+          <h4><span class="material-symbols-outlined">edit</span> 텍스트 편집</h4>
           <div class="admin-text-editing-notice" id="adminEditNotice">편집 모드 활성화 — 수정할 텍스트를 클릭하세요.</div>
           <button class="admin-btn primary" onclick="toggleTextEditMode()">텍스트 편집 모드 켜기/끄기</button>
         </div>
 
         <div class="admin-section">
-          <h4>💡 실습 프롬프트 관리</h4>
+          <h4><span class="material-symbols-outlined">lightbulb</span> 실습 프롬프트 관리</h4>
           <div class="admin-add-prompt">
             <input type="text" id="adminPromptTitle" placeholder="프롬프트 제목 (예: 기초 실습 #1)" />
             <textarea id="adminPromptContent" rows="5" placeholder="프롬프트 내용을 입력하세요..."></textarea>
@@ -612,7 +660,7 @@
         </div>
 
         <div class="admin-section">
-          <h4>🎨 갤러리 관리</h4>
+          <h4><span class="material-symbols-outlined">palette</span> 갤러리 관리</h4>
           <div class="admin-gallery-list" id="adminGalleryList"></div>
         </div>
       </div>
@@ -622,7 +670,7 @@
   <!-- Admin Text Edit Modal -->
   <div class="admin-text-modal" id="adminTextModal">
     <div class="admin-text-modal-box">
-      <h4>✏️ 텍스트 편집</h4>
+      <h4><span class="material-symbols-outlined">edit</span> 텍스트 편집</h4>
       <textarea id="adminTextInput" rows="5"></textarea>
       <div class="admin-btn-row">
         <button class="admin-btn primary" onclick="saveAdminText()">저장</button>
@@ -635,7 +683,7 @@
   <!-- Gallery PW Modal -->
   <div class="pw-modal" id="pwModal">
     <div class="pw-modal-box">
-      <h4 id="pwModalTitle">🔑 비밀번호 확인</h4>
+      <h4 id="pwModalTitle"><span class="material-symbols-outlined">key</span> 비밀번호 확인</h4>
       <input type="password" id="pwModalInput" placeholder="비밀번호" onkeydown="if(event.key==='Enter')pwModalConfirm()" />
       <div class="admin-btn-row">
         <button class="admin-btn primary" onclick="pwModalConfirm()">확인</button>

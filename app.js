@@ -74,7 +74,7 @@ const en = {
   'ch01-tag': 'CHAPTER 01 · Head Chef',
   'ch01-title': 'Why Should Teachers Build Web Apps?',
   'ch01-desc': 'Classroom materials have evolved from Hangul to PPT, Canva, and now Web Apps.<br/> AI is at the center of this shift.',
-  'timeline-title': '📚 The Evolution of Classroom Materials',
+  'timeline-title': 'The Evolution of Classroom Materials',
   'tl-hwp-label': 'Hangul (HWP)',
   'tl-ppt-label': 'PowerPoint',
   'tl-canva-label': 'Canva',
@@ -105,7 +105,7 @@ const en = {
   'tool-replit': 'Code in browser, instant deploy, no installation',
   'tool-lovable': 'AI-assisted app building, automated design, one-click deploy',
   'tool-github': 'Free hosting, permanent link, ideal for sharing with students',
-  'checklist-title': '✅ Pre-Workshop Checklist',
+  'checklist-title': 'Pre-Workshop Checklist',
   'check1': 'Generative AI account ready',
   'check2': 'One lesson activity idea noted',
   'check3': 'GitHub account created (free)',
@@ -115,28 +115,28 @@ const en = {
   'ch03-tag': 'CHAPTER 03 · VIBE Framework',
   'ch03-title': 'Build Lesson Apps with V.I.B.E',
   'ch03-desc': 'Remember four steps. From idea to finished lesson app.',
-  'vibe-v-title': 'Visualize — Imagine',
+  'vibe-v-title': 'Visualize — Imagine & Visualize',
   'vibe-v-sub': 'Picture what kind of app your class needs',
-  'vibe-i-title': 'Interact — Talk with AI',
+  'vibe-i-title': 'Interact — AI Interaction',
   'vibe-i-sub': 'Describe your vision to AI and receive the code',
   'vibe-b-title': 'Build — Implement',
   'vibe-b-sub': 'Run the AI-generated code and check the results',
-  'vibe-e-title': 'Execute & Evolve — Run and Improve',
+  'vibe-e-title': 'Execute & Evolve — Run & Advance',
   'vibe-e-sub': 'Use in class, gather feedback, and improve',
   'ch04-tag': 'CHAPTER 04 · Fine Dining',
   'ch04-title': 'Build Your Own Lesson App',
   'ch04-desc': "Enter your details below to auto-generate a prompt for AI",
-  'lesson-activity-label': '🎯 Activity Name',
+  'lesson-activity-label': 'Activity Name',
   'lesson-activity-placeholder': 'e.g. Pros & Cons Discussion App',
-  'lesson-goal-label': '📚 Learning Objective',
+  'lesson-goal-label': 'Learning Objective',
   'lesson-goal-placeholder': "e.g. Visualize students' opinions on environmental issues",
-  'lesson-process-label': '📋 Activity Flow',
+  'lesson-process-label': 'Activity Flow',
   'lesson-process-placeholder': 'e.g. Name → choose agree/disagree → reason → submit → view results',
-  'lesson-grade-label': '👨‍🎓 Target Grade (optional)',
+  'lesson-grade-label': 'Target Grade (optional)',
   'lesson-grade-placeholder': 'e.g. 8th grade',
-  'lesson-gen-btn': '✨ Auto-Generate Prompt',
-  'lesson-output-title': '📝 Generated Prompt',
-  'lesson-copy-btn': '📋 Copy',
+  'lesson-gen-btn': 'Auto-Generate Prompt',
+  'lesson-output-title': 'Generated Prompt',
+  'lesson-copy-btn': 'Copy',
   'lesson-next-title': '<strong>Next steps:</strong>',
   'lesson-next-1': 'Copy the prompt above',
   'lesson-next-2': 'Paste it into a generative AI tool',
@@ -145,26 +145,26 @@ const en = {
   'ch05-tag': 'CHAPTER 05 · Network',
   'ch05-title': 'What We Built',
   'ch05-desc': "Share your lesson apps. Get inspired by each other's work.",
-  'network-name-label': '👤 Name (nickname ok)',
+  'network-name-label': 'Name (nickname ok)',
   'network-name-placeholder': 'e.g. Teacher Kim',
-  'network-title-label': '📌 App Name',
+  'network-title-label': 'App Name',
   'network-title-placeholder': 'e.g. Group Discussion App',
-  'network-desc-label': '📝 App Description',
+  'network-desc-label': 'App Description',
   'network-desc-placeholder': 'e.g. Students submit opinions and see results in real time',
-  'network-url-label': '🔗 Web App Link',
+  'network-url-label': 'Web App Link',
   'network-url-placeholder': 'https://...',
-  'network-pw-label': '🔑 Set Password',
+  'network-pw-label': 'Set Password',
   'network-pw-placeholder': 'Password for editing/deleting',
-  'network-pw-notice': '🔒 Password is encrypted and stored securely. Required for editing or deleting.',
-  'network-submit-btn': '🚀 Share',
+  'network-pw-notice': 'Password is encrypted and stored securely. Required for editing or deleting.',
+  'network-submit-btn': 'Share',
   'gallery-title': '<span class="material-symbols-outlined">wall_art</span> Work Gallery',
   'gallery-empty': 'No works shared yet. Be the first!',
   'cta-title': 'Build Your First Lesson App Right Now',
   'cta-desc': "If you have an idea, that's enough.<br/>Complete your first app today.",
-  'cta-step1': 'Visualize',
-  'cta-step2': 'Talk with AI',
+  'cta-step1': 'Imagine & Visualize',
+  'cta-step2': 'AI Interaction',
   'cta-step3': 'Build',
-  'cta-step4': 'Evolve',
+  'cta-step4': 'Run & Advance',
   'cta-btn': 'Start Fine Dining →',
   'footer-main': 'Created by. 교육뮤지컬 꿈꾸는 치수쌤',
   'footer-sub': 'Made with Vibe Coding · 2026',
@@ -245,16 +245,16 @@ document.addEventListener('DOMContentLoaded', () => {
 // ---- Timeline ----
 const timelineData = {
   ko: {
-    hwp: { title: '📝 한글(HWP) 시대', features: ['인쇄 기반 자료 제작', '텍스트 중심', '교사가 편집, 학생은 수동적'], limits: ['상호작용 불가', '배포 어려움', '수정 후 재인쇄 필요'] },
-    ppt: { title: '📊 PowerPoint 시대', features: ['시각적 표현 가능', '슬라이드 구조', '발표 중심 수업'], limits: ['학생 참여 수동적', '파일 공유 불편', '인터랙션 없음'] },
-    canva: { title: '🎨 Canva 시대', features: ['아름다운 디자인', '실시간 협업', '링크 공유 가능'], limits: ['템플릿 제한', '인터랙티브 기능 없음', '학생 데이터 수집 불가'] },
-    webapp: { title: '🌐 Web App 시대 (지금!)', features: ['완전한 인터랙션', '학생 데이터 실시간 수집', '어떤 기능이든 구현 가능'], limits: ['→ AI 덕분에 코딩 몰라도 만들 수 있습니다!'], isNow: true },
+    hwp: { title: '한글(HWP) 시대', features: ['인쇄 기반 자료 제작', '텍스트 중심', '교사가 편집, 학생은 수동적'], limits: ['상호작용 불가', '배포 어려움', '수정 후 재인쇄 필요'] },
+    ppt: { title: 'PowerPoint 시대', features: ['시각적 표현 가능', '슬라이드 구조', '발표 중심 수업'], limits: ['학생 참여 수동적', '파일 공유 불편', '인터랙션 없음'] },
+    canva: { title: 'Canva 시대', features: ['아름다운 디자인', '실시간 협업', '링크 공유 가능'], limits: ['템플릿 제한', '인터랙티브 기능 없음', '학생 데이터 수집 불가'] },
+    webapp: { title: 'Web App 시대 (지금!)', features: ['완전한 인터랙션', '학생 데이터 실시간 수집', '어떤 기능이든 구현 가능'], limits: ['→ AI 덕분에 코딩 몰라도 만들 수 있습니다!'], isNow: true },
   },
   en: {
-    hwp: { title: '📝 Hangul (HWP) Era', features: ['Print-based materials', 'Text-focused', 'Teacher edits, students passive'], limits: ['No interactivity', 'Hard to distribute', 'Reprint needed after edits'] },
-    ppt: { title: '📊 PowerPoint Era', features: ['Visual expression', 'Slide structure', 'Presentation-centered'], limits: ['Students still passive', 'File sharing inconvenient', 'No interaction'] },
-    canva: { title: '🎨 Canva Era', features: ['Beautiful design', 'Collaboration features', 'Link sharing possible'], limits: ['Template limitations', 'No interactive features', "Can't collect student data"] },
-    webapp: { title: '🌐 Web App Era (Now!)', features: ['Full interactivity', 'Real-time student data', 'Any feature possible'], limits: ['→ Thanks to AI, no coding required!'], isNow: true },
+    hwp: { title: 'Hangul (HWP) Era', features: ['Print-based materials', 'Text-focused', 'Teacher edits, students passive'], limits: ['No interactivity', 'Hard to distribute', 'Reprint needed after edits'] },
+    ppt: { title: 'PowerPoint Era', features: ['Visual expression', 'Slide structure', 'Presentation-centered'], limits: ['Students still passive', 'File sharing inconvenient', 'No interaction'] },
+    canva: { title: 'Canva Era', features: ['Beautiful design', 'Collaboration features', 'Link sharing possible'], limits: ['Template limitations', 'No interactive features', "Can't collect student data"] },
+    webapp: { title: 'Web App Era (Now!)', features: ['Full interactivity', 'Real-time student data', 'Any feature possible'], limits: ['→ Thanks to AI, no coding required!'], isNow: true },
   },
 };
 
@@ -463,7 +463,7 @@ function submitToNetwork() {
 let _pwCallback = null;
 function pwModalOpen(title, cb) {
   _pwCallback = cb;
-  document.getElementById('pwModalTitle').textContent = title;
+  document.getElementById('pwModalTitle').innerHTML = '<span class="material-symbols-outlined">key</span> ' + title;
   document.getElementById('pwModalInput').value = '';
   document.getElementById('pwModal').classList.add('open');
   setTimeout(() => document.getElementById('pwModalInput').focus(), 100);
@@ -480,11 +480,11 @@ function pwModalConfirm() {
 
 function galleryEdit(key) {
   if (isAdminMode) { _doGalleryEdit(key, null, true); return; }
-  pwModalOpen(currentLang === 'en' ? '🔑 Enter Password to Edit' : '🔑 수정 비밀번호 입력', (pw) => _doGalleryEdit(key, pw, false));
+  pwModalOpen(currentLang === 'en' ? 'Enter Password to Edit' : '수정 비밀번호 입력', (pw) => _doGalleryEdit(key, pw, false));
 }
 function galleryDelete(key) {
   if (isAdminMode) { _doGalleryDelete(key, null, true); return; }
-  pwModalOpen(currentLang === 'en' ? '🔑 Enter Password to Delete' : '🔑 삭제 비밀번호 입력', (pw) => _doGalleryDelete(key, pw, false));
+  pwModalOpen(currentLang === 'en' ? 'Enter Password to Delete' : '삭제 비밀번호 입력', (pw) => _doGalleryDelete(key, pw, false));
 }
 
 function _doGalleryEdit(key, pw, isAdmin) {
