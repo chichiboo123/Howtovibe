@@ -207,6 +207,58 @@ body {
   line-height: 1;
 }
 
+/* ---- Material Symbols 공통 크기·정렬 ---- */
+/* 아이콘 전용 컨테이너 */
+.tl-icon .material-symbols-outlined { font-size: 1.8rem; }
+.concept-icon .material-symbols-outlined { font-size: 2rem; }
+.tool-cat-icon .material-symbols-outlined { font-size: 1.6rem; }
+
+/* nav-toggle 아이콘 */
+.nav-toggle .material-symbols-outlined { font-size: 1.4rem; display: block; line-height: 1; }
+
+/* 제목(h3/h4) 안 아이콘 */
+h3 .material-symbols-outlined,
+h4 .material-symbols-outlined { font-size: 1.1em; vertical-align: middle; }
+
+/* 라벨 안 아이콘 */
+label .material-symbols-outlined { font-size: 1rem; vertical-align: middle; }
+
+/* 버튼 안 아이콘 */
+.btn .material-symbols-outlined { font-size: 1em; vertical-align: middle; }
+.copy-btn .material-symbols-outlined { font-size: 0.95em; vertical-align: middle; }
+
+/* 사이클 아이템 아이콘 */
+.cycle-item .material-symbols-outlined { font-size: 1.1rem; vertical-align: middle; margin-right: 2px; }
+
+/* 피드백 레이블 아이콘 */
+.feedback-label .material-symbols-outlined { font-size: 1em; vertical-align: middle; }
+
+/* tip-box strong 아이콘 */
+.tip-box .material-symbols-outlined { font-size: 1em; vertical-align: middle; }
+
+/* 갤러리 비밀번호 안내 */
+.gallery-pw-notice { display: flex; align-items: flex-start; gap: 6px; }
+.gallery-pw-notice .material-symbols-outlined { font-size: 1rem; flex-shrink: 0; margin-top: 2px; }
+
+/* 어드민 바 아이콘 */
+.admin-bar .material-symbols-outlined { font-size: 1rem; vertical-align: middle; }
+
+/* 어드민 모달 h3/h4 아이콘 */
+.admin-modal-box .material-symbols-outlined { font-size: 1.1em; vertical-align: middle; }
+
+/* 레이블 flex 정렬 */
+.lesson-field label,
+.network-field label { display: flex; align-items: center; gap: 6px; }
+
+/* 헤딩 flex 정렬 */
+.timeline-title,
+.setup-checklist h3,
+.practice-prompts-header h3 { display: flex; align-items: center; gap: 8px; }
+
+/* h4 substep flex */
+.substep h4,
+.step-body h4 { display: flex; align-items: center; gap: 6px; }
+
 .nav-toggle {
   display: none;
   background: none;
