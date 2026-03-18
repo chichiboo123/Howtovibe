@@ -1474,6 +1474,253 @@ code {
 }
 
 /* ============================================================
+   EVOLUTION CARDS (Chapter 01 — New)
+   ============================================================ */
+.evo-section { margin-bottom: 48px; }
+
+.evo-section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 24px;
+}
+
+.evo-flow {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+}
+
+.evo-flow-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  color: var(--text-dim);
+  padding: 0 6px;
+  flex-shrink: 0;
+}
+
+.evo-card {
+  flex: 1;
+  min-width: 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 22px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: var(--transition);
+}
+
+.evo-card:hover { border-color: var(--primary); transform: translateY(-3px); }
+
+.evo-card--now {
+  border-color: var(--primary);
+  background: rgba(99,102,241,0.06);
+}
+.evo-card--now:hover { background: rgba(99,102,241,0.1); }
+
+.evo-card-top { display: flex; flex-direction: column; gap: 6px; }
+
+.evo-era-badge {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 20px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  width: fit-content;
+}
+
+.evo-era-now {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+.evo-card-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.3;
+}
+.evo-card--now .evo-card-title { color: var(--primary-light); }
+
+.evo-block { display: flex; flex-direction: column; gap: 5px; }
+
+.evo-block-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+.evo-feat { color: #4ade80; }
+.evo-limit { color: #facc15; }
+
+.evo-block-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.evo-block-list li {
+  font-size: 0.8rem;
+  color: #ffffff;
+  padding-left: 12px;
+  position: relative;
+  line-height: 1.45;
+}
+.evo-block-list li::before {
+  content: '·';
+  position: absolute;
+  left: 2px;
+  color: var(--text-dim);
+}
+.evo-list-limit li::before { color: #facc15; }
+
+.evo-therefore {
+  margin-top: auto;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--primary-light);
+  background: rgba(99,102,241,0.08);
+  border-left: 3px solid var(--primary);
+  padding: 8px 12px;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  line-height: 1.5;
+}
+
+.evo-now-box {
+  margin-top: auto;
+  background: rgba(99,102,241,0.14);
+  border: 1px solid var(--primary);
+  border-radius: var(--radius);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.evo-now-label {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--primary-light);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+.evo-hl-from {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-decoration: line-through;
+}
+.evo-hl-to {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+.evo-hl-ai {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--primary-light);
+  padding-top: 6px;
+  border-top: 1px solid rgba(99,102,241,0.3);
+  margin-top: 2px;
+}
+
+@media (max-width: 860px) {
+  .evo-flow { flex-direction: column; gap: 0; }
+  .evo-flow-arrow { transform: rotate(90deg); padding: 2px 0; font-size: 1rem; }
+  .evo-card { min-width: auto; }
+}
+
+/* ============================================================
+   VIBE ESSENCE SECTION
+   ============================================================ */
+.essence-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.essence-card {
+  display: flex;
+  gap: 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  transition: var(--transition);
+}
+.essence-card:hover { transform: translateY(-3px); border-color: var(--primary); }
+
+.essence-num {
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: var(--primary);
+  line-height: 1;
+  flex-shrink: 0;
+  width: 32px;
+}
+
+.essence-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.essence-title {
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.3;
+}
+
+.essence-body {
+  font-size: 0.85rem;
+  color: #ffffff;
+  margin: 0;
+}
+
+.essence-contrast {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.contrast-bad {
+  font-size: 0.83rem;
+  color: var(--text-muted);
+}
+.contrast-good {
+  font-size: 0.83rem;
+  color: #4ade80;
+  font-weight: 600;
+}
+
+.essence-conclusion {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--primary-light);
+  background: rgba(99,102,241,0.08);
+  border-left: 3px solid var(--primary);
+  padding: 7px 12px;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  margin-top: 4px;
+}
+
+@media (max-width: 640px) {
+  .essence-grid { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
    TOOL CATEGORIES (Chapter 02)
    ============================================================ */
 .tool-categories {

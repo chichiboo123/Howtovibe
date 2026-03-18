@@ -95,6 +95,9 @@ const en = {
   'concept4-title': 'Perfectly Tailored for Your Class',
   'concept4-desc': 'Without platform constraints, build exactly what your students need.',
   'quote-cite': '— Antoine de Saint-Exupéry',
+  'essence-tag': 'CHAPTER 01 · The Essence',
+  'essence-title': 'The Essence of Vibe Coding',
+  'essence-desc': 'It\'s not about the code — it\'s about solving real problems in your classroom.',
   'ch02-tag': 'CHAPTER 02 · Meal Kit',
   'ch02-title': 'Preparing Your Tools',
   'ch02-desc': 'Like cooking, the right tools make it easier. Understand tools by their role.',
@@ -283,6 +286,8 @@ langToggle.addEventListener('click', () => {
   currentLang = currentLang === 'ko' ? 'en' : 'ko';
   localStorage.setItem('lang', currentLang);
   applyTranslations(currentLang);
+  renderEvoCards();
+  renderEssenceCards();
   loadGallery();
   resetTerminal();
 });
@@ -302,46 +307,207 @@ function toggleStep(id) { document.getElementById(id).classList.toggle('open'); 
 document.addEventListener('DOMContentLoaded', () => {
   const first = document.getElementById('step-v');
   if (first) first.classList.add('open');
+  renderEvoCards();
+  renderEssenceCards();
   loadGallery();
   loadPracticePrompts();
   _initCustomTextIds();
   initAdminOverrideListeners();
 });
 
-// ---- Timeline ----
-const timelineData = {
-  ko: {
-    hwp: { title: '한글(HWP) 시대', features: ['인쇄 기반 자료 제작', '텍스트 중심', '교사가 편집, 학생은 수동적'], limits: ['상호작용 불가', '배포 어려움', '수정 후 재인쇄 필요'] },
-    ppt: { title: 'PowerPoint 시대', features: ['시각적 표현 가능', '슬라이드 구조', '발표 중심 수업'], limits: ['학생 참여 수동적', '파일 공유 불편', '인터랙션 없음'] },
-    canva: { title: 'Canva 시대', features: ['아름다운 디자인', '실시간 협업', '링크 공유 가능'], limits: ['템플릿 제한', '인터랙티브 기능 없음', '학생 데이터 수집 불가'] },
-    webapp: { title: 'Web App 시대 (지금!)', features: ['완전한 인터랙션', '학생 데이터 실시간 수집', '어떤 기능이든 구현 가능'], limits: ['→ AI 덕분에 코딩 몰라도 만들 수 있습니다!'], isNow: true },
-  },
-  en: {
-    hwp: { title: 'Hangul (HWP) Era', features: ['Print-based materials', 'Text-focused', 'Teacher edits, students passive'], limits: ['No interactivity', 'Hard to distribute', 'Reprint needed after edits'] },
-    ppt: { title: 'PowerPoint Era', features: ['Visual expression', 'Slide structure', 'Presentation-centered'], limits: ['Students still passive', 'File sharing inconvenient', 'No interaction'] },
-    canva: { title: 'Canva Era', features: ['Beautiful design', 'Collaboration features', 'Link sharing possible'], limits: ['Template limitations', 'No interactive features', "Can't collect student data"] },
-    webapp: { title: 'Web App Era (Now!)', features: ['Full interactivity', 'Real-time student data', 'Any feature possible'], limits: ['→ Thanks to AI, no coding required!'], isNow: true },
-  },
+// ---- Evolution Cards ----
+const evoData = {
+  ko: [
+    {
+      era: 'HWP', icon: '📄', title: '한글(HWP) 시대',
+      features: ['인쇄 기반 활동지 제작', '학생이 직접 쓰고 기록', '결과물 눈으로 확인·공유'],
+      limits: ['학생 수준별 맞춤 설계 어려움', '모둠 활동 시 일부 학생만 참여하기 쉬움', '수정 시 재인쇄 필요'],
+      therefore: '더 효과적으로 보여주고 안내할 수 있는 방식이 필요해졌습니다',
+    },
+    {
+      era: 'PPT', icon: '📊', title: 'PowerPoint 시대',
+      features: ['시각 중심 설명 가능', '수업 흐름을 구조적으로 설계', '교사의 전달력 강화'],
+      limits: ['학생 참여가 교사 진행에 의존', '학생의 생각이 수업에서 드러나기 어려움', '여전히 교사 중심 자료'],
+      therefore: '학생 간 협업과 과정·결과의 시각화가 가능한 방식이 필요해졌습니다',
+    },
+    {
+      era: 'Canva', icon: '🎨', title: 'Canva 시대',
+      features: ['템플릿 기반 빠른 제작', '링크로 간편 공유', '실시간 협업으로 학생 참여 확대'],
+      limits: ['템플릿과 기능 범위 내에서만 구현 가능', '수업 맥락에 딱 맞는 설계에 한계', '"이 기능만 있으면" 을 구현하기 어려움'],
+      therefore: '내 수업에 맞게 직접 만들고 싶다는 필요가 생깁니다',
+    },
+    {
+      era: 'Web App', icon: '🌐', title: 'Web App 시대 (지금)',
+      features: ['학생이 직접 조작하는 상호작용 중심 수업', '수업 스타일·흐름에 맞게 도구 설계', '학생 수준·학급 특성에 맞춘 맞춤형 활동', '계속 수정·개선하며 쓰는 살아있는 도구'],
+      isNow: true,
+      highlight1: '도구에 수업을 맞추던 시대',
+      highlight2: '→ 수업에 맞게 도구를 만드는 시대',
+      highlight3: 'AI 덕분에, 코딩 없이도 이것이 가능해졌습니다',
+    },
+  ],
+  en: [
+    {
+      era: 'HWP', icon: '📄', title: 'Hangul (HWP) Era',
+      features: ['Print-based activity sheets', 'Students write and record directly', 'Results visible and shareable'],
+      limits: ['Hard to customize by student level', 'Some students dominate group activities', 'Reprinting needed after edits'],
+      therefore: 'A more effective way to guide and present was needed',
+    },
+    {
+      era: 'PPT', icon: '📊', title: 'PowerPoint Era',
+      features: ['Visual-first presentations', 'Structured lesson flow design', 'Stronger teacher delivery'],
+      limits: ["Student participation depends on teacher's style", 'Student ideas rarely surface in class', 'Still teacher-centered material'],
+      therefore: 'A way to enable student collaboration and visualize process/results was needed',
+    },
+    {
+      era: 'Canva', icon: '🎨', title: 'Canva Era',
+      features: ['Fast creation with templates', 'Easy link-based sharing', 'Real-time collaboration expands participation'],
+      limits: ['Limited to existing templates and features', 'Hard to design for specific lesson context', '"I wish I could add this" stays a wish'],
+      therefore: 'Teachers started wanting to build exactly what their class needs',
+    },
+    {
+      era: 'Web App', icon: '🌐', title: 'Web App Era (Now)',
+      features: ['Student-driven interactive activities', 'Tools designed to fit your teaching style', "Customized for your students' level & class", 'Living tools you can keep improving'],
+      isNow: true,
+      highlight1: 'Fitting lessons into tools',
+      highlight2: '→ Building tools to fit your lessons',
+      highlight3: 'Thanks to AI, no coding skills required',
+    },
+  ],
 };
 
-function showTimelineDetail(key) {
+function renderEvoCards() {
+  const container = document.getElementById('evo-cards-container');
+  if (!container) return;
   const lang = currentLang === 'en' ? 'en' : 'ko';
-  const data = timelineData[lang][key];
-  if (!data) return;
-  document.querySelectorAll('.timeline-item').forEach(el => el.classList.remove('active'));
-  document.getElementById('tl-' + key).classList.add('active');
-  const fl = data.features.map(f => `<li>${f}</li>`).join('');
-  const ll = data.limits.map(l => `<li>${l}</li>`).join('');
-  const featLabel = lang === 'en' ? '✅ Features' : '✅ 특징';
-  const limLabel = lang === 'en' ? '⚠️ Limitations' : '⚠️ 한계';
-  document.getElementById('timelineDetailContent').innerHTML = `
-    <div class="tl-detail-inner${data.isNow ? ' tl-now' : ''}">
-      <h4>${data.title}</h4>
-      <div class="tl-detail-cols">
-        <div><strong>${featLabel}</strong><ul>${fl}</ul></div>
-        <div><strong>${data.isNow ? '' : limLabel}</strong><ul>${ll}</ul></div>
+  const stages = evoData[lang];
+  const isEN = lang === 'en';
+  const sectionTitle = isEN ? 'The Evolution of Classroom Tools' : '수업도구의 진화';
+  const featLabel = isEN ? '✅ Features' : '✅ 특징';
+  const limLabel = isEN ? '⚠️ Limitations' : '⚠️ 한계';
+  const keyChangeLabel = isEN ? '🔥 Key Change' : '🔥 핵심 변화';
+
+  let html = `<div class="evo-section">
+    <h3 class="evo-section-title"><span class="material-symbols-outlined">auto_stories</span>${sectionTitle}</h3>
+    <div class="evo-flow">`;
+
+  stages.forEach((s, i) => {
+    if (i > 0) html += `<div class="evo-flow-arrow"><span>→</span></div>`;
+    if (s.isNow) {
+      html += `<div class="evo-card evo-card--now">
+        <div class="evo-card-top">
+          <span class="evo-era-badge evo-era-now">${s.era}</span>
+          <h4 class="evo-card-title">${s.title}</h4>
+        </div>
+        <div class="evo-block">
+          <div class="evo-block-label evo-feat">${featLabel}</div>
+          <ul class="evo-block-list">${s.features.map(f => `<li>${f}</li>`).join('')}</ul>
+        </div>
+        <div class="evo-now-box">
+          <div class="evo-now-label">${keyChangeLabel}</div>
+          <div class="evo-hl-from">${s.highlight1}</div>
+          <div class="evo-hl-to">${s.highlight2}</div>
+          <div class="evo-hl-ai">${s.highlight3}</div>
+        </div>
+      </div>`;
+    } else {
+      html += `<div class="evo-card">
+        <div class="evo-card-top">
+          <span class="evo-era-badge">${s.era}</span>
+          <h4 class="evo-card-title">${s.title}</h4>
+        </div>
+        <div class="evo-block">
+          <div class="evo-block-label evo-feat">${featLabel}</div>
+          <ul class="evo-block-list">${s.features.map(f => `<li>${f}</li>`).join('')}</ul>
+        </div>
+        <div class="evo-block">
+          <div class="evo-block-label evo-limit">${limLabel}</div>
+          <ul class="evo-block-list evo-list-limit">${s.limits.map(l => `<li>${l}</li>`).join('')}</ul>
+        </div>
+        <div class="evo-therefore">👉 ${s.therefore}</div>
+      </div>`;
+    }
+  });
+
+  html += `</div></div>`;
+  container.innerHTML = html;
+}
+
+// ---- Essence Cards ----
+const essenceData = {
+  ko: [
+    {
+      num: '①', title: '코딩이 아니라, 문제 해결',
+      body: '중요한 것은 코드가 아닙니다.',
+      conclusion: '👉 "무엇을 해결하고 싶은가"',
+    },
+    {
+      num: '②', title: '완벽한 앱보다 지금 쓰는 도구',
+      bad: '거창한 서비스', good: '당장 수업에서 쓰는 작은 기능',
+      conclusion: '👉 작지만 정확한 도구',
+    },
+    {
+      num: '③', title: '개발자가 아니라, 교사답게',
+      bad: '기술 중심', good: '수업 맥락 중심',
+      conclusion: '👉 "잘 만든 앱"이 아니라 "잘 맞는 도구"',
+    },
+    {
+      num: '④', title: 'Less is More',
+      bad: '기능을 많이 넣는 것', good: '꼭 필요한 기능만',
+      conclusion: '👉 단순할수록 수업에 강하다',
+    },
+  ],
+  en: [
+    {
+      num: '①', title: 'Problem-Solving, Not Coding',
+      body: "It's not about the code.",
+      conclusion: '👉 "What problem do I want to solve?"',
+    },
+    {
+      num: '②', title: 'A Tool for Now, Not a Perfect App',
+      bad: 'A grand-scale service', good: 'A small feature you can use tomorrow',
+      conclusion: '👉 Small but precise tools',
+    },
+    {
+      num: '③', title: 'Build Like a Teacher, Not a Developer',
+      bad: 'Technology-centered', good: 'Lesson context-centered',
+      conclusion: '👉 Not "well-built" — but "well-matched"',
+    },
+    {
+      num: '④', title: 'Less is More',
+      bad: 'Cramming in lots of features', good: 'Building only what is truly needed',
+      conclusion: '👉 Simpler means stronger in the classroom',
+    },
+  ],
+};
+
+function renderEssenceCards() {
+  const container = document.getElementById('essence-cards-container');
+  if (!container) return;
+  const lang = currentLang === 'en' ? 'en' : 'ko';
+  const items = essenceData[lang];
+  const isEN = lang === 'en';
+
+  let html = `<div class="essence-grid">`;
+  items.forEach(item => {
+    let bodyHtml = '';
+    if (item.body) bodyHtml += `<p class="essence-body">${item.body}</p>`;
+    if (item.bad && item.good) {
+      bodyHtml += `<div class="essence-contrast">
+        <span class="contrast-bad">${item.bad} ❌</span>
+        <span class="contrast-good">${item.good} ⭕</span>
+      </div>`;
+    }
+    html += `<div class="essence-card">
+      <div class="essence-num">${item.num}</div>
+      <div class="essence-content">
+        <h4 class="essence-title">${item.title}</h4>
+        ${bodyHtml}
+        <div class="essence-conclusion">${item.conclusion}</div>
       </div>
     </div>`;
+  });
+  html += `</div>`;
+  container.innerHTML = html;
 }
 
 // ---- Lesson Prompt Generator ----
