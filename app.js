@@ -61,7 +61,7 @@ function cacheKorean() {
 }
 
 const en = {
-  'nav-logo': 'Teacher Vibe Coding',
+  'nav-logo': 'Vibe Coding for All Teachers',
   'nav-why': 'Chichiboo Vibe Coding (Why)',
   'nav-how': 'Meal Kit (How)',
   'nav-vibe': 'VIBE Framework',
