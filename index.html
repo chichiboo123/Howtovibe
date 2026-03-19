@@ -189,72 +189,147 @@
       <!-- Part 1: 도구 소개 -->
       <h3 class="how-part-title"><span class="material-symbols-outlined">lightbulb</span> <span data-i18n="how-part1-title">도구 소개</span></h3>
       <div class="tool-categories">
-        <!-- 아이디어 확장 -->
-        <div class="tool-category">
-          <div class="tool-cat-header">
-            <span class="tool-cat-icon"><span class="material-symbols-outlined">lightbulb</span></span>
-            <div>
-              <h3 class="tool-cat-title" data-i18n="cat1-title">아이디어 확장</h3>
-              <p class="tool-cat-desc" data-i18n="cat1-desc">수업 아이디어를 구체적인 기능으로 발전시키는 도구</p>
+
+        <!-- 유형 1: Chat & Build -->
+        <div class="tool-category" id="tc-1">
+          <div class="tool-cat-header" onclick="toggleToolCat('tc-1')">
+            <span class="tool-cat-icon"><span class="material-symbols-outlined">forum</span></span>
+            <div class="tool-cat-info">
+              <h3 class="tool-cat-title">Chat &amp; Build</h3>
+              <p class="tool-cat-desc">AI와 대화하며 즉시 결과를 확인·수정하는 바이브코딩의 진입점</p>
             </div>
+            <span class="material-symbols-outlined tool-cat-chevron">expand_more</span>
           </div>
-          <div class="tool-cat-items">
-            <div class="tool-item">
-              <div class="tool-item-name">ChatGPT</div>
-              <div class="tool-item-desc" data-i18n="tool-chatgpt">아이디어 브레인스토밍, 수업 활동 구체화, 프롬프트 초안 작성</div>
+          <div class="tool-cat-body">
+            <div class="tool-cat-items">
+              <div class="tool-item">
+                <div class="tool-item-name">ChatGPT</div>
+                <div class="tool-item-desc">자연어로 코드 생성. Canvas 기능으로 코드를 인라인에서 바로 편집·반복 수정 가능</div>
+              </div>
+              <div class="tool-item">
+                <div class="tool-item-name">Gemini</div>
+                <div class="tool-item-desc">Google 생태계(Firebase, AI Studio) 연계. 이미지·문서 등 멀티모달 입력 지원</div>
+              </div>
+              <div class="tool-item featured">
+                <div class="tool-item-name">Claude <span class="tag">추천</span></div>
+                <div class="tool-item-desc">Artifacts 기능으로 코드·앱을 대화 중 즉시 렌더링. 긴 컨텍스트와 복잡한 코드 이해에 강점</div>
+              </div>
+              <div class="tool-item">
+                <div class="tool-item-name">Canva AI (Canva Code)</div>
+                <div class="tool-item-desc">디자인 플랫폼 안에서 자연어로 HTML/JS 기반 인터랙티브 앱 생성. K-12 교육 무료 제공</div>
+              </div>
             </div>
-            <div class="tool-item">
-              <div class="tool-item-name">Gemini</div>
-              <div class="tool-item-desc" data-i18n="tool-gemini-idea">구글 워크스페이스 연동, 수업 계획서 분석, 아이디어 발전</div>
+            <div class="tool-cat-activity">
+              <div class="tool-activity-title"><span class="material-symbols-outlined">task_alt</span> 주요 활동</div>
+              <ul class="tool-activity-list">
+                <li>아이디어를 말로 설명해서 코드 초안 즉시 생성</li>
+                <li>Canvas / Artifacts / Canva Code로 결과를 눈앞에서 바로 확인</li>
+                <li>대화로 수정·반복하며 완성</li>
+              </ul>
             </div>
           </div>
         </div>
 
-        <!-- 코드 생성 -->
-        <div class="tool-category">
-          <div class="tool-cat-header">
-            <span class="tool-cat-icon"><span class="material-symbols-outlined">bolt</span></span>
-            <div>
-              <h3 class="tool-cat-title" data-i18n="cat2-title">코드 생성</h3>
-              <p class="tool-cat-desc" data-i18n="cat2-desc">아이디어를 실제 동작하는 코드로 만들어주는 핵심 도구</p>
+        <!-- 유형 2: Agentic Coding -->
+        <div class="tool-category" id="tc-2">
+          <div class="tool-cat-header" onclick="toggleToolCat('tc-2')">
+            <span class="tool-cat-icon"><span class="material-symbols-outlined">smart_toy</span></span>
+            <div class="tool-cat-info">
+              <h3 class="tool-cat-title">Agentic Coding</h3>
+              <p class="tool-cat-desc">AI 에이전트가 계획·실행·검증을 자율 수행. 사람은 방향과 검토만</p>
             </div>
+            <span class="material-symbols-outlined tool-cat-chevron">expand_more</span>
           </div>
-          <div class="tool-cat-items">
-            <div class="tool-item featured">
-              <div class="tool-item-name">Claude (Anthropic) <span class="tag" data-i18n="recommended-tag">추천</span></div>
-              <div class="tool-item-desc" data-i18n="tool-claude">긴 코드 맥락 이해, 정확한 구현, 선생님 눈높이에 맞는 설명</div>
+          <div class="tool-cat-body">
+            <div class="tool-cat-items">
+              <div class="tool-item">
+                <div class="tool-item-name">Codex (OpenAI)</div>
+                <div class="tool-item-desc">클라우드 기반 소프트웨어 엔지니어링 에이전트. 독립된 샌드박스에서 기능 개발·버그 수정·PR 제안을 병렬 처리. ChatGPT 계정으로 연동</div>
+              </div>
+              <div class="tool-item">
+                <div class="tool-item-name">Claude Code</div>
+                <div class="tool-item-desc">Anthropic의 CLI 기반 코딩 에이전트. 터미널에서 자연어로 전체 코딩 작업 위임. 리팩터링·테스트·배포까지 자율 실행</div>
+              </div>
+              <div class="tool-item">
+                <div class="tool-item-name">Cursor</div>
+                <div class="tool-item-desc">VS Code 포크 기반 AI 에디터. Composer가 프로젝트 전체 컨텍스트를 파악하고 다중 파일을 동시에 자율 편집</div>
+              </div>
             </div>
-            <div class="tool-item">
-              <div class="tool-item-name">Gemini Code</div>
-              <div class="tool-item-desc" data-i18n="tool-gemini-code">구글 생태계 친화적, 실시간 코드 수정 및 미리보기</div>
+            <div class="tool-cat-activity">
+              <div class="tool-activity-title"><span class="material-symbols-outlined">task_alt</span> 주요 활동</div>
+              <ul class="tool-activity-list">
+                <li>작업 목표를 자연어로 지시</li>
+                <li>에이전트가 코드 작성·테스트·수정을 자율 실행</li>
+                <li>사람은 결과 검토 후 승인 또는 피드백</li>
+              </ul>
             </div>
           </div>
         </div>
 
-        <!-- 앱 제작 및 배포 -->
-        <div class="tool-category">
-          <div class="tool-cat-header">
+        <!-- 유형 3: 올인원 바이브코딩 -->
+        <div class="tool-category" id="tc-3">
+          <div class="tool-cat-header" onclick="toggleToolCat('tc-3')">
+            <span class="tool-cat-icon"><span class="material-symbols-outlined">auto_awesome</span></span>
+            <div class="tool-cat-info">
+              <h3 class="tool-cat-title">올인원 바이브코딩</h3>
+              <p class="tool-cat-desc">아이디어 입력부터 앱 생성까지 하나의 플랫폼 안에서 완결</p>
+            </div>
+            <span class="material-symbols-outlined tool-cat-chevron">expand_more</span>
+          </div>
+          <div class="tool-cat-body">
+            <div class="tool-cat-items">
+              <div class="tool-item">
+                <div class="tool-item-name">Replit</div>
+                <div class="tool-item-desc">브라우저 기반 클라우드 IDE. 50개+ 언어 지원, 설치 없이 시작. AI 에이전트가 앱을 자율 구성하고 빌트인 호스팅으로 즉시 배포</div>
+              </div>
+              <div class="tool-item">
+                <div class="tool-item-name">Lovable</div>
+                <div class="tool-item-desc">자연어 프롬프트 하나로 프론트엔드·백엔드·DB·인증을 포함한 풀스택 앱 생성. UI 완성도가 높고 비개발자 MVP 제작에 최적. GitHub 동기화 지원</div>
+              </div>
+            </div>
+            <div class="tool-cat-activity">
+              <div class="tool-activity-title"><span class="material-symbols-outlined">task_alt</span> 주요 활동</div>
+              <ul class="tool-activity-list">
+                <li>프롬프트로 앱 전체 구조 즉시 생성</li>
+                <li>시각 편집 또는 추가 프롬프트로 수정</li>
+                <li>플랫폼 안에서 바로 배포 또는 GitHub 연동</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- 유형 4: 배포 -->
+        <div class="tool-category" id="tc-4">
+          <div class="tool-cat-header" onclick="toggleToolCat('tc-4')">
             <span class="tool-cat-icon"><span class="material-symbols-outlined">rocket_launch</span></span>
-            <div>
-              <h3 class="tool-cat-title" data-i18n="cat3-title">앱 제작 및 배포</h3>
-              <p class="tool-cat-desc" data-i18n="cat3-desc">코드를 실제 웹앱으로 만들고 학생들과 공유하는 도구</p>
+            <div class="tool-cat-info">
+              <h3 class="tool-cat-title">배포</h3>
+              <p class="tool-cat-desc">바이브코딩 결과물을 실제 서비스로 내보내는 단계. DevOps 없이 원클릭 배포</p>
             </div>
+            <span class="material-symbols-outlined tool-cat-chevron">expand_more</span>
           </div>
-          <div class="tool-cat-items">
-            <div class="tool-item">
-              <div class="tool-item-name">Replit</div>
-              <div class="tool-item-desc" data-i18n="tool-replit">브라우저에서 바로 코딩, 즉시 배포, 설치 불필요</div>
+          <div class="tool-cat-body">
+            <div class="tool-cat-items">
+              <div class="tool-item">
+                <div class="tool-item-name">GitHub</div>
+                <div class="tool-item-desc">코드 저장·버전 관리·협업의 중심 허브. AI 에이전트 출력물이 모이는 플랫폼. Copilot 에이전트가 이슈에서 직접 코드 작성·PR 제출</div>
+              </div>
+              <div class="tool-item">
+                <div class="tool-item-name">Netlify</div>
+                <div class="tool-item-desc">바이브코딩 결과물을 즉시 배포하는 인프라 플랫폼. Bolt·Cursor·GitHub 등 어떤 빌더와도 연동. DevOps 없이 서버리스·CDN·스토리지 자동 제공</div>
+              </div>
             </div>
-            <div class="tool-item">
-              <div class="tool-item-name">Lovable</div>
-              <div class="tool-item-desc" data-i18n="tool-lovable">AI와 함께 앱 제작, 디자인 자동화, 원클릭 배포</div>
-            </div>
-            <div class="tool-item">
-              <div class="tool-item-name">GitHub Pages</div>
-              <div class="tool-item-desc" data-i18n="tool-github">무료 호스팅, 영구 링크 생성, 학생들과 공유하기 최적</div>
+            <div class="tool-cat-activity">
+              <div class="tool-activity-title"><span class="material-symbols-outlined">task_alt</span> 주요 활동</div>
+              <ul class="tool-activity-list">
+                <li>GitHub에 코드 동기화 및 버전 관리</li>
+                <li>Netlify로 원클릭 배포</li>
+                <li>코드 변경 시 자동 재배포</li>
+              </ul>
             </div>
           </div>
         </div>
+
       </div>
 
       <!-- Part 2: VIBE 프레임워크 -->

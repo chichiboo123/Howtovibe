@@ -307,6 +307,9 @@ document.querySelectorAll('.nav-link').forEach(l => l.addEventListener('click', 
 // ---- Step accordion ----
 function toggleStep(id) { document.getElementById(id).classList.toggle('open'); }
 
+// ---- Tool category accordion ----
+function toggleToolCat(id) { document.getElementById(id).classList.toggle('open'); }
+
 document.addEventListener('DOMContentLoaded', () => {
   renderEvoCards();
   renderEssenceCards();
