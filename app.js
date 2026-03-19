@@ -69,6 +69,7 @@ const en = {
   'hero-badge': 'Vibe Coding for All Teachers',
   'hero-title': 'Build Web Apps<br/><span class="gradient-text">That Change Your Classroom</span>',
   'hero-desc': 'With AI, teachers can create<br/><strong>their own lesson apps</strong> today.',
+  'toc-title': 'Contents',
   'hero-btn-start': 'Start Workshop →',
   'hero-btn-practice': 'Build Lesson App',
   'hero-stat1-num': '3 Stages',
@@ -340,6 +341,30 @@ function toggleStep(id) { document.getElementById(id).classList.toggle('open'); 
 
 // ---- Tool category accordion ----
 function toggleToolCat(id) { document.getElementById(id).classList.toggle('open'); }
+
+// ---- Floating TOC ----
+function toggleToc() {
+  const drawer = document.getElementById('tocDrawer');
+  const overlay = document.getElementById('tocOverlay');
+  const isOpen = drawer.classList.contains('open');
+  drawer.classList.toggle('open', !isOpen);
+  overlay.classList.toggle('open', !isOpen);
+}
+
+function closeToc() {
+  document.getElementById('tocDrawer').classList.remove('open');
+  document.getElementById('tocOverlay').classList.remove('open');
+}
+
+function tocScrollTo(id) {
+  closeToc();
+  const el = document.getElementById(id);
+  if (!el) return;
+  if (el.classList.contains('step') && !el.classList.contains('open')) {
+    el.classList.add('open');
+  }
+  setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 320);
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   renderEvoCards();
@@ -879,15 +904,31 @@ function loadPracticePrompts() {
     items.forEach(p => {
       const item = document.createElement('div');
       item.className = 'practice-prompt-item';
+      item.dataset.key = p.key;
       item.innerHTML = `
-        <div class="practice-prompt-item-header">
+        <div class="practice-prompt-item-header" onclick="togglePracticeItem('${p.key}')">
           <span class="practice-prompt-title">${escapeHtml(p.title)}</span>
-          <button class="practice-prompt-copy" data-key="${p.key}" onclick="copyPracticePrompt('${p.key}')">📋 복사</button>
+          <div class="practice-prompt-header-actions">
+            <button class="practice-prompt-copy" data-key="${p.key}" onclick="event.stopPropagation(); copyPracticePrompt('${p.key}')">
+              <span class="material-symbols-outlined">content_paste</span>
+            </button>
+            <span class="material-symbols-outlined practice-prompt-chevron">expand_more</span>
+          </div>
         </div>
-        <div class="practice-prompt-content">${escapeHtml(p.content)}</div>`;
+        <div class="practice-prompt-content" id="ppc-${p.key}" style="display:none">${escapeHtml(p.content)}</div>`;
       list.appendChild(item);
     });
   });
+}
+
+function togglePracticeItem(key) {
+  const content = document.getElementById('ppc-' + key);
+  const item = document.querySelector(`.practice-prompt-item[data-key="${key}"]`);
+  if (!content || !item) return;
+  const isOpen = content.style.display !== 'none';
+  content.style.display = isOpen ? 'none' : 'block';
+  const chevron = item.querySelector('.practice-prompt-chevron');
+  if (chevron) chevron.style.transform = isOpen ? '' : 'rotate(180deg)';
 }
 
 function copyPracticePrompt(key) {
