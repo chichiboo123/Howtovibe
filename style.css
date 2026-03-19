@@ -2669,6 +2669,11 @@ code {
   color: var(--text);
   font-family: inherit;
   font-size: 0.85rem;
+  width: 100%;
+  box-sizing: border-box;
+  resize: vertical;
+  word-break: break-word;
+  white-space: pre-wrap;
 }
 .admin-add-prompt input:focus,
 .admin-add-prompt textarea:focus { outline: none; border-color: var(--primary); }
@@ -2684,7 +2689,7 @@ code {
   padding: 10px 12px;
   font-size: 0.85rem;
 }
-.admin-gallery-item span { flex: 1; color: var(--text-muted); }
+.admin-gallery-item span { flex: 1; min-width: 0; color: var(--text-muted); word-break: break-word; white-space: pre-wrap; overflow-wrap: break-word; }
 .admin-gallery-del {
   background: rgba(239,68,68,0.1);
   border: 1px solid rgba(239,68,68,0.3);
@@ -2875,6 +2880,10 @@ body.admin-active { padding-top: 40px; }
   padding: 24px 20px;
   text-align: center;
   transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .value-card:hover {
@@ -2903,6 +2912,7 @@ body.admin-active { padding-top: 40px; }
   font-size: 1.425rem;
   font-weight: 700;
   margin-bottom: 8px;
+  width: 100%;
   color: var(--text);
   text-align: center;
 }
@@ -2911,6 +2921,8 @@ body.admin-active { padding-top: 40px; }
   font-size: 0.82rem;
   color: var(--text-muted);
   line-height: 1.65;
+  width: 100%;
+  text-align: center;
 }
 
 [data-theme="light"] .value-card { background: #fff; }
