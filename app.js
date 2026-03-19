@@ -645,17 +645,32 @@ function toggleLike(key) {
   if (!db) return;
   const likedKeys = JSON.parse(localStorage.getItem('likedGallery') || '[]');
   const alreadyLiked = likedKeys.includes(key);
+  const btn = document.querySelector('.gallery-like-btn[onclick*="' + key + '"]');
+
+  // Optimistic UI update
+  if (btn) {
+    const nowLiked = !alreadyLiked;
+    const currentCount = parseInt(btn.textContent.replace(/[^\d]/g, '')) || 0;
+    btn.innerHTML = (nowLiked ? '❤️' : '🤍') + ' ' + (nowLiked ? currentCount + 1 : Math.max(currentCount - 1, 0));
+    btn.classList.toggle('liked', nowLiked);
+  }
+
   db.ref('gallery/' + key + '/likes').transaction(function(current) {
     if (alreadyLiked) return Math.max((current || 1) - 1, 0);
     return (current || 0) + 1;
-  }).then(function() {
+  }).then(function(result) {
     if (alreadyLiked) {
       localStorage.setItem('likedGallery', JSON.stringify(likedKeys.filter(function(k) { return k !== key; })));
     } else {
       likedKeys.push(key);
       localStorage.setItem('likedGallery', JSON.stringify(likedKeys));
     }
-    loadGallery();
+    // Sync real count from Firebase
+    if (btn) {
+      const realCount = result.snapshot.val() || 0;
+      const nowLiked = !alreadyLiked;
+      btn.innerHTML = (nowLiked ? '❤️' : '🤍') + ' ' + realCount;
+    }
   });
 }
 
