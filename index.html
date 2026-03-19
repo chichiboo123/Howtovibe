@@ -145,48 +145,29 @@
         </div>
         <div class="step-body">
           <div class="step-content">
-            <div class="advantage-grid">
-              <div class="advantage-card">
-                <div class="advantage-icon">⚡</div>
-                <h4 data-i18n="adv1-title">빠르다</h4>
-                <p data-i18n="adv1-desc">아이디어에서 완성된 웹앱까지 단 하루면 충분합니다. AI가 코드를 대신 작성하기 때문에 개발 속도가 비약적으로 빨라집니다.</p>
+            <div class="value-grid">
+              <div class="value-card">
+                <div class="value-card-icon"><span class="material-symbols-outlined">lightbulb</span></div>
+                <h4 data-i18n="val1-title">상상하면 이루어진다</h4>
+                <p data-i18n="val1-desc">수업 아이디어를 웹앱으로 만들어 교실에서 바로 실행</p>
               </div>
-              <div class="advantage-card">
-                <div class="advantage-icon">🙌</div>
-                <h4 data-i18n="adv2-title">쉽다</h4>
-                <p data-i18n="adv2-desc">코딩 지식이 전혀 없어도 됩니다. 원하는 것을 말로 설명하면 AI가 작동하는 코드를 만들어 줍니다. 누구나 시작할 수 있습니다.</p>
+              <div class="value-card">
+                <div class="value-card-icon"><span class="material-symbols-outlined">smart_toy</span></div>
+                <h4 data-i18n="val2-title">AI가 A to Z 도와준다</h4>
+                <p data-i18n="val2-desc">기획부터 코딩, 수정과 배포까지 AI와 함께</p>
               </div>
-              <div class="advantage-card">
-                <div class="advantage-icon">✨</div>
-                <h4 data-i18n="adv3-title">창의적이다</h4>
-                <p data-i18n="adv3-desc">기성 플랫폼의 제약에서 벗어나 오로지 내 수업만을 위한 도구를 직접 만들 수 있습니다. 상상한 모든 아이디어를 현실로 만드세요.</p>
+              <div class="value-card">
+                <div class="value-card-icon"><span class="material-symbols-outlined">settings</span></div>
+                <h4 data-i18n="val3-title">우리 반 커스터마이징</h4>
+                <p data-i18n="val3-desc">수업 루틴과 학급 상황에 맞게 필요한 기능만 담은 도구</p>
+              </div>
+              <div class="value-card">
+                <div class="value-card-icon"><span class="material-symbols-outlined">edit</span></div>
+                <h4 data-i18n="val4-title">소비자에서 생산자로</h4>
+                <p data-i18n="val4-desc">주어진 자료를 사용하는 교사를 넘어, 수업 도구를 직접 만드는 창작자로</p>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-
-      <!-- 핵심 가치 카드 -->
-      <div class="value-grid">
-        <div class="value-card">
-          <div class="value-card-icon"><span class="material-symbols-outlined">lightbulb</span></div>
-          <h4 data-i18n="val1-title">상상하면 이루어진다</h4>
-          <p data-i18n="val1-desc">수업 아이디어를 웹앱으로 만들어 교실에서 바로 실행</p>
-        </div>
-        <div class="value-card">
-          <div class="value-card-icon"><span class="material-symbols-outlined">smart_toy</span></div>
-          <h4 data-i18n="val2-title">AI가 A to Z 도와준다</h4>
-          <p data-i18n="val2-desc">기획부터 코딩, 수정과 배포까지 AI와 함께</p>
-        </div>
-        <div class="value-card">
-          <div class="value-card-icon"><span class="material-symbols-outlined">settings</span></div>
-          <h4 data-i18n="val3-title">우리 반 커스터마이징</h4>
-          <p data-i18n="val3-desc">수업 루틴과 학급 상황에 맞게 필요한 기능만 담은 도구</p>
-        </div>
-        <div class="value-card">
-          <div class="value-card-icon"><span class="material-symbols-outlined">edit</span></div>
-          <h4 data-i18n="val4-title">소비자에서 생산자로</h4>
-          <p data-i18n="val4-desc">주어진 자료를 사용하는 교사를 넘어, 수업 도구를 직접 만드는 창작자로</p>
         </div>
       </div>
 
@@ -195,7 +176,7 @@
         <blockquote>
           <span style="font-size:1.05em; color:var(--text-muted); display:block; margin-bottom:10px;">"La perfection est atteinte, non pas lorsqu'il n'y a plus rien à ajouter, mais lorsqu'il n'y a plus rien à retrancher."</span>
           <span data-i18n-html="quote-text">"완벽함은 더 이상 보탤 것이 없을 때가 아니라,<br/>더 이상 덜어낼 것이 없을 때 이루어진다."</span><br/>
-          <cite data-i18n="quote-cite">— Antoine de Saint-Exupéry</cite><span class="t-cursor">|</span>
+          <cite data-i18n="quote-cite">— Antoine de Saint-Exupéry</cite><span class="t-cursor"></span>
         </blockquote>
       </div>
     </div>
@@ -211,7 +192,7 @@
       </div>
 
       <!-- Part 1: 도구 소개 -->
-      <h3 class="how-part-title"><span class="material-symbols-outlined">lightbulb</span> <span data-i18n="how-part1-title">도구 소개</span></h3>
+      <h3 class="how-part-title" id="how-tools"><span class="material-symbols-outlined">lightbulb</span> <span data-i18n="how-part1-title">도구 소개</span></h3>
       <div class="tool-categories">
 
         <!-- 유형 1: Chat & Build -->
@@ -357,7 +338,7 @@
       </div>
 
       <!-- Part 2: VIBE 프레임워크 -->
-      <h3 class="how-part-title"><span class="material-symbols-outlined">bolt</span> <span data-i18n="how-part2-title">VIBE 프레임워크</span></h3>
+      <h3 class="how-part-title" id="how-vibe"><span class="material-symbols-outlined">bolt</span> <span data-i18n="how-part2-title">VIBE 프레임워크</span></h3>
       <p class="how-part-desc" data-i18n="how-part2-desc">네 단계만 기억하세요. 아이디어에서 완성된 수업 앱까지의 여정입니다.</p>
       <div class="vibe-overview">
         <div class="vibe-letter">V</div>
@@ -747,6 +728,62 @@
     <button onclick="toggleTextEditMode()"><span class="material-symbols-outlined">edit</span> 텍스트 편집</button>
     <button onclick="openAdminPanel()"><span class="material-symbols-outlined">settings</span> 설정</button>
     <button onclick="adminLogout()">로그아웃</button>
+  </div>
+
+  <!-- TOC Floating Button -->
+  <button class="toc-fab" id="tocFab" onclick="toggleToc()" title="목차">
+    <span class="material-symbols-outlined">format_list_bulleted</span>
+  </button>
+
+  <!-- TOC Overlay & Drawer -->
+  <div class="toc-overlay" id="tocOverlay" onclick="closeToc()"></div>
+  <div class="toc-drawer" id="tocDrawer">
+    <div class="toc-drawer-header">
+      <span data-i18n="toc-title">목차</span>
+      <button class="toc-close" onclick="closeToc()"><span class="material-symbols-outlined">close</span></button>
+    </div>
+    <nav class="toc-nav">
+      <div class="toc-chapter-item">
+        <a class="toc-chapter-link" onclick="tocScrollTo('why')">
+          <span class="toc-chapter-tag">CHAPTER 01</span>
+          <span data-i18n="nav-why">WHY (원셰프의 바이브코딩)</span>
+        </a>
+        <div class="toc-sub-items">
+          <a onclick="tocScrollTo('why-a1')" data-i18n="why-sub1-title">왜 지금, 바이브코딩?</a>
+          <a onclick="tocScrollTo('why-a2')" data-i18n="why-sub2-title">바이브코딩의 본질</a>
+          <a onclick="tocScrollTo('why-a3')" data-i18n="why-sub3-title">바이브코딩의 장점</a>
+        </div>
+      </div>
+      <div class="toc-chapter-item">
+        <a class="toc-chapter-link" onclick="tocScrollTo('how')">
+          <span class="toc-chapter-tag">CHAPTER 02</span>
+          <span data-i18n="nav-how">HOW (밀키트)</span>
+        </a>
+        <div class="toc-sub-items">
+          <a onclick="tocScrollTo('how-tools')" data-i18n="how-part1-title">도구 소개</a>
+          <a onclick="tocScrollTo('how-vibe')" data-i18n="how-part2-title">VIBE 프레임워크</a>
+          <a onclick="tocScrollTo('practicePromptsSection')" data-i18n="practice-prompts-title">실습 프롬프트</a>
+        </div>
+      </div>
+      <div class="toc-chapter-item">
+        <a class="toc-chapter-link" onclick="tocScrollTo('lesson')">
+          <span class="toc-chapter-tag">CHAPTER 03</span>
+          <span data-i18n="nav-lesson">WHAT (파인다이닝)</span>
+        </a>
+        <div class="toc-sub-items">
+          <a onclick="tocScrollTo('lesson')" data-i18n="ch04-title">나만의 수업 웹앱 만들기</a>
+        </div>
+      </div>
+      <div class="toc-chapter-item">
+        <a class="toc-chapter-link" onclick="tocScrollTo('network')">
+          <span class="toc-chapter-tag">CHAPTER 04</span>
+          <span data-i18n="nav-network">Community (오픈키친)</span>
+        </a>
+        <div class="toc-sub-items">
+          <a onclick="tocScrollTo('network')" data-i18n="ch05-title">우리가 만든 것들</a>
+        </div>
+      </div>
+    </nav>
   </div>
 
   <!-- Admin Trigger (hidden button) -->
