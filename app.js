@@ -457,24 +457,24 @@ function renderEvoCards() {
 const essenceData = {
   ko: [
     {
-      num: '①', title: '코딩이 아니라, 문제 해결',
-      body: '중요한 것은 코드가 아닙니다.',
-      conclusion: '👉 "무엇을 해결하고 싶은가"',
+      num: '①', title: '코딩? 문제 해결!',
+      body: '기술보다 방향이 중요합니다.',
+      conclusion: '👉 학급의 문제를 해결하다',
     },
     {
-      num: '②', title: '완벽한 앱보다 지금 쓰는 도구',
-      bad: '거창한 서비스', good: '당장 수업에서 쓰는 작은 기능',
-      conclusion: '👉 작지만 정확한 도구',
+      num: '②', title: '완벽한 앱보다 자주 쓰는 앱',
+      bad: '올인원 서비스', good: '간지러움을 긁어주는 서비스',
+      conclusion: '👉 단순해도 뾰족하다',
     },
     {
       num: '③', title: '개발자가 아니라, 교사답게',
-      bad: '기술 중심', good: '수업 맥락 중심',
-      conclusion: '👉 "잘 만든 앱"이 아니라 "잘 맞는 도구"',
+      bad: '기술 중심', good: '수업 루틴 중심',
+      conclusion: '👉 "내 수업에 딱 맞추다"',
     },
     {
       num: '④', title: 'Less is More',
       bad: '기능을 많이 넣는 것', good: '꼭 필요한 기능만',
-      conclusion: '👉 단순할수록 수업에 강하다',
+      conclusion: '👉 더 이상 덜어낼 것이 없다',
     },
   ],
   en: [
