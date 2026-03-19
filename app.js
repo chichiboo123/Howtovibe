@@ -85,7 +85,7 @@ const en = {
   'why-sub2-title': 'The Essence of Vibe Coding',
   'why-sub2-desc': '4 core principles more important than coding skills',
   'why-sub3-title': 'Benefits of Vibe Coding',
-  'why-sub3-desc': 'Fast, Easy, and Creative',
+  'why-sub3-desc': 'Your imagination, brought to life',
   'adv1-title': 'Fast',
   'adv1-desc': 'From idea to finished web app in just one day. AI writes the code for you, making development dramatically faster.',
   'adv2-title': 'Easy',
@@ -187,7 +187,7 @@ const en = {
   'next-adv-2': 'Save the code as an index.html file.',
   'next-adv-3': 'Deploy and use via a hosting service (Vercel, GitHub Pages, etc.).',
   'ch05-tag': 'CHAPTER 04 · Open Kitchen',
-  'ch05-title': 'What We Built',
+  'ch05-title': 'Vibe Coding Gallery',
   'ch05-desc': "Experience each other's apps firsthand and exchange creative inspiration.",
   'network-name-label': 'Name (nickname ok)',
   'network-name-placeholder': 'e.g. Teacher Kim',
@@ -671,6 +671,7 @@ function _renderItems(items) {
   const empty = document.getElementById('galleryEmpty');
   if (!items || items.length === 0) {
     grid.style.display = 'none';
+    empty.innerHTML = currentLang === 'en' ? 'No works in the gallery yet.' : '갤러리에 작품이 없습니다.';
     empty.style.display = 'block';
     return;
   }
@@ -885,40 +886,48 @@ function _doGalleryDelete(key, pw, isAdmin) {
 //  PRACTICE PROMPTS  — Firebase backend
 // ============================================================
 function loadPracticePrompts() {
-  if (!db) return;
-  db.ref('practicePrompts').orderByChild('order').once('value').then(snapshot => {
-    const list = document.getElementById('practicePromptsList');
-    const emptyMsg = document.getElementById('practiceEmptyMsg');
-    list.querySelectorAll('.practice-prompt-item').forEach(el => el.remove());
-    if (!snapshot.exists()) {
-      if (emptyMsg) emptyMsg.style.display = 'block';
-      return;
-    }
-    const items = [];
-    snapshot.forEach(child => items.push({ key: child.key, ...child.val() }));
-    if (items.length === 0) {
-      if (emptyMsg) emptyMsg.style.display = 'block';
-      return;
-    }
-    if (emptyMsg) emptyMsg.style.display = 'none';
-    items.forEach(p => {
-      const item = document.createElement('div');
-      item.className = 'practice-prompt-item';
-      item.dataset.key = p.key;
-      item.innerHTML = `
-        <div class="practice-prompt-item-header" onclick="togglePracticeItem('${p.key}')">
-          <span class="practice-prompt-title">${escapeHtml(p.title)}</span>
-          <div class="practice-prompt-header-actions">
-            <button class="practice-prompt-copy" data-key="${p.key}" onclick="event.stopPropagation(); copyPracticePrompt('${p.key}')">
-              <span class="material-symbols-outlined">content_paste</span>
-            </button>
-            <span class="material-symbols-outlined practice-prompt-chevron">expand_more</span>
+  const list = document.getElementById('practicePromptsList');
+  const emptyMsg = document.getElementById('practiceEmptyMsg');
+  if (!list) return;
+  list.querySelectorAll('.practice-prompt-item').forEach(el => el.remove());
+
+  fetch(_DB_URL + '/practicePrompts.json')
+    .then(res => res.json())
+    .then(data => {
+      list.querySelectorAll('.practice-prompt-item').forEach(el => el.remove());
+      if (!data || typeof data !== 'object') {
+        if (emptyMsg) emptyMsg.style.display = 'block';
+        return;
+      }
+      const items = Object.entries(data).map(([key, val]) => ({ key, ...val }));
+      items.sort((a, b) => (a.order || 0) - (b.order || 0));
+      if (items.length === 0) {
+        if (emptyMsg) emptyMsg.style.display = 'block';
+        return;
+      }
+      if (emptyMsg) emptyMsg.style.display = 'none';
+      items.forEach(p => {
+        const item = document.createElement('div');
+        item.className = 'practice-prompt-item';
+        item.dataset.key = p.key;
+        item.innerHTML = `
+          <div class="practice-prompt-item-header" onclick="togglePracticeItem('${p.key}')">
+            <span class="practice-prompt-title">${escapeHtml(p.title)}</span>
+            <div class="practice-prompt-header-actions">
+              <button class="practice-prompt-copy" data-key="${p.key}" onclick="event.stopPropagation(); copyPracticePrompt('${p.key}')">
+                <span class="material-symbols-outlined">content_paste</span>
+              </button>
+              <span class="material-symbols-outlined practice-prompt-chevron">expand_more</span>
+            </div>
           </div>
-        </div>
-        <div class="practice-prompt-content" id="ppc-${p.key}" style="display:none">${escapeHtml(p.content)}</div>`;
-      list.appendChild(item);
+          <div class="practice-prompt-content" id="ppc-${p.key}" style="display:none">${escapeHtml(p.content)}</div>`;
+        list.appendChild(item);
+      });
+    })
+    .catch(err => {
+      console.error('Practice prompts fetch error:', err);
+      if (emptyMsg) emptyMsg.style.display = 'block';
     });
-  });
 }
 
 function togglePracticeItem(key) {
@@ -932,23 +941,27 @@ function togglePracticeItem(key) {
 }
 
 function copyPracticePrompt(key) {
-  if (!db) return;
-  db.ref('practicePrompts/' + key).once('value').then(snapshot => {
-    const p = snapshot.val();
-    if (!p) return;
+  const item = document.querySelector(`.practice-prompt-item[data-key="${key}"]`);
+  const contentEl = item ? item.querySelector('.practice-prompt-content') : null;
+  const text = contentEl ? contentEl.textContent : '';
+  if (!text) return;
+  navigator.clipboard.writeText(text).catch(() => {
     const ta = document.createElement('textarea');
-    ta.value = p.content;
+    ta.value = text;
     document.body.appendChild(ta);
     ta.select();
     document.execCommand('copy');
     document.body.removeChild(ta);
-    const btn = document.querySelector(`.practice-prompt-copy[data-key="${key}"]`);
-    if (btn) {
-      const orig = btn.textContent;
-      btn.innerHTML = '✅ 복사됨!';
-      setTimeout(() => { btn.textContent = orig; }, 2000);
-    }
   });
+  const btn = document.querySelector(`.practice-prompt-copy[data-key="${key}"]`);
+  if (btn) {
+    btn.innerHTML = '<span class="material-symbols-outlined">done</span><span class="copy-feedback-text">복사됨</span>';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.innerHTML = '<span class="material-symbols-outlined">content_paste</span>';
+      btn.classList.remove('copied');
+    }, 2000);
+  }
 }
 
 // ============================================================
