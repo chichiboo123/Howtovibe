@@ -538,14 +538,62 @@ function generateLessonPrompt() {
   const process = document.getElementById('lessonProcess').value.trim();
   const grade = document.getElementById('lessonGrade').value.trim();
   if (!activity || !goal) {
-    alert(currentLang === 'en' ? 'Please enter activity name and objective.' : '앱 이름과 기획 의도를 입력해주세요.');
+    alert(currentLang === 'en' ? 'Please enter the app name and concept.' : '앱 이름과 기획 의도를 입력해주세요.');
     return;
   }
+  const gradeLabel = grade || (currentLang === 'en' ? 'all students' : '해당 학년');
+  const processLabel = process || (currentLang === 'en' ? 'Students input, submit, and view collective results' : '학생들이 입력하고 제출하면 전체 결과를 볼 수 있는 형태');
   let prompt;
   if (currentLang === 'en') {
-    prompt = `I am a teacher${grade ? ' (' + grade + ')' : ''}.\n\nPlease create a web app for my classroom activity.\n\n[Activity Name]\n${activity}\n\n[Learning Objective]\n${goal}\n\n[Activity Flow]\n${process || 'Students can input, submit, and view collective results'}\n\n[Requirements]\n- Mobile-friendly (students use smartphones)\n- Intuitive UI — no explanation needed for students\n- Real-time results display if possible\n- Clean, modern design\n- Single HTML file (HTML + CSS + JS)\n- Korean language interface\n\nPlease create a fully working web app with comments so I can modify it later.`;
+    prompt = `[System Role]
+You are an educational technology expert and full-stack web developer. Your mission is to create an intuitive, beautifully designed classroom web app tailored to the level of ${gradeLabel} students.
+
+[Input Information]
+* App Name: ${activity}
+* App Concept & Goal: ${goal}
+* User Flow & Key Features: ${processLabel}
+
+[Technical Guidelines (strictly follow)]
+1. Single-file structure: Write all HTML, CSS (Tailwind), and JS in one index.html file.
+2. UI/UX Design:
+   - Use Tailwind CSS to create a polished, modern interface.
+   - Apply a soft pastel color system that feels friendly and approachable to students.
+   - Design mobile-first and responsive, with PC as the primary target but full smartphone support.
+3. Data handling: Use the browser's LocalStorage to save and load data — no server required. (Data persists after refresh)
+4. User experience: Include detailed UX touches such as button click feedback (animations) and input validation.
+
+[Educational Guidelines]
+* Difficulty: Use simple language and UI so ${gradeLabel} students can start using the app immediately without any instructions.
+* Language: Write all interface text and guidance messages in Korean.
+
+[Output Instructions]
+* Add detailed Korean comments throughout the code organized by feature, so the teacher can easily modify it later.
+* Output complete, ready-to-run code that can be previewed immediately using the Canvas feature.`;
   } else {
-    prompt = `나는 ${grade ? grade + ' ' : ''}교사야.\n\n수업 활동에 사용할 웹앱을 만들어줘.\n\n[앱 이름]\n${activity}\n\n[기획 의도]\n${goal}\n\n[핵심기능과 흐름]\n${process || '학생들이 입력하고, 제출하고, 전체 결과를 볼 수 있는 형태'}\n\n[요구사항]\n- 모바일 친화적 (학생들이 스마트폰으로 사용)\n- 설명 없이도 학생들이 쉽게 사용할 수 있는 직관적인 UI\n- 결과 실시간 표시 (가능하면)\n- 깔끔하고 현대적인 디자인\n- HTML + CSS + JS를 하나의 파일로 만들어줘\n- 한국어 인터페이스\n\n완전히 동작하는 웹앱으로 만들어줘. 나중에 선생님이 쉽게 수정할 수 있도록 주석도 달아줘.`;
+    prompt = `[시스템 역할]
+너는 교육공학 전문가이자 풀스택 웹 개발자야. ${gradeLabel} 학생 수준에 맞춘 직관적이고 아름다운 수업용 웹앱을 제작하는 것이 너의 임무야.
+
+[입력 정보]
+* 앱 이름: ${activity}
+* 기획 의도: ${goal}
+* 핵심 기능 및 흐름: ${processLabel}
+
+[기술적 가이드라인 (반드시 준수)]
+1. 단일 파일 구조: HTML, CSS(Tailwind), JS를 하나의 index.html 파일로 작성해줘.
+2. 디자인(UI/UX):
+   - Tailwind CSS를 사용하여 세련되고 현대적인 UI로 제작해.
+   - 부드러운 파스텔톤 컬러 시스템을 사용하고 학생들에게 친숙한 느낌을 줘.
+   - PC 사용을 기본으로 하되, 스마트폰 사용을 고려한 모바일 우선(Mobile-First) 반응형 디자인을 적용해.
+3. 데이터 처리: 서버 없이 작동하도록 브라우저의 LocalStorage를 활용해 데이터를 저장하고 불러와. (새로고침해도 데이터 유지)
+4. 사용자 경험: 버튼 클릭 시 피드백(애니메이션), 입력값 유효성 검사 등 디테일한 UX를 포함해.
+
+[교육적 가이드라인]
+* 난이도 조절: ${gradeLabel} 학생들이 별도의 설명 없이도 바로 사용할 수 있도록 용어와 UI를 아주 쉽게 구성해줘.
+* 언어: 모든 인터페이스와 안내 메시지는 한국어로 작성해.
+
+[출력 지시]
+* 코드 내부에 선생님이 추후 수정하기 쉽도록 핵심 기능별로 상세한 한글 주석을 달아줘.
+* 캔버스(Canvas) 기능을 통해 바로 확인하고 실행할 수 있는 완성된 코드를 출력해줘.`;
   }
   const out = document.getElementById('lessonOutput');
   document.getElementById('lessonPromptText').value = prompt;
