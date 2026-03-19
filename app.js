@@ -1171,22 +1171,50 @@ function applyCustomTextOverrides() {
 }
 
 // Admin: practice prompts  — Firebase backend
+let _editingPromptKey = null;
+
 function adminAddPrompt() {
   if (!db) return;
   const title = document.getElementById('adminPromptTitle').value.trim();
   const content = document.getElementById('adminPromptContent').value.trim();
   if (!title || !content) { alert('제목과 내용을 모두 입력해주세요.'); return; }
-  db.ref('practicePrompts').push({ title, content, order: Date.now() }).then(() => {
-    document.getElementById('adminPromptTitle').value = '';
-    document.getElementById('adminPromptContent').value = '';
+  const done = () => {
+    adminCancelEditPrompt();
     loadPracticePrompts();
     renderAdminPromptList();
-  });
+  };
+  if (_editingPromptKey) {
+    db.ref('practicePrompts/' + _editingPromptKey).update({ title, content }).then(done);
+  } else {
+    db.ref('practicePrompts').push({ title, content, order: Date.now() }).then(done);
+  }
+}
+
+function adminCancelEditPrompt() {
+  _editingPromptKey = null;
+  document.getElementById('adminPromptTitle').value = '';
+  document.getElementById('adminPromptContent').value = '';
+  const submitBtn = document.getElementById('adminPromptSubmitBtn');
+  const cancelBtn = document.getElementById('adminPromptCancelBtn');
+  if (submitBtn) { submitBtn.textContent = '+ 추가'; }
+  if (cancelBtn) { cancelBtn.style.display = 'none'; }
+}
+
+function adminEditPrompt(key, title, content) {
+  _editingPromptKey = key;
+  document.getElementById('adminPromptTitle').value = title;
+  document.getElementById('adminPromptContent').value = content;
+  const submitBtn = document.getElementById('adminPromptSubmitBtn');
+  const cancelBtn = document.getElementById('adminPromptCancelBtn');
+  if (submitBtn) { submitBtn.textContent = '수정 완료'; }
+  if (cancelBtn) { cancelBtn.style.display = ''; }
+  document.getElementById('adminPromptTitle').focus();
 }
 
 function adminDeletePrompt(key) {
   if (!db) return;
   if (!confirm('삭제하시겠습니까?')) return;
+  if (_editingPromptKey === key) adminCancelEditPrompt();
   db.ref('practicePrompts/' + key).remove().then(() => {
     loadPracticePrompts();
     renderAdminPromptList();
@@ -1194,20 +1222,33 @@ function adminDeletePrompt(key) {
 }
 
 function renderAdminPromptList() {
-  if (!db) return;
-  db.ref('practicePrompts').orderByChild('order').once('value').then(snapshot => {
-    const list = document.getElementById('adminPromptList');
-    if (!list) return;
-    if (!snapshot.exists()) { list.innerHTML = '<p style="font-size:0.82rem;color:var(--text-dim);">등록된 프롬프트 없음</p>'; return; }
-    const items = [];
-    snapshot.forEach(child => items.push({ key: child.key, ...child.val() }));
-    if (items.length === 0) { list.innerHTML = '<p style="font-size:0.82rem;color:var(--text-dim);">등록된 프롬프트 없음</p>'; return; }
-    list.innerHTML = items.map(p => `
-      <div class="admin-gallery-item">
-        <span>${escapeHtml(p.title)}</span>
-        <button class="admin-gallery-del" onclick="adminDeletePrompt('${p.key}')">삭제</button>
-      </div>`).join('');
-  });
+  const list = document.getElementById('adminPromptList');
+  if (!list) return;
+  fetch(_DB_URL + '/practicePrompts.json')
+    .then(res => res.json())
+    .then(data => {
+      if (!data || typeof data !== 'object') {
+        list.innerHTML = '<p style="font-size:0.82rem;color:var(--text-dim);">등록된 프롬프트 없음</p>';
+        return;
+      }
+      const items = Object.entries(data).map(([key, val]) => ({ key, ...val }));
+      items.sort((a, b) => (a.order || 0) - (b.order || 0));
+      if (items.length === 0) {
+        list.innerHTML = '<p style="font-size:0.82rem;color:var(--text-dim);">등록된 프롬프트 없음</p>';
+        return;
+      }
+      list.innerHTML = items.map(p => `
+        <div class="admin-gallery-item">
+          <span>${escapeHtml(p.title)}</span>
+          <div style="display:flex;gap:6px;flex-shrink:0;">
+            <button class="admin-gallery-edit" onclick="adminEditPrompt('${p.key}', ${JSON.stringify(p.title)}, ${JSON.stringify(p.content)})">수정</button>
+            <button class="admin-gallery-del" onclick="adminDeletePrompt('${p.key}')">삭제</button>
+          </div>
+        </div>`).join('');
+    })
+    .catch(() => {
+      list.innerHTML = '<p style="font-size:0.82rem;color:var(--text-dim);">목록 로딩 오류</p>';
+    });
 }
 
 function renderAdminGalleryList() {
