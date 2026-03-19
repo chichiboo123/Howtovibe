@@ -497,7 +497,7 @@ const essenceData = {
   ko: [
     {
       num: '①', title: '코딩? 문제 해결!',
-      body: '기술보다 방향이 중요합니다.',
+      bad: '기술', good: '방향',
       conclusion: '👉 학급의 문제를 해결하다',
     },
     {
@@ -519,12 +519,12 @@ const essenceData = {
   en: [
     {
       num: '①', title: 'Problem-Solving, Not Coding',
-      body: "It's not about the code.",
+      bad: 'Code', good: 'Direction',
       conclusion: '👉 "What problem do I want to solve?"',
     },
     {
       num: '②', title: 'A Tool for Now, Not a Perfect App',
-      bad: 'A grand-scale service', good: 'A small feature you can use tomorrow',
+      bad: 'All-in-one service', good: 'A small feature you can use tomorrow',
       conclusion: '👉 Small but precise tools',
     },
     {
@@ -534,7 +534,7 @@ const essenceData = {
     },
     {
       num: '④', title: 'Less is More',
-      bad: 'Cramming in lots of features', good: 'Building only what is truly needed',
+      bad: 'Cramming in features', good: 'Only what is truly needed',
       conclusion: '👉 Simpler means stronger in the classroom',
     },
   ],
@@ -553,8 +553,9 @@ function renderEssenceCards() {
     if (item.body) bodyHtml += `<p class="essence-body">${item.body}</p>`;
     if (item.bad && item.good) {
       bodyHtml += `<div class="essence-contrast">
-        <span class="contrast-bad">${item.bad} ❌</span>
-        <span class="contrast-good">${item.good} ⭕</span>
+        <span class="contrast-bad">${item.bad}</span>
+        <span class="contrast-sep">&lt;</span>
+        <span class="contrast-good">${item.good}</span>
       </div>`;
     }
     html += `<div class="essence-card">
