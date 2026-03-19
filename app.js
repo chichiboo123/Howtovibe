@@ -538,14 +538,14 @@ function generateLessonPrompt() {
   const process = document.getElementById('lessonProcess').value.trim();
   const grade = document.getElementById('lessonGrade').value.trim();
   if (!activity || !goal) {
-    alert(currentLang === 'en' ? 'Please enter activity name and objective.' : '활동 이름과 학습 목표를 입력해주세요.');
+    alert(currentLang === 'en' ? 'Please enter activity name and objective.' : '앱 이름과 기획 의도를 입력해주세요.');
     return;
   }
   let prompt;
   if (currentLang === 'en') {
     prompt = `I am a teacher${grade ? ' (' + grade + ')' : ''}.\n\nPlease create a web app for my classroom activity.\n\n[Activity Name]\n${activity}\n\n[Learning Objective]\n${goal}\n\n[Activity Flow]\n${process || 'Students can input, submit, and view collective results'}\n\n[Requirements]\n- Mobile-friendly (students use smartphones)\n- Intuitive UI — no explanation needed for students\n- Real-time results display if possible\n- Clean, modern design\n- Single HTML file (HTML + CSS + JS)\n- Korean language interface\n\nPlease create a fully working web app with comments so I can modify it later.`;
   } else {
-    prompt = `나는 ${grade ? grade + ' ' : ''}교사야.\n\n수업 활동에 사용할 웹앱을 만들어줘.\n\n[활동 이름]\n${activity}\n\n[학습 목표]\n${goal}\n\n[활동 과정]\n${process || '학생들이 입력하고, 제출하고, 전체 결과를 볼 수 있는 형태'}\n\n[요구사항]\n- 모바일 친화적 (학생들이 스마트폰으로 사용)\n- 설명 없이도 학생들이 쉽게 사용할 수 있는 직관적인 UI\n- 결과 실시간 표시 (가능하면)\n- 깔끔하고 현대적인 디자인\n- HTML + CSS + JS를 하나의 파일로 만들어줘\n- 한국어 인터페이스\n\n완전히 동작하는 웹앱으로 만들어줘. 나중에 선생님이 쉽게 수정할 수 있도록 주석도 달아줘.`;
+    prompt = `나는 ${grade ? grade + ' ' : ''}교사야.\n\n수업 활동에 사용할 웹앱을 만들어줘.\n\n[앱 이름]\n${activity}\n\n[기획 의도]\n${goal}\n\n[핵심기능과 흐름]\n${process || '학생들이 입력하고, 제출하고, 전체 결과를 볼 수 있는 형태'}\n\n[요구사항]\n- 모바일 친화적 (학생들이 스마트폰으로 사용)\n- 설명 없이도 학생들이 쉽게 사용할 수 있는 직관적인 UI\n- 결과 실시간 표시 (가능하면)\n- 깔끔하고 현대적인 디자인\n- HTML + CSS + JS를 하나의 파일로 만들어줘\n- 한국어 인터페이스\n\n완전히 동작하는 웹앱으로 만들어줘. 나중에 선생님이 쉽게 수정할 수 있도록 주석도 달아줘.`;
   }
   const out = document.getElementById('lessonOutput');
   document.getElementById('lessonPromptText').value = prompt;
