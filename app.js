@@ -65,7 +65,7 @@ const en = {
   'nav-why': 'WHY (Chichiboo Vibe Coding)',
   'nav-how': 'HOW (Meal Kit)',
   'nav-lesson': 'WHAT (Fine Dining)',
-  'nav-network': 'Community (오픈키친)',
+  'nav-network': 'Community (Open Kitchen)',
   'hero-badge': 'Vibe Coding for All Teachers',
   'hero-title': 'Build Web Apps<br/><span class="gradient-text">That Change Your Classroom</span>',
   'hero-desc': 'With AI, teachers can create<br/><strong>their own lesson apps</strong> today.',
