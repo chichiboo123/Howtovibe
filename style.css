@@ -2696,6 +2696,18 @@ code {
   font-family: inherit;
 }
 
+.admin-gallery-edit {
+  background: rgba(99,102,241,0.1);
+  border: 1px solid rgba(99,102,241,0.3);
+  color: var(--primary-light);
+  padding: 3px 10px;
+  border-radius: 5px;
+  font-size: 0.78rem;
+  cursor: pointer;
+  font-family: inherit;
+}
+.admin-gallery-edit:hover { background: rgba(99,102,241,0.2); }
+
 /* Admin text edit modal */
 .admin-text-modal {
   display: none;

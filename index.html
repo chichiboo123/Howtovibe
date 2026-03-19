@@ -821,7 +821,10 @@
           <div class="admin-add-prompt">
             <input type="text" id="adminPromptTitle" placeholder="프롬프트 제목 (예: 기초 실습 #1)" />
             <textarea id="adminPromptContent" rows="5" placeholder="프롬프트 내용을 입력하세요..."></textarea>
-            <button class="admin-btn primary" onclick="adminAddPrompt()">+ 추가</button>
+            <div style="display:flex;gap:8px;">
+              <button class="admin-btn primary" id="adminPromptSubmitBtn" onclick="adminAddPrompt()">+ 추가</button>
+              <button class="admin-btn" id="adminPromptCancelBtn" onclick="adminCancelEditPrompt()" style="display:none;">취소</button>
+            </div>
           </div>
           <div class="admin-gallery-list" id="adminPromptList" style="margin-top:12px;"></div>
         </div>
