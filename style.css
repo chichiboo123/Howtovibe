@@ -1696,12 +1696,19 @@ code {
 
 .essence-contrast {
   display: flex;
-  flex-direction: column;
-  gap: 4px;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
 }
 .contrast-bad {
   font-size: 0.83rem;
   color: var(--text-muted);
+}
+.contrast-sep {
+  font-size: 0.83rem;
+  font-weight: 700;
+  color: var(--primary);
 }
 .contrast-good {
   font-size: 0.83rem;
