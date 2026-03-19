@@ -166,12 +166,36 @@
         </div>
       </div>
 
+      <!-- 핵심 가치 카드 -->
+      <div class="value-grid">
+        <div class="value-card">
+          <div class="value-card-icon"><span class="material-symbols-outlined">lightbulb</span></div>
+          <h4 data-i18n="val1-title">상상하면 이루어진다</h4>
+          <p data-i18n="val1-desc">수업 아이디어를 웹앱으로 만들어 교실에서 바로 실행</p>
+        </div>
+        <div class="value-card">
+          <div class="value-card-icon"><span class="material-symbols-outlined">smart_toy</span></div>
+          <h4 data-i18n="val2-title">AI가 A to Z 도와준다</h4>
+          <p data-i18n="val2-desc">기획부터 코딩, 수정과 배포까지 AI와 함께</p>
+        </div>
+        <div class="value-card">
+          <div class="value-card-icon"><span class="material-symbols-outlined">settings</span></div>
+          <h4 data-i18n="val3-title">우리 반 커스터마이징</h4>
+          <p data-i18n="val3-desc">수업 루틴과 학급 상황에 맞게 필요한 기능만 담은 도구</p>
+        </div>
+        <div class="value-card">
+          <div class="value-card-icon"><span class="material-symbols-outlined">edit</span></div>
+          <h4 data-i18n="val4-title">소비자에서 생산자로</h4>
+          <p data-i18n="val4-desc">주어진 자료를 사용하는 교사를 넘어, 수업 도구를 직접 만드는 창작자로</p>
+        </div>
+      </div>
+
       <!-- Quote at bottom of chapter -->
       <div class="quote-block" style="margin-top:32px;">
         <blockquote>
           <span style="font-size:1.05em; color:var(--text-muted); display:block; margin-bottom:10px;">"La perfection est atteinte, non pas lorsqu'il n'y a plus rien à ajouter, mais lorsqu'il n'y a plus rien à retrancher."</span>
           <span data-i18n-html="quote-text">"완벽함은 더 이상 보탤 것이 없을 때가 아니라,<br/>더 이상 덜어낼 것이 없을 때 이루어진다."</span><br/>
-          <cite data-i18n="quote-cite">— Antoine de Saint-Exupéry</cite>
+          <cite data-i18n="quote-cite">— Antoine de Saint-Exupéry</cite><span class="t-cursor">|</span>
         </blockquote>
       </div>
     </div>
@@ -210,8 +234,8 @@
                 <div class="tool-item-name">Gemini</div>
                 <div class="tool-item-desc" data-i18n="tool-gemini-idea">구글 문서·드라이브와 바로 연동. 이미지나 문서를 넣어서 앱 만들기 가능</div>
               </div>
-              <div class="tool-item featured">
-                <div class="tool-item-name">Claude <span class="tag">추천</span></div>
+              <div class="tool-item">
+                <div class="tool-item-name">Claude</div>
                 <div class="tool-item-desc" data-i18n="tool-claude">대화하면서 앱을 즉시 미리볼 수 있어요(Artifacts). 긴 코드도 정확하게 이해</div>
               </div>
               <div class="tool-item">
@@ -580,14 +604,29 @@
             </button>
           </div>
           <textarea id="lessonPromptText" rows="16" readonly></textarea>
-          <div class="lesson-next-steps">
-            <p data-i18n-html="lesson-next-title"><strong>다음 단계:</strong></p>
-            <ol>
-              <li data-i18n="lesson-next-1">위 프롬프트를 복사합니다</li>
-              <li data-i18n="lesson-next-2">생성형 AI에 붙여넣습니다</li>
-              <li data-i18n="lesson-next-3">생성된 코드를 index.html로 저장합니다</li>
-              <li data-i18n="lesson-next-4">브라우저에서 열어 확인합니다</li>
-            </ol>
+          <div class="next-steps-grid">
+            <div class="next-card">
+              <div class="next-card-header">
+                <span class="next-card-badge" data-i18n="next-basic-label">기초</span>
+                <h4 data-i18n="next-basic-subtitle">Canvas로 미리 보기</h4>
+              </div>
+              <ol>
+                <li data-i18n="next-basic-1">위 프롬프트를 복사하여 생성형 AI에 붙여넣습니다.</li>
+                <li data-i18n="next-basic-2">Canvas 화면에서 결과물을 실시간으로 확인하며 대화로 수정합니다.</li>
+                <li data-i18n="next-basic-3">완성된 결과물을 Canvas 링크 형태로 바로 공유합니다.</li>
+              </ol>
+            </div>
+            <div class="next-card next-card-advanced">
+              <div class="next-card-header">
+                <span class="next-card-badge advanced" data-i18n="next-adv-label">심화</span>
+                <h4 data-i18n="next-adv-subtitle">생성된 코드 index.html로 저장하기</h4>
+              </div>
+              <ol>
+                <li data-i18n="next-adv-1">위 프롬프트를 통해 생성된 코드를 복사합니다.</li>
+                <li data-i18n="next-adv-2">코드를 index.html 파일로 저장합니다.</li>
+                <li data-i18n="next-adv-3">배포 사이트(Vercel, GitHub Pages 등)를 통해 배포하고 활용합니다.</li>
+              </ol>
+            </div>
           </div>
         </div>
       </div>
