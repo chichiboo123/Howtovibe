@@ -76,7 +76,7 @@ const en = {
   'hero-stat2-label': 'Development Framework',
   'hero-stat3-num': 'Challenge',
   'hero-stat3-label': 'Start Today',
-  'ch01-tag': 'CHAPTER 01 · Chichiboo Vibe Coding (Why)',
+  'ch01-tag': 'CHAPTER 01 · Chichiboo Vibe Coding',
   'ch01-title': "Chichiboo's Vibe Coding",
   'ch01-desc': 'With AI, the era of teachers building their own classroom tools has arrived.',
   'why-sub1-title': 'Why Vibe Coding Now?',
@@ -106,7 +106,7 @@ const en = {
   'concept4-title': 'Perfectly Tailored for Your Class',
   'concept4-desc': 'Without platform constraints, build exactly what your students need.',
   'quote-cite': '— Antoine de Saint-Exupéry',
-  'ch02-tag': 'CHAPTER 02 · Meal Kit (How)',
+  'ch02-tag': 'CHAPTER 02 · Meal Kit',
   'ch02-title': 'Preparing Your Tools',
   'ch02-desc': 'Like cooking, the right tools make it easier. Understand tools by their role.',
   'cat1-title': 'Idea Expansion',
@@ -645,17 +645,32 @@ function toggleLike(key) {
   if (!db) return;
   const likedKeys = JSON.parse(localStorage.getItem('likedGallery') || '[]');
   const alreadyLiked = likedKeys.includes(key);
+  const btn = document.querySelector('.gallery-like-btn[onclick*="' + key + '"]');
+
+  // Optimistic UI update
+  if (btn) {
+    const nowLiked = !alreadyLiked;
+    const currentCount = parseInt(btn.textContent.replace(/[^\d]/g, '')) || 0;
+    btn.innerHTML = (nowLiked ? '❤️' : '🤍') + ' ' + (nowLiked ? currentCount + 1 : Math.max(currentCount - 1, 0));
+    btn.classList.toggle('liked', nowLiked);
+  }
+
   db.ref('gallery/' + key + '/likes').transaction(function(current) {
     if (alreadyLiked) return Math.max((current || 1) - 1, 0);
     return (current || 0) + 1;
-  }).then(function() {
+  }).then(function(result) {
     if (alreadyLiked) {
       localStorage.setItem('likedGallery', JSON.stringify(likedKeys.filter(function(k) { return k !== key; })));
     } else {
       likedKeys.push(key);
       localStorage.setItem('likedGallery', JSON.stringify(likedKeys));
     }
-    loadGallery();
+    // Sync real count from Firebase
+    if (btn) {
+      const realCount = result.snapshot.val() || 0;
+      const nowLiked = !alreadyLiked;
+      btn.innerHTML = (nowLiked ? '❤️' : '🤍') + ' ' + realCount;
+    }
   });
 }
 
