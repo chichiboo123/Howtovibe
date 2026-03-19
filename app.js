@@ -1237,14 +1237,18 @@ function renderAdminPromptList() {
         list.innerHTML = '<p style="font-size:0.82rem;color:var(--text-dim);">등록된 프롬프트 없음</p>';
         return;
       }
-      list.innerHTML = items.map(p => `
+      list.innerHTML = items.map(p => {
+        const t = JSON.stringify(p.title).replace(/"/g, '&quot;');
+        const c = JSON.stringify(p.content).replace(/"/g, '&quot;');
+        return `
         <div class="admin-gallery-item">
           <span>${escapeHtml(p.title)}</span>
           <div style="display:flex;gap:6px;flex-shrink:0;">
-            <button class="admin-gallery-edit" onclick="adminEditPrompt('${p.key}', ${JSON.stringify(p.title)}, ${JSON.stringify(p.content)})">수정</button>
+            <button class="admin-gallery-edit" onclick="adminEditPrompt('${p.key}', ${t}, ${c})">수정</button>
             <button class="admin-gallery-del" onclick="adminDeletePrompt('${p.key}')">삭제</button>
           </div>
-        </div>`).join('');
+        </div>`;
+      }).join('');
     })
     .catch(() => {
       list.innerHTML = '<p style="font-size:0.82rem;color:var(--text-dim);">목록 로딩 오류</p>';
