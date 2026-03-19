@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - claude/restructure-navigation-ui-SAL6H
       - claude/vibe-coding-guide-webapp-sird0
       - claude/light-mode-english-support-ZwpBv
   workflow_dispatch:
