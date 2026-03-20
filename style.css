@@ -2914,6 +2914,7 @@ body.admin-active { padding-top: 40px; }
 }
 
 .value-card h4 {
+  display: block !important;
   font-size: 1.425rem;
   font-weight: 700;
   margin-bottom: 8px;
