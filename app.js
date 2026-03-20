@@ -508,7 +508,7 @@ const essenceData = {
     {
       num: '③', title: '개발자가 아니라, 교사답게',
       bad: '기술 중심', good: '수업 루틴 중심',
-      conclusion: '👉 "내 수업에 딱 맞추다"',
+      conclusion: '👉 내 수업에 딱 맞추다',
     },
     {
       num: '④', title: 'Less is More',
