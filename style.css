@@ -1597,9 +1597,8 @@ code {
   font-weight: 600;
   color: var(--primary-light);
   background: rgba(99,102,241,0.08);
-  border-left: 3px solid var(--primary);
   padding: 8px 12px;
-  border-radius: 0 var(--radius) var(--radius) 0;
+  border-radius: var(--radius);
   line-height: 1.5;
 }
 
@@ -1721,9 +1720,8 @@ code {
   font-weight: 700;
   color: var(--primary-light);
   background: rgba(99,102,241,0.08);
-  border-left: 3px solid var(--primary);
   padding: 7px 12px;
-  border-radius: 0 var(--radius) var(--radius) 0;
+  border-radius: var(--radius);
   margin-top: 4px;
 }
 
@@ -2921,7 +2919,8 @@ body.admin-active { padding-top: 40px; }
   margin-bottom: 8px;
   width: 100%;
   color: var(--text);
-  text-align: center;
+  text-align: center !important;
+  align-self: stretch;
 }
 
 .value-card p {
