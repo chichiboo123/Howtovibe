@@ -816,7 +816,7 @@ function submitToNetwork() {
   if (!db) { alert(currentLang === 'en' ? '❌ Database unavailable.' : '❌ 데이터베이스에 연결할 수 없습니다.'); return; }
   const today = new Date();
   const dateStr = `${today.getFullYear()}.${String(today.getMonth() + 1).padStart(2, '0')}.${String(today.getDate()).padStart(2, '0')}`;
-  db.ref('gallery').push({ name, title, desc, url, date: dateStr, pwHash: _ghash(pw), ts: Date.now(), likes: 0 })
+  db.ref('gallery').push({ name, title, desc, url, date: dateStr, pwHash: _ghash(pw), ts: Date.now(), likes: 0, consent: true })
     .then(function() {
       ['networkName', 'networkTitle', 'networkDesc', 'networkUrl', 'networkPw'].forEach(function(id) { document.getElementById(id).value = ''; });
       setConsent(null);
