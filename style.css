@@ -2401,6 +2401,46 @@ code {
   line-height: 1.5;
 }
 
+/* 홍보 활용 동의 */
+.network-consent-text {
+  font-size: 0.88rem;
+  color: var(--text);
+  margin: 0;
+  line-height: 1.5;
+}
+.network-consent-btns {
+  display: flex;
+  gap: 10px;
+}
+.consent-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  border: 2px solid var(--border);
+  background: var(--bg);
+  color: var(--text-muted);
+}
+.consent-btn .material-symbols-outlined { font-size: 1.1rem; }
+.consent-btn:hover:not(.active) { border-color: var(--text-muted); }
+.consent-btn.consent-agree.active {
+  border-color: var(--primary);
+  background: rgba(99, 102, 241, 0.1);
+  color: var(--primary);
+}
+.consent-btn.consent-disagree.active {
+  border-color: #e11d48;
+  background: rgba(225, 29, 72, 0.1);
+  color: #e11d48;
+}
+
 /* ============================================================
    FLOATING TOC
    ============================================================ */

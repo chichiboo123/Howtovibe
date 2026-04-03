@@ -664,6 +664,23 @@
               <span data-i18n="network-pw-notice">비밀번호는 암호화되어 저장되며, 관리자도 확인할 수 없습니다. 수정 및 삭제시 필요합니다.</span>
             </p>
           </div>
+          <div class="network-field">
+            <label>
+              <span class="material-symbols-outlined">campaign</span>
+              <span data-i18n="network-consent-label">홍보 활용 동의 (필수)</span>
+            </label>
+            <p class="network-consent-text" data-i18n="network-consent-text">이 앱을 바이브코딩 원데이클래스 홍보에 활용하는 것에 동의합니다.</p>
+            <div class="network-consent-btns">
+              <button type="button" class="consent-btn consent-agree" id="consentAgree" onclick="setConsent('agree')">
+                <span class="material-symbols-outlined">check_circle</span>
+                <span data-i18n="network-consent-agree">동의합니다</span>
+              </button>
+              <button type="button" class="consent-btn consent-disagree" id="consentDisagree" onclick="setConsent('disagree')">
+                <span class="material-symbols-outlined">cancel</span>
+                <span data-i18n="network-consent-disagree">비동의합니다</span>
+              </button>
+            </div>
+          </div>
           <button class="btn btn-primary" onclick="submitToNetwork()">
             <span class="material-symbols-outlined">rocket_launch</span>
             <span data-i18n="network-submit-btn">공유하기</span>
