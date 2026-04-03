@@ -2197,6 +2197,25 @@ code {
   margin-top: 2px;
 }
 
+.gallery-consent {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin-bottom: 8px;
+}
+.gallery-consent.agree {
+  background: rgba(34, 197, 94, 0.12);
+  color: #16a34a;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+.gallery-consent.disagree {
+  background: rgba(225, 29, 72, 0.1);
+  color: #e11d48;
+  border: 1px solid rgba(225, 29, 72, 0.25);
+}
+
 .gallery-link {
   display: inline-block;
   padding: 6px 14px;
