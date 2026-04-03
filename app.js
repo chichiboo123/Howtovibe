@@ -200,6 +200,10 @@ const en = {
   'network-pw-label': 'Set Password',
   'network-pw-placeholder': 'Password for editing/deleting',
   'network-pw-notice': 'Password is encrypted and stored securely. Required for editing or deleting.',
+  'network-consent-label': 'Promotional Use Consent (required)',
+  'network-consent-text': 'I agree to allow this app to be used for Vibe Coding One-Day Class promotion.',
+  'network-consent-agree': 'I Agree',
+  'network-consent-disagree': 'I Disagree',
   'network-submit-btn': 'Share',
   'gallery-title': '<span class="material-symbols-outlined">wall_art</span> Work Gallery',
   'gallery-empty': 'No works shared yet. Be the first!',
@@ -801,12 +805,22 @@ function submitToNetwork() {
     alert(currentLang === 'en' ? 'Please set a password for editing/deleting.' : '수정/삭제를 위한 비밀번호를 설정해주세요.');
     return;
   }
+  if (!_consentState) {
+    alert(currentLang === 'en' ? 'Please select your consent for promotional use.' : '홍보 활용 동의 여부를 선택해주세요.');
+    return;
+  }
+  if (_consentState !== 'agree') {
+    alert(currentLang === 'en' ? 'You must agree to promotional use to share to the gallery.' : '홍보 활용에 동의해야 갤러리에 공유할 수 있습니다.');
+    return;
+  }
   if (!db) { alert(currentLang === 'en' ? '❌ Database unavailable.' : '❌ 데이터베이스에 연결할 수 없습니다.'); return; }
   const today = new Date();
   const dateStr = `${today.getFullYear()}.${String(today.getMonth() + 1).padStart(2, '0')}.${String(today.getDate()).padStart(2, '0')}`;
   db.ref('gallery').push({ name, title, desc, url, date: dateStr, pwHash: _ghash(pw), ts: Date.now(), likes: 0 })
     .then(function() {
       ['networkName', 'networkTitle', 'networkDesc', 'networkUrl', 'networkPw'].forEach(function(id) { document.getElementById(id).value = ''; });
+      setConsent(null);
+      _consentState = null;
       loadGallery();
       alert(currentLang === 'en' ? '🎉 Shared successfully!' : '🎉 공유되었습니다!');
     })
@@ -816,6 +830,14 @@ function submitToNetwork() {
         ? '❌ Failed to share. Please check Firebase security rules.'
         : '❌ 공유에 실패했습니다. Firebase 보안 규칙을 확인해주세요.');
     });
+}
+
+// Consent state
+let _consentState = null;
+function setConsent(state) {
+  _consentState = state;
+  document.getElementById('consentAgree').classList.toggle('active', state === 'agree');
+  document.getElementById('consentDisagree').classList.toggle('active', state === 'disagree');
 }
 
 // PW Modal state
