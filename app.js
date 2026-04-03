@@ -692,6 +692,10 @@ function _renderItems(items) {
     const liked = likedKeys.includes(item.key);
     const likeCount = item.likes || 0;
     const descHtml = item.desc ? '<div class="gallery-item-desc">' + escapeHtml(item.desc) + '</div>' : '';
+    const consentHtml = item.consent === undefined ? '' :
+      item.consent
+        ? '<span class="gallery-consent agree">' + (currentLang === 'en' ? '✅ Promotion OK' : '✅ 홍보 동의') + '</span>'
+        : '<span class="gallery-consent disagree">' + (currentLang === 'en' ? '🚫 No Promotion' : '🚫 홍보 비동의') + '</span>';
     parts.push(
       '<div class="gallery-item">' +
         '<div class="gallery-item-header">' +
@@ -700,6 +704,7 @@ function _renderItems(items) {
         '</div>' +
         '<div class="gallery-item-title">' + escapeHtml(item.title) + '</div>' +
         descHtml +
+        consentHtml +
         '<a href="' + escapeHtml(item.url) + '" target="_blank" rel="noopener noreferrer" class="gallery-link">🔗 ' + visitLabel + '</a>' +
         '<div class="gallery-item-actions">' +
           '<button class="gallery-like-btn' + (liked ? ' liked' : '') + '" onclick="toggleLike(\'' + item.key + '\')">' + (liked ? '❤️' : '🤍') + ' ' + likeCount + '</button>' +
@@ -809,14 +814,10 @@ function submitToNetwork() {
     alert(currentLang === 'en' ? 'Please select your consent for promotional use.' : '홍보 활용 동의 여부를 선택해주세요.');
     return;
   }
-  if (_consentState !== 'agree') {
-    alert(currentLang === 'en' ? 'You must agree to promotional use to share to the gallery.' : '홍보 활용에 동의해야 갤러리에 공유할 수 있습니다.');
-    return;
-  }
   if (!db) { alert(currentLang === 'en' ? '❌ Database unavailable.' : '❌ 데이터베이스에 연결할 수 없습니다.'); return; }
   const today = new Date();
   const dateStr = `${today.getFullYear()}.${String(today.getMonth() + 1).padStart(2, '0')}.${String(today.getDate()).padStart(2, '0')}`;
-  db.ref('gallery').push({ name, title, desc, url, date: dateStr, pwHash: _ghash(pw), ts: Date.now(), likes: 0 })
+  db.ref('gallery').push({ name, title, desc, url, date: dateStr, pwHash: _ghash(pw), ts: Date.now(), likes: 0, consent: _consentState === 'agree' })
     .then(function() {
       ['networkName', 'networkTitle', 'networkDesc', 'networkUrl', 'networkPw'].forEach(function(id) { document.getElementById(id).value = ''; });
       setConsent(null);
