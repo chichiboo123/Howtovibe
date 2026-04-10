@@ -1441,3 +1441,20 @@ sections.forEach(s => observer.observe(s));
 const styleEl = document.createElement('style');
 styleEl.textContent = '.nav-link.active-nav { color: var(--primary-light) !important; background: rgba(99,102,241,0.1) !important; }';
 document.head.appendChild(styleEl);
+
+// ---- Dictionary popup ----
+const dictToggle = document.getElementById('dictToggle');
+const dictPopup = document.getElementById('dictPopup');
+const dictPopupClose = document.getElementById('dictPopupClose');
+
+dictToggle.addEventListener('click', () => {
+  dictPopup.classList.add('open');
+});
+
+dictPopupClose.addEventListener('click', () => {
+  dictPopup.classList.remove('open');
+});
+
+dictPopup.addEventListener('click', e => {
+  if (e.target === dictPopup) dictPopup.classList.remove('open');
+});
