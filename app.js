@@ -1442,19 +1442,14 @@ const styleEl = document.createElement('style');
 styleEl.textContent = '.nav-link.active-nav { color: var(--primary-light) !important; background: rgba(99,102,241,0.1) !important; }';
 document.head.appendChild(styleEl);
 
-// ---- Dictionary popup ----
-const dictToggle = document.getElementById('dictToggle');
-const dictPopup = document.getElementById('dictPopup');
-const dictPopupClose = document.getElementById('dictPopupClose');
-
-dictToggle.addEventListener('click', () => {
-  dictPopup.classList.add('open');
-});
-
-dictPopupClose.addEventListener('click', () => {
-  dictPopup.classList.remove('open');
-});
-
-dictPopup.addEventListener('click', e => {
-  if (e.target === dictPopup) dictPopup.classList.remove('open');
+// ---- Dictionary popup (window.open) ----
+document.getElementById('dictToggle').addEventListener('click', () => {
+  const w = 900, h = 700;
+  const left = Math.round((screen.width - w) / 2);
+  const top = Math.round((screen.height - h) / 2);
+  window.open(
+    'https://chichiboo.link/vibedic',
+    '바이브코딩 기초 용어 사전',
+    `width=${w},height=${h},left=${left},top=${top},resizable=yes,scrollbars=yes`
+  );
 });
