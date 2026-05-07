@@ -819,28 +819,13 @@ function _renderGalleryView(folders, allItems) {
 function enterFolder(folderId, folderName) {
   _currentFolderId = folderId;
   _currentFolderName = folderName;
-  _updateFolderIndicator();
   loadGallery();
 }
 
 function exitFolder() {
   _currentFolderId = null;
   _currentFolderName = '';
-  _updateFolderIndicator();
   loadGallery();
-}
-
-function _updateFolderIndicator() {
-  var el = document.getElementById('networkFolderIndicator');
-  if (!el) return;
-  if (_currentFolderId) {
-    el.style.display = 'flex';
-    el.innerHTML = '<span class="material-symbols-outlined">folder_open</span>' +
-      '<span>📁 <strong>' + escapeHtml(_currentFolderName) + '</strong> ' +
-      (currentLang === 'en' ? 'folder' : '폴더') + '</span>';
-  } else {
-    el.style.display = 'none';
-  }
 }
 
 function toggleLike(key) {
@@ -902,7 +887,6 @@ function submitToNetwork() {
   const today = new Date();
   const dateStr = `${today.getFullYear()}.${String(today.getMonth() + 1).padStart(2, '0')}.${String(today.getDate()).padStart(2, '0')}`;
   var pushData = { name: name, title: title, desc: desc, url: url, date: dateStr, pwHash: _ghash(pw), ts: Date.now(), likes: 0, consent: _consentState === 'agree' };
-  if (_currentFolderId) pushData.folderId = _currentFolderId;
   db.ref('gallery').push(pushData)
     .then(function() {
       ['networkName', 'networkTitle', 'networkDesc', 'networkUrl', 'networkPw'].forEach(function(id) { document.getElementById(id).value = ''; });
