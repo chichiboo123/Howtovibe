@@ -2254,21 +2254,6 @@ code {
   background: var(--border);
 }
 
-/* Network folder indicator (form) */
-.network-folder-indicator {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(99,102,241,0.1);
-  border: 1px solid rgba(99,102,241,0.3);
-  border-radius: 6px;
-  padding: 8px 12px;
-  font-size: 0.85rem;
-  color: var(--primary-light);
-  margin-bottom: 10px;
-}
-.network-folder-indicator .material-symbols-outlined { font-size: 1rem; }
-
 /* Admin folder styles */
 .admin-folder-header {
   font-size: 0.82rem;
