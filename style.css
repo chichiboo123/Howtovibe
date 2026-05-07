@@ -2254,45 +2254,116 @@ code {
   background: var(--border);
 }
 
-/* Admin folder styles */
-.admin-folder-header {
-  font-size: 0.82rem;
+/* Admin gallery folder management */
+.admin-gallery-folder-create {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+}
+.admin-gallery-folder-create-label {
+  font-size: 0.78rem;
   font-weight: 700;
   color: var(--text-dim);
   margin-bottom: 8px;
+  letter-spacing: 0.03em;
 }
 .admin-folder-create {
   display: flex;
   gap: 8px;
-  margin-bottom: 10px;
 }
 .admin-folder-create input {
   flex: 1;
-  background: var(--bg);
+  background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: 6px;
-  padding: 6px 10px;
-  font-size: 0.85rem;
+  padding: 7px 10px;
+  font-size: 0.88rem;
   color: var(--text);
   font-family: inherit;
 }
 .admin-folder-create input:focus { outline: none; border-color: var(--primary); }
+
+.admin-folder-header {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+  letter-spacing: 0.03em;
+}
 .admin-folder-item {
   background: rgba(99,102,241,0.04) !important;
   border-color: rgba(99,102,241,0.2) !important;
 }
-.admin-folder-select {
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 5px;
-  padding: 3px 6px;
-  font-size: 0.75rem;
+
+/* Admin item row with folder move */
+.admin-item-row {
+  flex-wrap: wrap;
+  align-items: flex-start !important;
+  gap: 8px !important;
+  padding: 10px 12px !important;
+}
+.admin-item-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.admin-item-name {
+  font-size: 0.8rem;
+  color: var(--primary-light);
+  font-weight: 600;
+}
+.admin-item-title {
+  font-size: 0.85rem;
   color: var(--text);
-  cursor: pointer;
-  font-family: inherit;
-  max-width: 90px;
+  word-break: break-word;
+}
+.admin-item-folder-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.72rem;
+  color: var(--primary-light);
+  background: rgba(99,102,241,0.12);
+  border: 1px solid rgba(99,102,241,0.2);
+  border-radius: 4px;
+  padding: 2px 7px;
+  width: fit-content;
+  margin-top: 2px;
+}
+.admin-item-folder-badge.root {
+  color: var(--text-dim);
+  background: rgba(255,255,255,0.04);
+  border-color: var(--border);
+}
+.admin-item-move {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  align-items: center;
   flex-shrink: 0;
 }
+.admin-move-btn {
+  background: rgba(99,102,241,0.1);
+  border: 1px solid rgba(99,102,241,0.25);
+  color: var(--primary-light);
+  padding: 3px 9px;
+  border-radius: 5px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  font-family: inherit;
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+.admin-move-btn:hover { background: rgba(99,102,241,0.22); }
+.admin-move-btn.root-btn {
+  background: rgba(255,255,255,0.05);
+  border-color: var(--border);
+  color: var(--text-dim);
+}
+.admin-move-btn.root-btn:hover { background: rgba(255,255,255,0.1); color: var(--text); }
 
 .gallery-title {
   font-size: 1.1rem;
