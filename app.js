@@ -661,6 +661,10 @@ function copyLessonPrompt() {
 // ============================================================
 const _DB_URL = 'https://won-s-vibe-default-rtdb.firebaseio.com';
 
+// 폴더 탐색 상태
+let _currentFolderId = null;
+let _currentFolderName = '';
+
 function _ghash(pw) {
   return Array.from(pw).reduce((h, c) => ((h << 5) - h + c.charCodeAt(0)) | 0, 0);
 }
@@ -717,46 +721,126 @@ function _renderItems(items) {
   grid.innerHTML = parts.join('');
 }
 
-// REST API로 gallery 데이터 가져오기 — Object.entries()로 배열 변환
-// v2026-03-18
 function loadGallery() {
   var grid = document.getElementById('galleryGrid');
   var empty = document.getElementById('galleryEmpty');
-  // 로딩 중 표시
+  var folderSection = document.getElementById('galleryFolderSection');
+  var navEl = document.getElementById('galleryNav');
   if (grid) grid.style.display = 'none';
+  if (folderSection) folderSection.style.display = 'none';
+  if (navEl) navEl.style.display = 'none';
   if (empty) {
     empty.style.display = 'block';
     empty.innerHTML = '<span style="opacity:0.6">⏳ 갤러리 불러오는 중...</span>';
   }
 
-  fetch(_DB_URL + '/gallery.json')
-    .then(function(res) {
-      if (!res.ok) throw new Error('HTTP ' + res.status);
-      return res.json();
-    })
-    .then(function(data) {
-      // Firebase REST API는 객체({key: {…}, …}) 또는 null 반환
-      if (!data || typeof data !== 'object') {
-        _renderItems([]);
-        return;
-      }
-      // Object.entries()로 배열로 변환 후 최신순 정렬
-      var items = Object.entries(data).map(function(pair) {
-        return Object.assign({ key: pair[0] }, pair[1]);
+  Promise.all([
+    fetch(_DB_URL + '/galleryFolders.json').then(function(r) { return r.json(); }),
+    fetch(_DB_URL + '/gallery.json').then(function(r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+  ]).then(function(results) {
+    var foldersData = results[0];
+    var itemsData = results[1];
+
+    var folders = foldersData && typeof foldersData === 'object'
+      ? Object.entries(foldersData).map(function(pair) { return Object.assign({ key: pair[0] }, pair[1]); })
+      : [];
+    folders.sort(function(a, b) { return (a.ts || 0) - (b.ts || 0); });
+
+    var allItems = itemsData && typeof itemsData === 'object'
+      ? Object.entries(itemsData).map(function(pair) { return Object.assign({ key: pair[0] }, pair[1]); })
+      : [];
+    allItems.sort(function(a, b) { return (b.ts || 0) - (a.ts || 0); });
+
+    _renderGalleryView(folders, allItems);
+  }).catch(function(err) {
+    console.error('Gallery fetch error:', err);
+    if (empty) {
+      empty.style.display = 'block';
+      empty.innerHTML = '❌ 갤러리 로딩 오류: ' + err.message +
+        '<br><small style="opacity:0.6">브라우저 콘솔(F12)을 확인해주세요.</small>';
+    }
+    if (grid) grid.style.display = 'none';
+  });
+}
+
+function _renderGalleryView(folders, allItems) {
+  var folderSection = document.getElementById('galleryFolderSection');
+  var navEl = document.getElementById('galleryNav');
+  var sectionLabel = document.getElementById('galleryItemsLabel');
+
+  if (_currentFolderId === null) {
+    if (navEl) navEl.style.display = 'none';
+
+    if (folders.length > 0 && folderSection) {
+      var countMap = {};
+      allItems.forEach(function(item) {
+        if (item.folderId) countMap[item.folderId] = (countMap[item.folderId] || 0) + 1;
       });
-      items.sort(function(a, b) { return (b.ts || 0) - (a.ts || 0); });
-      _renderItems(items);
-    })
-    .catch(function(err) {
-      console.error('Gallery fetch error:', err);
-      // 오류를 화면에도 표시
-      if (empty) {
-        empty.style.display = 'block';
-        empty.innerHTML = '❌ 갤러리 로딩 오류: ' + err.message +
-          '<br><small style="opacity:0.6">브라우저 콘솔(F12)을 확인해주세요.</small>';
-      }
-      if (grid) grid.style.display = 'none';
-    });
+      folderSection.style.display = 'grid';
+      folderSection.innerHTML = folders.map(function(f) {
+        var cnt = countMap[f.key] || 0;
+        return '<div class="gallery-folder-card" data-folderid="' + escapeHtml(f.key) + '" data-foldername="' + escapeHtml(f.name) + '" onclick="enterFolder(this.dataset.folderid, this.dataset.foldername)">' +
+          '<span class="material-symbols-outlined gallery-folder-icon">folder</span>' +
+          '<span class="gallery-folder-name">' + escapeHtml(f.name) + '</span>' +
+          '<span class="gallery-folder-count">' + cnt + '개</span>' +
+          '</div>';
+      }).join('');
+    } else if (folderSection) {
+      folderSection.style.display = 'none';
+    }
+
+    var rootItems = allItems.filter(function(item) { return !item.folderId; });
+    if (sectionLabel) {
+      sectionLabel.style.display = (folders.length > 0 && rootItems.length > 0) ? 'block' : 'none';
+    }
+    _renderItems(rootItems);
+
+  } else {
+    if (folderSection) folderSection.style.display = 'none';
+    if (navEl) {
+      navEl.style.display = 'flex';
+      navEl.innerHTML =
+        '<button class="gallery-nav-back" onclick="exitFolder()">' +
+          '<span class="material-symbols-outlined">arrow_back</span><span>' +
+          (currentLang === 'en' ? 'All Gallery' : '전체 갤러리') + '</span>' +
+        '</button>' +
+        '<span class="gallery-nav-sep">/</span>' +
+        '<span class="gallery-nav-folder">' +
+          '<span class="material-symbols-outlined">folder_open</span>' +
+          escapeHtml(_currentFolderName) +
+        '</span>';
+    }
+    if (sectionLabel) sectionLabel.style.display = 'none';
+    var folderItems = allItems.filter(function(item) { return item.folderId === _currentFolderId; });
+    _renderItems(folderItems);
+  }
+}
+
+function enterFolder(folderId, folderName) {
+  _currentFolderId = folderId;
+  _currentFolderName = folderName;
+  _updateFolderIndicator();
+  loadGallery();
+}
+
+function exitFolder() {
+  _currentFolderId = null;
+  _currentFolderName = '';
+  _updateFolderIndicator();
+  loadGallery();
+}
+
+function _updateFolderIndicator() {
+  var el = document.getElementById('networkFolderIndicator');
+  if (!el) return;
+  if (_currentFolderId) {
+    el.style.display = 'flex';
+    el.innerHTML = '<span class="material-symbols-outlined">folder_open</span>' +
+      '<span>📁 <strong>' + escapeHtml(_currentFolderName) + '</strong> ' +
+      (currentLang === 'en' ? 'folder' : '폴더') + '</span>';
+  } else {
+    el.style.display = 'none';
+  }
 }
 
 function toggleLike(key) {
@@ -817,7 +901,9 @@ function submitToNetwork() {
   if (!db) { alert(currentLang === 'en' ? '❌ Database unavailable.' : '❌ 데이터베이스에 연결할 수 없습니다.'); return; }
   const today = new Date();
   const dateStr = `${today.getFullYear()}.${String(today.getMonth() + 1).padStart(2, '0')}.${String(today.getDate()).padStart(2, '0')}`;
-  db.ref('gallery').push({ name, title, desc, url, date: dateStr, pwHash: _ghash(pw), ts: Date.now(), likes: 0, consent: _consentState === 'agree' })
+  var pushData = { name: name, title: title, desc: desc, url: url, date: dateStr, pwHash: _ghash(pw), ts: Date.now(), likes: 0, consent: _consentState === 'agree' };
+  if (_currentFolderId) pushData.folderId = _currentFolderId;
+  db.ref('gallery').push(pushData)
     .then(function() {
       ['networkName', 'networkTitle', 'networkDesc', 'networkUrl', 'networkPw'].forEach(function(id) { document.getElementById(id).value = ''; });
       setConsent(null);
@@ -1280,19 +1366,111 @@ function renderAdminPromptList() {
 }
 
 function renderAdminGalleryList() {
+  var container = document.getElementById('adminGalleryList');
+  if (!container) return;
+  container.innerHTML = '<p style="font-size:0.82rem;color:var(--text-dim);">불러오는 중...</p>';
+
+  Promise.all([
+    fetch(_DB_URL + '/galleryFolders.json').then(function(r) { return r.json(); }),
+    fetch(_DB_URL + '/gallery.json').then(function(r) { return r.json(); })
+  ]).then(function(results) {
+    var foldersData = results[0];
+    var itemsData = results[1];
+
+    var folders = foldersData && typeof foldersData === 'object'
+      ? Object.entries(foldersData).map(function(pair) { return Object.assign({ key: pair[0] }, pair[1]); })
+      : [];
+    folders.sort(function(a, b) { return (a.ts || 0) - (b.ts || 0); });
+
+    var items = itemsData && typeof itemsData === 'object'
+      ? Object.entries(itemsData).map(function(pair) { return Object.assign({ key: pair[0] }, pair[1]); })
+      : [];
+    items.sort(function(a, b) { return (b.ts || 0) - (a.ts || 0); });
+
+    var html = '';
+
+    // 폴더 섹션
+    html += '<div class="admin-folder-header">📁 폴더 관리</div>';
+    html += '<div class="admin-folder-create">' +
+      '<input type="text" id="adminNewFolderName" placeholder="새 폴더 이름..." />' +
+      '<button class="admin-btn primary" onclick="adminCreateFolder()">+ 생성</button>' +
+      '</div>';
+
+    if (folders.length > 0) {
+      folders.forEach(function(f) {
+        var cnt = items.filter(function(i) { return i.folderId === f.key; }).length;
+        html += '<div class="admin-gallery-item admin-folder-item">' +
+          '<span class="material-symbols-outlined" style="font-size:1rem;flex-shrink:0;color:var(--primary-light);">folder</span>' +
+          '<span>' + escapeHtml(f.name) + ' <small style="opacity:0.6">(' + cnt + '개)</small></span>' +
+          '<button class="admin-gallery-del" onclick="adminDeleteFolder(\'' + f.key + '\')">삭제</button>' +
+          '</div>';
+      });
+    } else {
+      html += '<p style="font-size:0.82rem;color:var(--text-dim);margin:4px 0 8px;">폴더 없음</p>';
+    }
+
+    html += '<div style="border-top:1px solid var(--border);margin:14px 0 10px;"></div>';
+    html += '<div style="font-size:0.82rem;color:var(--text-dim);margin-bottom:8px;">📋 작품 목록</div>';
+
+    if (items.length === 0) {
+      html += '<p style="font-size:0.82rem;color:var(--text-dim);">갤러리 항목 없음</p>';
+    } else {
+      var folderOptions = '<option value="">-- 이동 --</option><option value="__root__">루트로 이동</option>' +
+        folders.map(function(f) { return '<option value="' + f.key + '">' + escapeHtml(f.name) + '</option>'; }).join('');
+      items.forEach(function(item) {
+        var folderObj = item.folderId ? folders.find(function(f) { return f.key === item.folderId; }) : null;
+        var folderLabel = folderObj ? ('📁 ' + escapeHtml(folderObj.name)) : '루트';
+        html += '<div class="admin-gallery-item">' +
+          '<span>' + escapeHtml(item.name) + ' — ' + escapeHtml(item.title) +
+          '<br><small style="opacity:0.55">' + folderLabel + '</small></span>' +
+          '<select class="admin-folder-select" onchange="adminMoveItemToFolder(\'' + item.key + '\', this.value); this.value=\'\'">' +
+          folderOptions + '</select>' +
+          '<button class="admin-gallery-del" onclick="adminDeleteGallery(\'' + item.key + '\')">삭제</button>' +
+          '</div>';
+      });
+    }
+
+    container.innerHTML = html;
+  }).catch(function() {
+    container.innerHTML = '<p style="font-size:0.82rem;color:var(--text-dim);">로딩 오류</p>';
+  });
+}
+
+function adminCreateFolder() {
   if (!db) return;
-  db.ref('gallery').orderByChild('ts').once('value').then(snapshot => {
-    const list = document.getElementById('adminGalleryList');
-    if (!list) return;
-    if (!snapshot.exists()) { list.innerHTML = '<p style="font-size:0.82rem;color:var(--text-dim);">갤러리 항목 없음</p>'; return; }
-    const items = [];
-    snapshot.forEach(child => items.unshift({ key: child.key, ...child.val() }));
-    if (items.length === 0) { list.innerHTML = '<p style="font-size:0.82rem;color:var(--text-dim);">갤러리 항목 없음</p>'; return; }
-    list.innerHTML = items.map(item => `
-      <div class="admin-gallery-item">
-        <span>${escapeHtml(item.name)} — ${escapeHtml(item.title)}</span>
-        <button class="admin-gallery-del" onclick="adminDeleteGallery('${item.key}')">삭제</button>
-      </div>`).join('');
+  var nameInput = document.getElementById('adminNewFolderName');
+  var name = nameInput ? nameInput.value.trim() : '';
+  if (!name) { alert('폴더 이름을 입력해주세요.'); return; }
+  db.ref('galleryFolders').push({ name: name, ts: Date.now() }).then(function() {
+    if (nameInput) nameInput.value = '';
+    renderAdminGalleryList();
+  });
+}
+
+function adminDeleteFolder(key) {
+  if (!db) return;
+  if (!confirm('폴더를 삭제하시겠습니까?\n폴더 안의 작품들은 루트(폴더 없음)로 이동됩니다.')) return;
+  fetch(_DB_URL + '/gallery.json').then(function(r) { return r.json(); }).then(function(data) {
+    var updates = {};
+    if (data && typeof data === 'object') {
+      Object.entries(data).forEach(function(pair) {
+        if (pair[1].folderId === key) updates['gallery/' + pair[0] + '/folderId'] = null;
+      });
+    }
+    updates['galleryFolders/' + key] = null;
+    return db.ref().update(updates);
+  }).then(function() {
+    if (_currentFolderId === key) exitFolder();
+    else { loadGallery(); renderAdminGalleryList(); }
+  });
+}
+
+function adminMoveItemToFolder(itemKey, folderId) {
+  if (!db || !folderId) return;
+  var newFolderId = folderId === '__root__' ? null : folderId;
+  db.ref('gallery/' + itemKey + '/folderId').set(newFolderId).then(function() {
+    loadGallery();
+    renderAdminGalleryList();
   });
 }
 

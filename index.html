@@ -682,6 +682,7 @@
               </button>
             </div>
           </div>
+          <div class="network-folder-indicator" id="networkFolderIndicator" style="display:none;"></div>
           <button class="btn btn-primary" onclick="submitToNetwork()">
             <span class="material-symbols-outlined">rocket_launch</span>
             <span data-i18n="network-submit-btn">공유하기</span>
@@ -691,6 +692,9 @@
 
       <div class="network-gallery">
         <h3 class="gallery-title" data-i18n-html="gallery-title"><span class="material-symbols-outlined">wall_art</span> 작품 갤러리</h3>
+        <div class="gallery-nav" id="galleryNav" style="display:none;"></div>
+        <div class="gallery-folder-section" id="galleryFolderSection" style="display:none;"></div>
+        <div class="gallery-section-label" id="galleryItemsLabel" style="display:none;">기타 작품</div>
         <div class="gallery-grid" id="galleryGrid"></div>
         <div class="gallery-empty" id="galleryEmpty">
           <p data-i18n="gallery-empty">아직 공유된 작품이 없습니다. 첫 번째로 공유해보세요!</p>
