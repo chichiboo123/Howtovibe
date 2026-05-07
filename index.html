@@ -852,7 +852,14 @@
 
         <div class="admin-section">
           <h4><span class="material-symbols-outlined">palette</span> 갤러리 관리</h4>
-          <div class="admin-gallery-list" id="adminGalleryList"></div>
+          <div class="admin-gallery-folder-create">
+            <div class="admin-gallery-folder-create-label">새 폴더 만들기</div>
+            <div class="admin-folder-create">
+              <input type="text" id="adminNewFolderName" placeholder="폴더 이름 입력..." onkeydown="if(event.key==='Enter')adminCreateFolder()" />
+              <button class="admin-btn primary" onclick="adminCreateFolder()">+ 생성</button>
+            </div>
+          </div>
+          <div id="adminGalleryList"></div>
         </div>
       </div>
     </div>

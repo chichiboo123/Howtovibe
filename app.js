@@ -1352,7 +1352,7 @@ function renderAdminPromptList() {
 function renderAdminGalleryList() {
   var container = document.getElementById('adminGalleryList');
   if (!container) return;
-  container.innerHTML = '<p style="font-size:0.82rem;color:var(--text-dim);">불러오는 중...</p>';
+  container.innerHTML = '<p style="font-size:0.82rem;color:var(--text-dim);padding:8px 0;">불러오는 중...</p>';
 
   Promise.all([
     fetch(_DB_URL + '/galleryFolders.json').then(function(r) { return r.json(); }),
@@ -1373,67 +1373,105 @@ function renderAdminGalleryList() {
 
     var html = '';
 
-    // 폴더 섹션
-    html += '<div class="admin-folder-header">📁 폴더 관리</div>';
-    html += '<div class="admin-folder-create">' +
-      '<input type="text" id="adminNewFolderName" placeholder="새 폴더 이름..." />' +
-      '<button class="admin-btn primary" onclick="adminCreateFolder()">+ 생성</button>' +
-      '</div>';
-
+    // ── 폴더 목록
+    html += '<div class="admin-folder-header">📁 폴더 목록</div>';
     if (folders.length > 0) {
       folders.forEach(function(f) {
         var cnt = items.filter(function(i) { return i.folderId === f.key; }).length;
         html += '<div class="admin-gallery-item admin-folder-item">' +
           '<span class="material-symbols-outlined" style="font-size:1rem;flex-shrink:0;color:var(--primary-light);">folder</span>' +
-          '<span>' + escapeHtml(f.name) + ' <small style="opacity:0.6">(' + cnt + '개)</small></span>' +
+          '<span style="flex:1;font-weight:600;">' + escapeHtml(f.name) + ' <small style="font-weight:400;opacity:0.55">(' + cnt + '개)</small></span>' +
+          '<button class="admin-gallery-edit" onclick="adminRenameFolder(\'' + f.key + '\', \'' + escapeHtml(f.name).replace(/'/g, '\\\'') + '\')">이름 수정</button>' +
           '<button class="admin-gallery-del" onclick="adminDeleteFolder(\'' + f.key + '\')">삭제</button>' +
           '</div>';
       });
     } else {
-      html += '<p style="font-size:0.82rem;color:var(--text-dim);margin:4px 0 8px;">폴더 없음</p>';
+      html += '<p style="font-size:0.82rem;color:var(--text-dim);margin:4px 0 10px;">생성된 폴더가 없습니다.</p>';
     }
 
+    // ── 작품 목록
     html += '<div style="border-top:1px solid var(--border);margin:14px 0 10px;"></div>';
-    html += '<div style="font-size:0.82rem;color:var(--text-dim);margin-bottom:8px;">📋 작품 목록</div>';
+    html += '<div class="admin-folder-header">📋 작품 목록</div>';
 
     if (items.length === 0) {
-      html += '<p style="font-size:0.82rem;color:var(--text-dim);">갤러리 항목 없음</p>';
+      html += '<p style="font-size:0.82rem;color:var(--text-dim);">등록된 작품이 없습니다.</p>';
     } else {
-      var folderOptions = '<option value="">-- 이동 --</option><option value="__root__">루트로 이동</option>' +
-        folders.map(function(f) { return '<option value="' + f.key + '">' + escapeHtml(f.name) + '</option>'; }).join('');
       items.forEach(function(item) {
-        var folderObj = item.folderId ? folders.find(function(f) { return f.key === item.folderId; }) : null;
-        var folderLabel = folderObj ? ('📁 ' + escapeHtml(folderObj.name)) : '루트';
-        html += '<div class="admin-gallery-item">' +
-          '<span>' + escapeHtml(item.name) + ' — ' + escapeHtml(item.title) +
-          '<br><small style="opacity:0.55">' + folderLabel + '</small></span>' +
-          '<select class="admin-folder-select" onchange="adminMoveItemToFolder(\'' + item.key + '\', this.value); this.value=\'\'">' +
-          folderOptions + '</select>' +
+        var currentFolder = item.folderId ? folders.find(function(f) { return f.key === item.folderId; }) : null;
+        var currentLabel = currentFolder ? currentFolder.name : '루트';
+        var currentBadgeClass = currentFolder ? 'admin-item-folder-badge' : 'admin-item-folder-badge root';
+
+        // 이동 버튼들
+        var moveBtns = '';
+        if (item.folderId) {
+          moveBtns += '<button class="admin-move-btn root-btn" onclick="adminMoveItemToFolder(\'' + item.key + '\', \'__root__\')">루트로</button>';
+        }
+        folders.forEach(function(f) {
+          if (f.key !== item.folderId) {
+            moveBtns += '<button class="admin-move-btn" onclick="adminMoveItemToFolder(\'' + item.key + '\', \'' + f.key + '\')" title="' + escapeHtml(f.name) + '으로 이동">→ ' + escapeHtml(f.name) + '</button>';
+          }
+        });
+
+        html += '<div class="admin-gallery-item admin-item-row">' +
+          '<div class="admin-item-info">' +
+            '<span class="admin-item-name">' + escapeHtml(item.name) + '</span>' +
+            '<span class="admin-item-title">' + escapeHtml(item.title) + '</span>' +
+            '<span class="' + currentBadgeClass + '">📁 ' + escapeHtml(currentLabel) + '</span>' +
+          '</div>' +
+          (folders.length > 0 || item.folderId
+            ? '<div class="admin-item-move">' + moveBtns + '</div>'
+            : '') +
           '<button class="admin-gallery-del" onclick="adminDeleteGallery(\'' + item.key + '\')">삭제</button>' +
           '</div>';
       });
     }
 
     container.innerHTML = html;
-  }).catch(function() {
-    container.innerHTML = '<p style="font-size:0.82rem;color:var(--text-dim);">로딩 오류</p>';
+  }).catch(function(err) {
+    container.innerHTML = '<p style="font-size:0.82rem;color:var(--red);">로딩 오류: ' + err.message + '</p>';
   });
 }
 
 function adminCreateFolder() {
   if (!db) return;
   var nameInput = document.getElementById('adminNewFolderName');
-  var name = nameInput ? nameInput.value.trim() : '';
-  if (!name) { alert('폴더 이름을 입력해주세요.'); return; }
-  db.ref('galleryFolders').push({ name: name, ts: Date.now() }).then(function() {
-    if (nameInput) nameInput.value = '';
-    renderAdminGalleryList();
-  });
+  if (!nameInput) { alert('입력 필드를 찾을 수 없습니다.'); return; }
+  var name = nameInput.value.trim();
+  if (!name) { alert('폴더 이름을 입력해주세요.'); nameInput.focus(); return; }
+  var btn = nameInput.nextElementSibling;
+  if (btn) btn.disabled = true;
+  db.ref('galleryFolders').push({ name: name, ts: Date.now() })
+    .then(function() {
+      nameInput.value = '';
+      renderAdminGalleryList();
+      loadGallery();
+    })
+    .catch(function(err) {
+      alert('폴더 생성 실패: ' + err.message + '\nFirebase 보안 규칙을 확인해주세요.');
+    })
+    .finally(function() {
+      if (btn) btn.disabled = false;
+    });
+}
+
+function adminRenameFolder(key, currentName) {
+  if (!db) return;
+  var newName = prompt('새 폴더 이름:', currentName);
+  if (newName === null) return;
+  newName = newName.trim();
+  if (!newName) { alert('폴더 이름을 입력해주세요.'); return; }
+  if (newName === currentName) return;
+  db.ref('galleryFolders/' + key + '/name').set(newName)
+    .then(function() {
+      renderAdminGalleryList();
+      loadGallery();
+    })
+    .catch(function(err) { alert('이름 수정 실패: ' + err.message); });
 }
 
 function adminDeleteFolder(key) {
   if (!db) return;
-  if (!confirm('폴더를 삭제하시겠습니까?\n폴더 안의 작품들은 루트(폴더 없음)로 이동됩니다.')) return;
+  if (!confirm('폴더를 삭제하시겠습니까?\n폴더 안의 작품들은 루트로 이동됩니다.')) return;
   fetch(_DB_URL + '/gallery.json').then(function(r) { return r.json(); }).then(function(data) {
     var updates = {};
     if (data && typeof data === 'object') {
@@ -1446,16 +1484,18 @@ function adminDeleteFolder(key) {
   }).then(function() {
     if (_currentFolderId === key) exitFolder();
     else { loadGallery(); renderAdminGalleryList(); }
-  });
+  }).catch(function(err) { alert('폴더 삭제 실패: ' + err.message); });
 }
 
 function adminMoveItemToFolder(itemKey, folderId) {
   if (!db || !folderId) return;
   var newFolderId = folderId === '__root__' ? null : folderId;
-  db.ref('gallery/' + itemKey + '/folderId').set(newFolderId).then(function() {
-    loadGallery();
-    renderAdminGalleryList();
-  });
+  db.ref('gallery/' + itemKey + '/folderId').set(newFolderId)
+    .then(function() {
+      loadGallery();
+      renderAdminGalleryList();
+    })
+    .catch(function(err) { alert('이동 실패: ' + err.message); });
 }
 
 function adminDeleteGallery(key) {
