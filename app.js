@@ -135,6 +135,7 @@ const en = {
   'tool-lovable': 'One prompt generates a complete app with login and database. Auto-syncs to GitHub',
   'tool-github': 'The central hub for saving and versioning your code — where all AI outputs come together',
   'tool-netlify': 'Connect your GitHub repo and it deploys automatically. One link, accessible to anyone',
+  'tool-vercel': 'Connect your GitHub repo for automatic deployment. Known for speed and simple setup',
   'tc-act-label': 'Key Activities',
   'tc1-act1': 'Describe your idea to generate a code draft instantly',
   'tc1-act2': 'Preview results live with Canvas, Artifacts, or Canva Code',
@@ -146,7 +147,7 @@ const en = {
   'tc3-act2': 'Refine with visual editing or follow-up prompts',
   'tc3-act3': 'Deploy directly on the platform or sync to GitHub',
   'tc4-act1': 'Sync code to GitHub and manage versions',
-  'tc4-act2': 'One-click deployment with Netlify',
+  'tc4-act2': 'One-click deployment with Netlify or Vercel',
   'tc4-act3': 'Auto-redeploy on every code change',
   'how-part1-title': 'Tools',
   'how-part2-title': 'VIBE Framework',
@@ -243,7 +244,7 @@ const en = {
   'vibe-i-prompt-line4': '<span class="pt-label">Key Features:</span> [3 things students can do]',
   'vibe-i-prompt-line5': '<span class="pt-label">Format:</span> Single HTML/CSS/JS file',
   'vibe-i-real-example-h4': '<span class="material-symbols-outlined">history_edu</span> Real Teacher Example',
-  'vibe-i-example-code': '"I am a middle school social studies teacher.\n\nPlease create a web app for students to submit debate opinions.\n\n- Students enter their name, choose agree/disagree, and write a reason\n- Show overall results as a bar chart after submission\n- Teacher mode: button to reset results\n- Must look good on mobile\n- Build as a single HTML, CSS, JS file"',
+  'vibe-i-example-code': '"I am a 6th-grade elementary school teacher.\n\nPlease create a web app for students to submit debate opinions.\n\n- Students enter their name, choose agree/disagree, and write a reason\n- Show overall results as a bar chart after submission\n- Teacher mode: button to reset results\n- Must look good on mobile\n- Build as a single HTML, CSS, JS file"',
   'vibe-i-tip': '<strong><span class="material-symbols-outlined">emoji_objects</span> Tip:</strong> Stating "I am a teacher" helps AI better understand the educational context.',
 
   // VIBE Step B — Build
@@ -515,9 +516,9 @@ const essenceData = {
       conclusion: '👉 내 수업에 딱 맞추다',
     },
     {
-      num: '④', title: 'Less is More',
-      bad: '기능을 많이 넣는 것', good: '꼭 필요한 기능만',
-      conclusion: '👉 더 이상 덜어낼 것이 없다',
+      num: '④', title: '나의 호기심과 이야기에서 시작',
+      bad: '남이 만든 도구 따라 하기', good: '나의 호기심과 경험',
+      conclusion: '👉 내 이야기가 곧 출발점',
     },
   ],
   en: [
@@ -537,9 +538,9 @@ const essenceData = {
       conclusion: '👉 Not "well-built" — but "well-matched"',
     },
     {
-      num: '④', title: 'Less is More',
-      bad: 'Cramming in features', good: 'Only what is truly needed',
-      conclusion: '👉 Simpler means stronger in the classroom',
+      num: '④', title: 'Start From Your Own Curiosity & Story',
+      bad: "Copying others' tools", good: 'Your own curiosity & experience',
+      conclusion: '👉 Your story is the starting point',
     },
   ],
 };
@@ -602,6 +603,7 @@ You are an educational technology expert and full-stack web developer. Your miss
 2. UI/UX Design:
    - Use Tailwind CSS to create a polished, modern interface.
    - Apply a soft pastel color system that feels friendly and approachable to students.
+   - (Optional) For a clean public/government-service look, you may apply the 'KRDS (Korea Design System) guideline' instead of pastel tones.
    - Design mobile-first and responsive, with PC as the primary target but full smartphone support.
 3. Data handling: Use the browser's LocalStorage to save and load data — no server required. (Data persists after refresh)
 4. User experience: Include detailed UX touches such as button click feedback (animations) and input validation.
@@ -627,6 +629,7 @@ You are an educational technology expert and full-stack web developer. Your miss
 2. 디자인(UI/UX):
    - Tailwind CSS를 사용하여 세련되고 현대적인 UI로 제작해.
    - 부드러운 파스텔톤 컬러 시스템을 사용하고 학생들에게 친숙한 느낌을 줘.
+   - (선택) 정부·공공 서비스 같은 단정한 톤이 필요하면, 파스텔톤 대신 'KRDS(국가 디자인 시스템) 가이드라인'을 적용해도 좋아.
    - PC 사용을 기본으로 하되, 스마트폰 사용을 고려한 모바일 우선(Mobile-First) 반응형 디자인을 적용해.
 3. 데이터 처리: 서버 없이 작동하도록 브라우저의 LocalStorage를 활용해 데이터를 저장하고 불러와. (새로고침해도 데이터 유지)
 4. 사용자 경험: 버튼 클릭 시 피드백(애니메이션), 입력값 유효성 검사 등 디테일한 UX를 포함해.
