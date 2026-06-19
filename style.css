@@ -848,6 +848,75 @@ label .material-symbols-outlined { font-size: 1rem; vertical-align: middle; }
 
 .tip-box strong { color: var(--accent); }
 
+/* ============================================================
+   OMAKASE BLOCK (Chapter 01)
+   ============================================================ */
+.omakase-block {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px 28px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  transition: var(--transition);
+}
+
+.omakase-block:hover {
+  border-color: rgba(99,102,241,0.4);
+}
+
+.omakase-num {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary);
+  font-family: 'JetBrains Mono', monospace;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.omakase-text { flex: 1; }
+
+.omakase-text h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.omakase-text p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.omakase-enter-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  transition: var(--transition);
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.omakase-enter-btn:hover {
+  color: var(--text);
+  border-color: var(--primary);
+  background: rgba(99,102,241,0.08);
+}
+
+@media (max-width: 600px) {
+  .omakase-block {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+}
+
 .prompt-template {
   background: var(--bg);
   border: 1px solid var(--border);
