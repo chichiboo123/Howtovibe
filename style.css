@@ -2039,6 +2039,31 @@ code {
   color: var(--text-muted);
 }
 
+.lesson-field-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.arrow-insert-btn {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  padding: 3px 10px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: var(--transition);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.arrow-insert-btn:hover {
+  color: var(--text);
+  border-color: var(--primary);
+  background: rgba(99,102,241,0.08);
+}
+
 .lesson-field input,
 .lesson-field textarea {
   background: var(--bg);

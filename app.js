@@ -909,6 +909,16 @@ function submitToNetwork() {
     });
 }
 
+// Arrow insert for lessonProcess textarea
+function insertArrow() {
+  const ta = document.getElementById('lessonProcess');
+  const start = ta.selectionStart;
+  const end = ta.selectionEnd;
+  ta.value = ta.value.substring(0, start) + ' → ' + ta.value.substring(end);
+  ta.selectionStart = ta.selectionEnd = start + 3;
+  ta.focus();
+}
+
 // Consent state
 let _consentState = null;
 function setConsent(state) {
@@ -946,6 +956,13 @@ function galleryDelete(key) {
 }
 
 let _galleryEditKey = null;
+let _editConsentState = null;
+
+function setEditConsent(state) {
+  _editConsentState = state;
+  document.getElementById('editConsentAgree').classList.toggle('active', state === 'agree');
+  document.getElementById('editConsentDisagree').classList.toggle('active', state === 'disagree');
+}
 
 function _doGalleryEdit(key, pw, isAdmin) {
   if (!db) return;
@@ -957,10 +974,12 @@ function _doGalleryEdit(key, pw, isAdmin) {
       return;
     }
     _galleryEditKey = key;
-    document.getElementById('editName').value = item.name || '';
+    document.getElementById('editName').value  = item.name  || '';
     document.getElementById('editTitle').value = item.title || '';
-    document.getElementById('editDesc').value = item.desc || '';
-    document.getElementById('editUrl').value = item.url || '';
+    document.getElementById('editDesc').value  = item.desc  || '';
+    document.getElementById('editUrl').value   = item.url   || '';
+    const consentVal = item.consent === true ? 'agree' : item.consent === false ? 'disagree' : null;
+    setEditConsent(consentVal);
     document.getElementById('galleryEditModal').classList.add('open');
   });
 }
@@ -973,7 +992,9 @@ function saveGalleryEdit() {
   const url   = document.getElementById('editUrl').value.trim();
   if (!title) { alert(currentLang === 'en' ? 'App name is required.' : '앱 이름을 입력해주세요.'); return; }
   if (!url)   { alert(currentLang === 'en' ? 'URL is required.' : '링크를 입력해주세요.'); return; }
-  db.ref('gallery/' + _galleryEditKey).update({ name, title, desc, url }).then(() => {
+  const updates = { name, title, desc, url };
+  if (_editConsentState !== null) updates.consent = _editConsentState === 'agree';
+  db.ref('gallery/' + _galleryEditKey).update(updates).then(() => {
     closeGalleryEditModal();
     loadGallery();
   });
@@ -982,6 +1003,7 @@ function saveGalleryEdit() {
 function closeGalleryEditModal() {
   document.getElementById('galleryEditModal').classList.remove('open');
   _galleryEditKey = null;
+  setEditConsent(null);
 }
 
 function _doGalleryDelete(key, pw, isAdmin) {

@@ -569,10 +569,13 @@
             <input type="text" id="lessonGoal" data-i18n-placeholder="lesson-goal-placeholder" placeholder="예: 환경 문제에 대한 학생들의 다양한 의견을 시각화하기" />
           </div>
           <div class="lesson-field">
-            <label for="lessonProcess">
-              <span class="material-symbols-outlined">format_list_bulleted</span>
-              <span data-i18n="lesson-process-label">핵심기능&amp;흐름</span>
-            </label>
+            <div class="lesson-field-label-row">
+              <label for="lessonProcess">
+                <span class="material-symbols-outlined">format_list_bulleted</span>
+                <span data-i18n="lesson-process-label">핵심기능&amp;흐름</span>
+              </label>
+              <button type="button" class="arrow-insert-btn" onclick="insertArrow()">→ 삽입</button>
+            </div>
             <textarea id="lessonProcess" rows="4" data-i18n-placeholder="lesson-process-placeholder" placeholder="예: 학생이 이름 입력 → 찬성/반대 선택 → 이유 작성 → 제출 → 전체 결과를 그래프로 보기"></textarea>
           </div>
           <div class="lesson-field">
@@ -928,6 +931,23 @@
             <span>웹앱 링크</span>
           </label>
           <input type="url" id="editUrl" placeholder="https://..." />
+        </div>
+        <div class="network-field">
+          <label>
+            <span class="material-symbols-outlined">campaign</span>
+            <span>홍보 활용 동의</span>
+          </label>
+          <p class="network-consent-text">이 앱을 바이브코딩 원데이클래스 홍보에 활용하는 것에 동의합니다.</p>
+          <div class="network-consent-btns">
+            <button type="button" class="consent-btn consent-agree" id="editConsentAgree" onclick="setEditConsent('agree')">
+              <span class="material-symbols-outlined">check_circle</span>
+              <span>동의합니다</span>
+            </button>
+            <button type="button" class="consent-btn consent-disagree" id="editConsentDisagree" onclick="setEditConsent('disagree')">
+              <span class="material-symbols-outlined">cancel</span>
+              <span>비동의합니다</span>
+            </button>
+          </div>
         </div>
       </div>
       <div class="gallery-edit-actions">
