@@ -3125,6 +3125,60 @@ code {
 }
 .admin-text-modal-box textarea:focus { outline: none; border-color: var(--primary); }
 
+/* Gallery edit modal */
+.gallery-edit-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.65);
+  z-index: 9100;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  backdrop-filter: blur(4px);
+}
+.gallery-edit-modal.open { display: flex; }
+.gallery-edit-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 480px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-shadow: var(--shadow-lg);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+.gallery-edit-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.gallery-edit-header h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.gallery-edit-close {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  border-radius: 6px;
+  transition: var(--transition);
+}
+.gallery-edit-close:hover { color: var(--text); background: var(--surface); }
+.gallery-edit-form { display: flex; flex-direction: column; gap: 14px; }
+.gallery-edit-actions { display: flex; gap: 10px; }
+
 /* Gallery password prompt modal */
 .pw-modal {
   display: none;

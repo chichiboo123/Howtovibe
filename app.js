@@ -945,6 +945,8 @@ function galleryDelete(key) {
   pwModalOpen(currentLang === 'en' ? 'Enter Password to Delete' : '삭제 비밀번호 입력', (pw) => _doGalleryDelete(key, pw, false));
 }
 
+let _galleryEditKey = null;
+
 function _doGalleryEdit(key, pw, isAdmin) {
   if (!db) return;
   db.ref('gallery/' + key).once('value').then(snapshot => {
@@ -954,18 +956,32 @@ function _doGalleryEdit(key, pw, isAdmin) {
       alert(currentLang === 'en' ? '❌ Incorrect password.' : '❌ 비밀번호가 맞지 않습니다.');
       return;
     }
-    const newTitle = prompt(currentLang === 'en' ? 'New app name:' : '새 앱 이름:', item.title);
-    if (newTitle === null) return;
-    const newDesc = prompt(currentLang === 'en' ? 'New description:' : '새 앱 소개:', item.desc || '');
-    if (newDesc === null) return;
-    const newUrl = prompt(currentLang === 'en' ? 'New URL:' : '새 링크:', item.url);
-    if (newUrl === null) return;
-    const updates = {};
-    if (newTitle.trim()) updates.title = newTitle.trim();
-    updates.desc = newDesc.trim();
-    if (newUrl.trim()) updates.url = newUrl.trim();
-    db.ref('gallery/' + key).update(updates);
+    _galleryEditKey = key;
+    document.getElementById('editName').value = item.name || '';
+    document.getElementById('editTitle').value = item.title || '';
+    document.getElementById('editDesc').value = item.desc || '';
+    document.getElementById('editUrl').value = item.url || '';
+    document.getElementById('galleryEditModal').classList.add('open');
   });
+}
+
+function saveGalleryEdit() {
+  if (!_galleryEditKey || !db) return;
+  const name  = document.getElementById('editName').value.trim();
+  const title = document.getElementById('editTitle').value.trim();
+  const desc  = document.getElementById('editDesc').value.trim();
+  const url   = document.getElementById('editUrl').value.trim();
+  if (!title) { alert(currentLang === 'en' ? 'App name is required.' : '앱 이름을 입력해주세요.'); return; }
+  if (!url)   { alert(currentLang === 'en' ? 'URL is required.' : '링크를 입력해주세요.'); return; }
+  db.ref('gallery/' + _galleryEditKey).update({ name, title, desc, url }).then(() => {
+    closeGalleryEditModal();
+    loadGallery();
+  });
+}
+
+function closeGalleryEditModal() {
+  document.getElementById('galleryEditModal').classList.remove('open');
+  _galleryEditKey = null;
 }
 
 function _doGalleryDelete(key, pw, isAdmin) {
