@@ -893,6 +893,53 @@
     </div>
   </div>
 
+  <!-- Gallery Edit Modal -->
+  <div class="gallery-edit-modal" id="galleryEditModal">
+    <div class="gallery-edit-box">
+      <div class="gallery-edit-header">
+        <h4><span class="material-symbols-outlined">edit</span> 작품 수정</h4>
+        <button class="gallery-edit-close" onclick="closeGalleryEditModal()"><span class="material-symbols-outlined">close</span></button>
+      </div>
+      <div class="gallery-edit-form">
+        <div class="network-field">
+          <label for="editName">
+            <span class="material-symbols-outlined">person</span>
+            <span>이름 (닉네임 가능)</span>
+          </label>
+          <input type="text" id="editName" placeholder="예: 치수쌤" />
+        </div>
+        <div class="network-field">
+          <label for="editTitle">
+            <span class="material-symbols-outlined">push_pin</span>
+            <span>앱 이름</span>
+          </label>
+          <input type="text" id="editTitle" placeholder="예: 모둠 토론 의견 제출 앱" />
+        </div>
+        <div class="network-field">
+          <label for="editDesc">
+            <span class="material-symbols-outlined">edit_note</span>
+            <span>앱 소개</span>
+          </label>
+          <textarea id="editDesc" rows="2" placeholder="예: 학생들이 의견을 제출하고 실시간으로 결과를 확인하는 앱"></textarea>
+        </div>
+        <div class="network-field">
+          <label for="editUrl">
+            <span class="material-symbols-outlined">link</span>
+            <span>웹앱 링크</span>
+          </label>
+          <input type="url" id="editUrl" placeholder="https://..." />
+        </div>
+      </div>
+      <div class="gallery-edit-actions">
+        <button class="btn btn-primary" onclick="saveGalleryEdit()">
+          <span class="material-symbols-outlined">done</span>
+          저장하기
+        </button>
+        <button class="btn btn-ghost" onclick="closeGalleryEditModal()">취소</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Gallery PW Modal -->
   <div class="pw-modal" id="pwModal">
     <div class="pw-modal-box">
